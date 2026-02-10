@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <title>Ajma Chacha Irrigation Project</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #3498db;
+            --bg: #f4f7f6;
+            --text: #333;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --border: #eee;
+            --income-color: #27ae60;
+            --cost-color: #e74c3c;
+            --profit-color: #3498db;
+            --header-gradient: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(52, 73, 94, 0.9));
+            --tg-theme-bg-color: var(--bg);
+            --tg-theme-text-color: var(--text);
+            --tg-theme-hint-color: #999;
+            --tg-theme-link-color: #3498db;
+            --tg-theme-button-color: #3498db;
+            --tg-theme-button-text-color: white;
+            --tg-theme-secondary-bg-color: #f0f2f5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text);
+            height: 100vh;
+            height: calc(var(--tg-viewport-height, 100vh));
+            overflow: hidden;
+            background: var(--tg-theme-bg-color, var(--bg));
+            background: 
+                linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)),
+                url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Main Container */
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 15px;
+            background: 
+                linear-gradient(rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98)),
+                url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-bottom: 3px solid var(--secondary);
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            text-align: center;
+            min-height: 70px;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 1;
+        }
+
+        .header-title {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .header-title h1 {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .header-title h2 {
+            color: #666;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Content Container */
+        .content-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 12px 15px;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+
+        /* Main Table Container (for monthly tab) */
+        .table-container {
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(249, 249, 249, 0.95), rgba(249, 249, 249, 0.95)),
+                url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Enhanced Table Header Styles */
+        .table-responsive {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow-x: auto;
+            border: 1px solid rgba(238, 238, 238, 0.6);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        thead {
+            background: var(--header-gradient);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 14px 12px;
+            text-align: left;
+            color: white;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            position: relative;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #27ae60, #3498db);
+            z-index: 2;
+        }
+
+        /* Adjusted column widths without Status column */
+        th:nth-child(1) { width: 12%; min-width: 60px; }
+        th:nth-child(2) { width: 48%; min-width: 200px; }
+        th:nth-child(3) { width: 15%; min-width: 80px; }
+        th:nth-child(4) { width: 25%; min-width: 120px; }
+        th:nth-child(5) { width: 20%; min-width: 100px; } /* Cost column when visible */
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 2;
+            line-height: 1.4;
+        }
+
+        tr:hover {
+            background-color: rgba(248, 250, 252, 0.95);
+            transition: background-color 0.2s ease;
+        }
+
+        /* Footer Tabs */
+        .excel-footer {
+            display: flex;
+            background: 
+                linear-gradient(rgba(44, 62, 80, 0.97), rgba(52, 73, 94, 0.97));
+            background-size: cover;
+            background-position: center;
+            padding: 8px 10px;
+            gap: 6px;
+            flex-shrink: 0;
+            overflow-x: auto;
+            justify-content: flex-start;
+            position: sticky;
+            bottom: 0;
+            z-index: 1000;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .excel-footer::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-btn {
+            flex: 0 0 auto;
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.95);
+            border: none;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 13px;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            min-width: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            touch-action: manipulation;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .nav-btn.active {
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            border-color: rgba(52, 152, 219, 0.9);
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Cost column styling */
+        .cost-column {
+            background-color: rgba(255, 245, 245, 0.95);
+            border-left: 3px solid var(--cost-color);
+        }
+
+        .income-column {
+            background-color: rgba(245, 255, 245, 0.95);
+            border-left: 3px solid var(--income-color);
+        }
+
+        .cost-value {
+            color: var(--cost-color);
+            font-weight: 700;
+        }
+
+        .income-value {
+            color: var(--income-color);
+            font-weight: 700;
+        }
+
+        /* Achievement cell styling */
+        .achievement-cell {
+            text-align: right;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 13px;
+        }
+
+        /* View toggle styling */
+        .view-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            border: 1px solid rgba(238, 238, 238, 0.8);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .toggle-label {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(192, 57, 43, 0.9));
+            transition: .3s;
+            border-radius: 34px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        input:checked + .toggle-slider {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.9), rgba(46, 204, 113, 0.9));
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Table cell styles */
+        td:first-child {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .work-description {
+            font-weight: 400;
+            color: #2c3e50;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(241, 241, 241, 0.5);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(193, 193, 193, 0.7);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(168, 168, 168, 0.8);
+        }
+
+        /* Data row highlighting */
+        .data-row:nth-child(even) {
+            background-color: rgba(252, 252, 252, 0.8);
+        }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            .header-title h1 {
+                font-size: 18px;
+            }
+            
+            .header-title h2 {
+                font-size: 13px;
+            }
+            
+            th {
+                padding: 12px 10px;
+                font-size: 9px;
+            }
+            
+            td {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+            
+            .nav-btn {
+                padding: 9px 12px;
+                font-size: 12px;
+                min-width: 80px;
+            }
+            
+            .view-toggle {
+                padding: 10px 14px;
+                gap: 10px;
+            }
+            
+            .toggle-label {
+                font-size: 13px;
+            }
+            
+            th:nth-child(1) { width: 15%; }
+            th:nth-child(2) { width: 45%; }
+            th:nth-child(3) { width: 15%; }
+            th:nth-child(4) { width: 25%; }
+        }
+
+        @media (max-width: 480px) {
+            .header-title h1 {
+                font-size: 16px;
+            }
+            
+            .header-title h2 {
+                font-size: 12px;
+            }
+            
+            .content-container {
+                padding: 10px 12px;
+            }
+            
+            .nav-btn {
+                padding: 8px 10px;
+                font-size: 11px;
+                min-width: 70px;
+                gap: 4px;
+            }
+            
+            .nav-btn span {
+                font-size: 14px;
+            }
+            
+            .work-description {
+                font-size: 11px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .excel-footer {
+                display: none;
+            }
+            
+            body {
+                padding: 0;
+                background: white !important;
+            }
+            
+            .table-container {
+                padding: 0;
+            }
+            
+            table {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+            
+            th, td {
+                border: 1px solid #000;
+                background: white !important;
+            }
+        }
+        
+        /* Payroll Styles (now as regular tab) */
+        .payroll-container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .payroll-header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .payroll-header h1 {
+            font-size: 18px;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+        
+        .payroll-header .subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+            color: #ecf0f1;
+        }
+        
+        .payroll-tabs-container {
+            display: flex;
+            overflow-x: auto;
+            background: #ecf0f1;
+            padding: 10px 8px;
+            gap: 8px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            position: sticky;
+            top: 74px;
+            z-index: 9;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .payroll-tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .payroll-tab-button {
+            flex: 0 0 auto;
+            padding: 10px 14px;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: #34495e;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            min-width: 90px;
+            text-align: center;
+            touch-action: manipulation;
+        }
+        
+        .payroll-tab-button:active {
+            transform: scale(0.96);
+        }
+        
+        .payroll-tab-button.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+            box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        .payroll-content-area {
+            padding: 15px;
+            overflow-y: auto;
+            height: calc(100vh - 200px);
+            max-height: 500px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .payroll-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .payroll-data-table th {
+            background: #34495e;
+            color: white;
+            padding: 12px 8px;
+            font-weight: 600;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            font-size: 11px;
+        }
+        
+        .payroll-data-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            font-size: 11px;
+        }
+        
+        .payroll-data-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .payroll-data-table tr:hover {
+            background: #e8f4fc;
+        }
+        
+        .payroll-numeric-cell {
+            font-weight: 600;
+            color: #34495e;
+        }
+        
+        .payroll-weekend-row {
+            background: #fff8e1 !important;
+        }
+        
+        .payroll-total-row {
+            background: #2c3e50 !important;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .payroll-empty-cell {
+            color: #bbb;
+        }
+        
+        .payroll-date-cell {
+            font-weight: 600;
+            color: #3498db;
+        }
+        
+        /* Coming Soon Message */
+        .coming-soon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            padding: 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin: 20px 0;
+        }
+        
+        .coming-soon-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        
+        .coming-soon-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+        
+        .coming-soon-text {
+            font-size: 15px;
+            color: #666;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        
+        /* Telegram Mini App specific adjustments */
+        @media (max-width: 360px) {
+            .payroll-tab-button {
+                padding: 8px 12px;
+                font-size: 12px;
+                min-width: 80px;
+            }
+            
+            .payroll-header h1 {
+                font-size: 16px;
+            }
+            
+            .coming-soon-icon {
+                font-size: 40px;
+            }
+            
+            .coming-soon-title {
+                font-size: 20px;
+            }
+            
+            .coming-soon-text {
+                font-size: 14px;
+            }
+        }
+
+        /* Safe area support for notched phones */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: max(12px, env(safe-area-inset-left));
+                padding-right: max(12px, env(safe-area-inset-right));
+                padding-top: max(12px, env(safe-area-inset-top));
+                padding-bottom: max(12px, env(safe-area-inset-bottom));
+            }
+            
+            .excel-footer {
+                padding-bottom: max(8px, env(safe-area-inset-bottom));
+            }
+        }
+
+        /* Loading animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Telegram theme variables support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: var(--tg-theme-bg-color, #1a1a1a);
+                color: var(--tg-theme-text-color, #ffffff);
+            }
+            
+            .app-wrapper {
+                background: var(--tg-theme-secondary-bg-color, #2d2d2d);
+            }
+            
+            .table-responsive, .payroll-container {
+                background: var(--tg-theme-secondary-bg-color, #2d2d2d);
+            }
+            
+            td, .work-description {
+                background: var(--tg-theme-secondary-bg-color, #2d2d2d);
+                color: var(--tg-theme-text-color, #ffffff);
+            }
+            
+            .data-row:nth-child(even) {
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+            
+            .coming-soon-container {
+                background: var(--tg-theme-secondary-bg-color, #2d2d2d);
+                color: var(--tg-theme-text-color, #ffffff);
+            }
+            
+            .coming-soon-text {
+                color: var(--tg-theme-hint-color, #999);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <header>
+            <div class="header-title">
+                <h1>Ajma Chacha Irrigation Project</h1>
+                <h2>Lot-3</h2>
+            </div>
+        </header>
+        
+        <div class="content-container" id="contentContainer">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+        
+        <div class="excel-footer">
+            <button class="nav-btn active" onclick="switchTab('monthly')">
+                <span>📅</span> Monthly
+            </button>
+            <button class="nav-btn" onclick="switchTab('sos')">
+                <span>⚠️</span> SOS
+            </button>
+            <button class="nav-btn" onclick="switchTab('comparison')">
+                <span>📊</span> Comparison
+            </button>
+            <button class="nav-btn" onclick="switchTab('payroll')">
+                <span>💰</span> Payroll
+            </button>
+            <button class="nav-btn" onclick="switchTab('income')">
+                <span>💵</span> Income
+            </button>
+            <button class="nav-btn" onclick="switchTab('cost-analysis')">
+                <span>📉</span> Cost Analysis
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ==================== TELEGRAM MINI APP INITIALIZATION ====================
+        // Initialize Telegram WebApp
+        let tg = window.Telegram?.WebApp;
+        
+        // Function to initialize the app
+        function initTelegramApp() {
+            if (tg) {
+                // Expand the app to full height
+                tg.expand();
+                
+                // Set the app background color
+                tg.setBackgroundColor('#f4f7f6');
+                
+                // Set the header color
+                tg.setHeaderColor('#2c3e50');
+                
+                // Set the theme params if available
+                if (tg.themeParams) {
+                    document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color || '#f4f7f6');
+                    document.documentElement.style.setProperty('--tg-theme-text-color', tg.themeParams.text_color || '#333333');
+                    document.documentElement.style.setProperty('--tg-theme-hint-color', tg.themeParams.hint_color || '#999999');
+                    document.documentElement.style.setProperty('--tg-theme-link-color', tg.themeParams.link_color || '#3498db');
+                    document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color || '#3498db');
+                    document.documentElement.style.setProperty('--tg-theme-button-text-color', tg.themeParams.button_text_color || '#ffffff');
+                    document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', tg.themeParams.secondary_bg_color || '#f0f2f5');
+                }
+                
+                // Handle viewport changes
+                tg.onEvent('viewportChanged', function(event) {
+                    updateViewportHeight();
+                });
+                
+                // Enable closing confirmation if needed
+                tg.enableClosingConfirmation();
+                
+                // Show main button if needed (for actions)
+                // tg.MainButton.setText("Save Changes");
+                // tg.MainButton.show();
+                
+                // Back button handling
+                tg.BackButton.onClick(function() {
+                    // Handle back button if needed
+                    tg.close();
+                });
+                
+                // Update viewport height initially
+                updateViewportHeight();
+            }
+        }
+        
+        // Function to update viewport height
+        function updateViewportHeight() {
+            if (tg) {
+                const viewportHeight = tg.viewportHeight;
+                document.documentElement.style.setProperty('--tg-viewport-height', viewportHeight + 'px');
+                document.body.style.height = viewportHeight + 'px';
+            }
+        }
+        
+        // ==================== APPLICATION DATA AND LOGIC ====================
+        // Sample data for the construction project with income and cost
+        const projectData = [
+            { 
+                itemNo: "1.12.8", 
+                description: "Allow for supplying temporary electricity, water, telephone and other utility bills for the supervisor's and contractor's including connection, distribution system for the work, internal arrangements and all payment to the authorities for connections. it is the responsibility of the contractor to ensure steady and uninterrupted power supply to work", 
+                achievement: 0.72,                 
+                total: "9141575.07295305", 
+                cost: "100000",
+                status: "Completed" 
+            },
+            { 
+                itemNo: "1.13.3", 
+                description: "Provisions of security", 
+                achievement: 0.72,               
+                total: "1425815.46702017", 
+                cost: "280000",
+                status: "Completed" 
+            },
+            { 
+                itemNo: "1.12", 
+                description: "Allow for expenses required for conducting compensation payment estimation such as periderm for Committee, fuel cost, printing expenses and other related expenses. Payment shall be paid up on approval of the Engineer keeping all legal procedures. The costs will be reimbursed to the contractor after receiving the original invoice in the payment certificate by the Consultant", 
+                achievement: 0.12,                
+                total: "425000", 
+                cost: "350000",
+                status: "In Progress" 
+            },
+            { 
+                itemNo: "3.A.1", 
+                description: "Mobilization and Demoblization", 
+                achievement: 0.5,              
+                total: "292789.65", 
+                cost: "168000",
+                status: "In Progress" 
+            },
+            { 
+                itemNo: "2.3.1", 
+                description: "Fill and compaction the Core zone with clay material with max hauling distance of 5 Km", 
+                achievement: 29479.5,               
+                total: "8533136.07", 
+                cost: "121000",
+                status: "In Progress" 
+            },
+            { 
+                itemNo: "2.4.1", 
+                description: "Fill and compaction the Shell zone with selected material, max hauling distance of 5 Km", 
+                achievement: 43277.3,                
+                total: "11292778.662", 
+                cost: "72000",
+                status: "In Progress" 
+            },
+            { 
+                itemNo: "2.5.1", 
+                description: "Filter material (Finer) supply and fill(zone 2A)", 
+                achievement: 6643.13,                
+                total: "8189650.664", 
+                cost: "96000",
+                status: "Started" 
+            },
+            { 
+                itemNo: "2.5.2", 
+                description: "Filter material (coarser) supply and fill(zone 2B)", 
+                achievement: 3020,                
+                total: "3729851", 
+                cost: "36000",
+                status: "Started" 
+            },
+            { 
+                itemNo: "2.5.4", 
+                description: "Riprap(zone 5)", 
+                achievement: 2329.54,               
+                total: "1890631.3686", 
+                cost: "14400",
+                status: "Started" 
+            },
+            { 
+                itemNo: "2.6.1", 
+                description: "Fill and compaction  zone 4 with Rock material  ", 
+                achievement: 48677.76,            
+                total: "41367334.0032", 
+                cost: "3600",
+                status: "Pending" 
+            },
+             { 
+                itemNo: "2.9.4", 
+                description: "Vibrating Wire Piezometer with its complete accessories in embankment ", 
+                achievement: 3,               
+                total: "561600", 
+                cost: "3600",
+                status: "Pending" 
+            },
+             { 
+                itemNo: "2.9.5", 
+                description: " Vibrating Wire settlement sensor with complete accessories", 
+                achievement: 2,                
+                total: "41367334.0032", 
+                cost: "3600",
+                status: "Pending" 
+            },
+             { 
+                itemNo: "2.9.8", 
+                description: "Vibrating wire cable. ", 
+                achievement: 307.94,                
+                total: "288231.84", 
+                cost: "3600",
+                status: "Pending" 
+            },
+             { 
+                itemNo: "4.2.4", 
+                description: "Base slab ", 
+                achievement: 3.17,               
+                total: "16324.64064", 
+                cost: "3600",
+                status: "Pending" 
+            },
+             { 
+                itemNo: "8.5.1", 
+                description: " C-25 concrete work including formwork ", 
+                achievement: 8.5,                
+                total: "45602.5", 
+                cost: "3600",
+                status: "Pending" 
+            },
+             { 
+                itemNo: "8.5.3", 
+                description: " Reinforcement bars (bending, cutting& placing) ", 
+                achievement: 48677.76,                 
+                total: "19046.358", 
+                cost: "3600",
+                status: "Pending" 
+            },
+             { 
+                itemNo: "11.7.1", 
+                description: "Ordinery soil excavation ", 
+                achievement: 156.6,                 
+                total: "12935.16", 
+                cost: "3600",
+                status: "Pending" 
+            },                        
+            { 
+                itemNo: "11.7.2", 
+                description: "Basaltic or equivalent stone masonery work in cement sand mortar of 1:3 mix ratio", 
+                achievement: 404.811,                
+                total: "932097.56805", 
+                cost: "3600",
+                status: "Pending" 
+            },                         
+            { 
+                itemNo: "11.7.3", 
+                description: "C-25 concrete mixing,placing,vibrating and curing for slab including formwork ", 
+                achievement: 32.8,                
+                total: "194254.72", 
+                cost: "3600",
+                status: "Pending" 
+            },                         
+            { 
+                itemNo: "11.7.4", 
+                description: " Reinforcement bars of  ø10mm as specified on the drawings with 150mm spacing", 
+                achievement: 156.6,                 
+                total: "103830.3288", 
+                cost: "3600",
+                status: "Pending" 
+            },                         
+            { 
+                itemNo: "New", 
+                description: "Reinforcement bar of Dia 12mm as specified on the drawing with 200mm spacing ", 
+                achievement: 3663.2,                
+                total: "250343.088", 
+                cost: "3600",
+                status: "Pending" 
+            },                         
+            { 
+                itemNo: "11.7.6", 
+                description: "cart away excavated material ", 
+                achievement: 96,               
+                total: "4304.64", 
+                cost: "3600",
+                status: "Pending" 
+            },
+            { 
+                itemNo: "11.7.8", 
+                description: " back Fill with shell material around the ditch", 
+                achievement: 480,                 
+                total: "4304.64", 
+                cost: "3600",
+                status: "Pending" 
+            }
+        ];
+
+        // Variables to track current view
+        let isCostViewVisible = false;
+        let currentTab = 'monthly';
+
+        // Function to format currency
+        function formatCurrency(amount) {
+            if (isNaN(amount)) return "0.00";
+            return amount.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        // Function to format achievement number
+        function formatAchievement(value) {
+            if (isNaN(value)) return "0";
+            // Format with appropriate decimal places
+            if (value % 1 === 0) {
+                return value.toLocaleString('en-US');
+            } else {
+                return value.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+        }
+
+        // Function to load main table (monthly tab) - WITHOUT STATUS COLUMN
+        function loadMonthlyTable() {
+            const contentContainer = document.getElementById("contentContainer");
+            
+            contentContainer.innerHTML = `
+                <div class="table-container fade-in">
+                    <div class="view-toggle">
+                        <span class="toggle-label">Cost View:</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="costViewToggle" onchange="toggleCostView()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label">Income View</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table id="workTable">
+                            <thead>
+                                <tr>
+                                    <th>Item No.</th>
+                                    <th>Work Description</th>
+                                    <th>Achievement</th>                            
+                                    <th>Total Income (Birr)</th>
+                                    <th class="cost-column" id="cost-header" style="display: none;">Cost (Birr)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <!-- Data will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            // Load the table data WITHOUT STATUS
+            const tableBody = document.getElementById("table-body");
+            tableBody.innerHTML = '';
+            
+            projectData.forEach(item => {
+                const row = document.createElement("tr");
+                row.className = "data-row";
+                
+                const incomeValue = parseFloat(item.total.replace(/,/g, ''));
+                const costValue = parseFloat(item.cost);
+                
+                row.innerHTML = `
+                    <td><strong>${item.itemNo}</strong></td>
+                    <td class="work-description">${item.description}</td>
+                    <td class="achievement-cell"><strong>${formatAchievement(item.achievement)}</strong></td>
+                    <td class="income-value"><strong>${formatCurrency(incomeValue)} Birr</strong></td>
+                    ${isCostViewVisible ? `<td class="cost-column cost-value"><strong>${formatCurrency(costValue)} Birr</strong></td>` : ''}
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Send data to Telegram if available
+            if (tg) {
+                tg.ready();
+            }
+        }
+
+        // Function to toggle cost view
+        function toggleCostView() {
+            const toggle = document.getElementById("costViewToggle");
+            const costHeader = document.getElementById("cost-header");    
+            
+            isCostViewVisible = toggle.checked;
+            
+            // Show/hide cost column
+            costHeader.style.display = isCostViewVisible ? "table-cell" : "none";
+            
+            // Reload table data if we're on monthly tab
+            if (currentTab === 'monthly') {
+                const tableBody = document.getElementById("table-body");
+                tableBody.innerHTML = '';
+                
+                projectData.forEach(item => {
+                    const row = document.createElement("tr");
+                    row.className = "data-row";
+                    
+                    const incomeValue = parseFloat(item.total.replace(/,/g, ''));
+                    const costValue = parseFloat(item.cost);
+                    
+                    row.innerHTML = `
+                        <td><strong>${item.itemNo}</strong></td>
+                        <td class="work-description">${item.description}</td>
+                        <td class="achievement-cell"><strong>${formatAchievement(item.achievement)}</strong></td>
+                        <td class="income-value"><strong>${formatCurrency(incomeValue)} Birr</strong></td>
+                        ${isCostViewVisible ? `<td class="cost-column cost-value"><strong>${formatCurrency(costValue)} Birr</strong></td>` : ''}
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+        // Function to load payroll tab
+        function loadPayrollTab() {
+            const contentContainer = document.getElementById("contentContainer");
+            
+            contentContainer.innerHTML = `
+                <div class="payroll-container fade-in">
+                    <div class="payroll-header">
+                        <h1>👷 የሰራተኞች መዝገብ</h1>
+                        <div class="subtitle">30 ቀናት የሥራ ማስኬጃ መዝገብ</div>
+                    </div>
+                    
+                    <div class="payroll-tabs-container" id="payrollTabsContainer">
+                        <!-- Tabs will be generated here -->
+                    </div>
+                    
+                    <div class="payroll-content-area" id="payrollSheetContent">
+                        <div class="loader">
+                            <div>መረጃ በመጫን ላይ...</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Initialize payroll
+            initPayroll();
+        }
+
+        // Function to show coming soon message
+        function showComingSoon(tabName) {
+            const contentContainer = document.getElementById("contentContainer");
+            
+            const tabIcons = {
+                'sos': '⚠️',
+                'comparison': '📊',
+                'income': '💵',
+                'cost-analysis': '📉'
+            };
+            
+            const tabTitles = {
+                'sos': 'SOS Report',
+                'comparison': 'Comparison View',
+                'income': 'Income Report',
+                'cost-analysis': 'Cost Analysis'
+            };
+            
+            const icon = tabIcons[tabName] || '🚧';
+            const title = tabTitles[tabName] || 'Feature';
+            
+            contentContainer.innerHTML = `
+                <div class="coming-soon-container fade-in">
+                    <div class="coming-soon-icon">${icon}</div>
+                    <h1 class="coming-soon-title">${title}</h1>
+                    <p class="coming-soon-text">
+                        This feature is currently under development.<br>
+                        We're working hard to bring you this functionality soon.
+                    </p>
+                </div>
+            `;
+        }
+
+        // Function to switch between tabs
+        function switchTab(tabName) {
+            currentTab = tabName;
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            const activeBtn = document.querySelector(`.nav-btn[onclick*="${tabName}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+            
+            // Show the selected content
+            if (tabName === 'monthly') {
+                loadMonthlyTable();
+            } else if (tabName === 'payroll') {
+                loadPayrollTab();
+            } else {
+                showComingSoon(tabName);
+            }
+            
+            // Haptic feedback for mobile
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+        }
+
+        // ==================== PAYROLL FUNCTIONS ====================
+        const sheetsData = [
+            { name: "ተስፋዉ", rows: generateTesfawuData() },
+            { name: "ዳበረ", rows: generateDabereData() },
+            { name: "ጥበበ", rows: generateTibebeData() },
+            { name: "ብሩክ", rows: generateBrukData() },
+            { name: "አያለዉ", rows: generateAyalewuData() },
+            { name: "ዘካርያስ", rows: generateZekariyasData() },
+            { name: "ሚካኤል", rows: generateMikaealData() }
+        ];
+
+        function generateTesfawuData() {
+            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
+            const data = [columns];
+            data.push(["26", "3", "", "1", "", "", ""]);
+            data.push(["27", "3", "", "1", "", "", ""]);
+            data.push(["28", "", "", "", "", "", ""]);
+            data.push(["29", "6", "", "1", "", "", ""]);
+            data.push(["30", "3", "", "1", "", "", ""]);
+            for (let i = 1; i <= 25; i++) {
+                let guard = "";
+                let timeKeeper = Math.random() > 0.2 ? "1" : "";
+                if (i % 7 === 0) {
+                    guard = Math.random() > 0.3 ? "6" : "3";
+                } else {
+                    guard = Math.random() > 0.2 ? "3" : "";
+                }
+                data.push([i.toString(), guard, "", timeKeeper, "", "", ""]);
+            }
+            return data;
+        }
+
+        function generateDabereData() {
+            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
+            const data = [columns];
+            data.push(["26", "11", "1", "", "", "", ""]);
+            data.push(["27", "11", "1", "", "", "", ""]);
+            data.push(["28", "11", "", "", "", "", ""]);
+            data.push(["29", "11", "1", "", "", "", ""]);
+            data.push(["30", "11", "1", "", "", "", ""]);
+            for (let i = 1; i <= 25; i++) {
+                let guard = "";
+                let dl = "";
+                if (i % 7 === 0) {
+                    guard = Math.random() > 0.3 ? "22" : "11";
+                } else {
+                    guard = Math.random() > 0.2 ? "11" : "";
+                }
+                if (guard && Math.random() > 0.4) {
+                    dl = Math.floor(Math.random() * 3 + 1).toString();
+                }
+                data.push([i.toString(), guard, dl, "", "", "", ""]);
+            }
+            return data;
+        }
+
+        function generateTibebeData() {
+            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
+            const data = [columns];
+            data.push(["26", "", "9.5", "", "", "", ""]);
+            data.push(["27", "", "9", "", "", "", ""]);
+            data.push(["28", "", "4", "", "", "", ""]);
+            data.push(["29", "", "9", "", "", "", ""]);
+            data.push(["30", "", "8.5", "", "", "", ""]);
+            for (let i = 1; i <= 25; i++) {
+                let dl = (Math.random() * 10 + 1).toFixed(1);
+                let carpenter = Math.random() > 0.8 ? "0.5" : "";
+                data.push([i.toString(), "", dl, "", carpenter, "", ""]);
+            }
+            return data;
+        }
+
+        function generateBrukData() {
+            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
+            const data = [columns];
+            data.push(["26", "", "2", "", "1", "", ""]);
+            data.push(["27", "8", "3", "", "1", "", ""]);
+            data.push(["28", "", "", "", "", "", ""]);
+            data.push(["29", "4", "3", "", "1", "", ""]);
+            data.push(["30", "4", "2", "", "1", "", ""]);
+            for (let i = 1; i <= 25; i++) {
+                let carpenter = Math.random() > 0.6 ? "1" : "";
+                let guard = "";
+                let dl = "";
+                if (carpenter) {
+                    guard = Math.random() > 0.5 ? (Math.random() > 0.5 ? "8" : "4") : "";
+                    dl = Math.random() > 0.4 ? Math.floor(Math.random() * 4 + 1).toString() : "";
+                }
+                data.push([i.toString(), guard, dl, "", carpenter, "", ""]);
+            }
+            return data;
+        }
+
+        function generateAyalewuData() {
+            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
+            const data = [columns];
+            data.push(["26", "2", "", "1", "", "", ""]);
+            data.push(["27", "2", "", "1", "", "", ""]);
+            data.push(["28", "", "", "", "", "", ""]);
+            data.push(["29", "4", "", "1", "", "", ""]);
+            data.push(["30", "4", "", "2", "", "", ""]);
+            for (let i = 1; i <= 25; i++) {
+                let timeKeeper = Math.random() > 0.3 ? "1" : "";
+                let guard = "";
+                if (timeKeeper) {
+                    guard = Math.random() > 0.5 ? 
+                        (Math.random() > 0.7 ? "10" : 
+                         Math.random() > 0.5 ? "5" : "2") : "";
+                }
+                data.push([i.toString(), guard, "", timeKeeper, "", "", ""]);
+            }
+            return data;
+        }
+
+        function generateZekariyasData() {
+            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
+            const data = [columns];
+            data.push(["26", "", "", "1", "", "", ""]);
+            data.push(["27", "", "", "1", "", "", ""]);
+            data.push(["28", "", "", "", "", "", ""]);
+            data.push(["29", "", "", "1", "", "", ""]);
+            data.push(["30", "", "", "2", "", "", ""]);
+            for (let i = 1; i <= 25; i++) {
+                let timeKeeper = Math.random() > 0.4 ? "1" : "";
+                let dl = "";
+                if (timeKeeper && Math.random() > 0.5) {
+                    dl = (Math.random() * 10 + 1).toFixed(1);
+                }
+                data.push([i.toString(), "", dl, timeKeeper, "", "", ""]);
+            }
+            return data;
+        }
+
+        function generateMikaealData() {
+            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
+            const data = [columns];
+            data.push(["26", "", "24", "", "", "", ""]);
+            data.push(["27", "", "23", "", "", "", ""]);
+            data.push(["28", "", "", "", "", "", ""]);
+            data.push(["29", "", "31", "", "", "", ""]);
+            data.push(["30", "", "31", "", "", "", ""]);
+            for (let i = 1; i <= 25; i++) {
+                let dl = (Math.random() * 30 + 15).toFixed(1);
+                data.push([i.toString(), "", dl, "", "", "", ""]);
+            }
+            return data;
+        }
+
+        function initPayroll() {
+            const tabsContainer = document.getElementById('payrollTabsContainer');
+            const sheetContent = document.getElementById('payrollSheetContent');
+
+            // Clear any existing tabs
+            tabsContainer.innerHTML = '';
+
+            // Create only 7 tabs
+            sheetsData.forEach((sheet, index) => {
+                const button = document.createElement('button');
+                button.className = 'payroll-tab-button';
+                button.textContent = sheet.name;
+                button.addEventListener('click', () => showPayrollSheet(index));
+                tabsContainer.appendChild(button);
+            });
+
+            // Show first sheet
+            if (sheetsData.length > 0) {
+                showPayrollSheet(0);
+                document.querySelector('.payroll-tab-button').classList.add('active');
+            }
+        }
+
+        function calculatePayrollColumnSums(rows) {
+            if (rows.length < 2) return [];
+            const sums = new Array(rows[0].length).fill(0);
+            const hasNumericData = new Array(rows[0].length).fill(false);
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                for (let j = 0; j < row.length; j++) {
+                    const cell = row[j];
+                    const num = parseFloat(cell);
+                    if (!isNaN(num) && cell !== '' && cell !== ' ') {
+                        sums[j] += num;
+                        hasNumericData[j] = true;
+                    }
+                }
+            }
+            return sums.map((sum, index) => ({
+                sum: sum,
+                hasData: hasNumericData[index],
+                columnName: rows[0][index] || `አምድ ${index}`
+            }));
+        }
+
+        function showPayrollSheet(index) {
+            const sheet = sheetsData[index];
+            const sheetContent = document.getElementById('payrollSheetContent');
+            const columnSums = calculatePayrollColumnSums(sheet.rows);
+
+            sheetContent.innerHTML = '';
+            sheetContent.className = 'payroll-content-area payroll-fade-in';
+
+            const table = document.createElement('table');
+            table.className = 'payroll-data-table';
+            
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            sheet.rows[0].forEach(cell => {
+                const th = document.createElement('th');
+                th.textContent = cell;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+            
+            const tbody = document.createElement('tbody');
+            for (let i = 1; i < sheet.rows.length; i++) {
+                const row = document.createElement('tr');
+                if (parseInt(sheet.rows[i][0]) % 7 === 0) {
+                    row.className = 'payroll-weekend-row';
+                }
+                
+                sheet.rows[i].forEach((cell, cellIndex) => {
+                    const td = document.createElement('td');
+                    if (cell === '') {
+                        td.className = 'payroll-empty-cell';
+                        td.textContent = '-';
+                    } else {
+                        if (cellIndex === 0) {
+                            td.className = 'payroll-date-cell';
+                        } else {
+                            const num = parseFloat(cell);
+                            if (!isNaN(num)) {
+                                td.className = 'payroll-numeric-cell';
+                            }
+                        }
+                        td.textContent = cell;
+                    }
+                    row.appendChild(td);
+                });
+                tbody.appendChild(row);
+            }
+            
+            const totalRow = document.createElement('tr');
+            totalRow.className = 'payroll-total-row';
+            columnSums.forEach((col, colIndex) => {
+                const td = document.createElement('td');
+                if (colIndex === 0) {
+                    td.textContent = 'ጠቅላላ';
+                } else if (col.hasData) {
+                    td.textContent = col.sum.toFixed(2);
+                } else {
+                    td.textContent = '-';
+                }
+                totalRow.appendChild(td);
+            });
+            tbody.appendChild(totalRow);
+            
+            table.appendChild(tbody);
+            sheetContent.appendChild(table);
+
+            document.querySelectorAll('.payroll-tab-button').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+            
+            // Haptic feedback for mobile
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.selectionChanged();
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+        // Initialize the application when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Telegram Mini App
+            initTelegramApp();
+            
+            // Load monthly table by default
+            loadMonthlyTable();
+            
+            // Add keyboard shortcuts for cost view toggle
+            document.addEventListener('keydown', function(event) {
+                // Ctrl+C for cost view
+                if (event.ctrlKey && event.key === 'c') {
+                    event.preventDefault();
+                    const toggle = document.getElementById("costViewToggle");
+                    if (toggle) {
+                        toggle.checked = !toggle.checked;
+                        toggleCostView();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
