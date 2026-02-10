@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">ስ
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
-    <title>Ajma Chacha Irrigation Project</title>
+    <title>Project Management</title>
     <style>
         /* Reset and Base Styles */
         * {
@@ -19,7 +19,7 @@
             --primary: #2c3e50;
             --secondary: #27ae60;
             --danger: #e74c3c;
-            --warning: #f39c12;
+            --warning: #5e574c;
             --info: #3498db;
             --bg: #f4f7f6;
             --text: #333;
@@ -51,110 +51,17 @@
             flex-direction: column;
         }
 
-        /* Header Styles */
-        header {
-            background: var(--header-gradient);
-            color: white;
-            padding: 16px 12px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-title h1 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            line-height: 1.2;
-        }
-
-        .header-title h2 {
-            font-size: 14px;
-            font-weight: 500;
-            opacity: 0.9;
-        }
-
         /* Content Container */
         .content-container {
             flex: 1;
-            padding: 12px;
             overflow-x: hidden;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* View Toggle */
-        .view-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: white;
-            padding: 12px 16px;
-            margin-bottom: 12px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
-        }
-
-        .toggle-label {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 14px;
-        }
-
-        .toggle-switch {
-            position: relative;
-            width: 52px;
-            height: 28px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 28px;
-        }
-
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .toggle-slider {
-            background-color: var(--secondary);
-        }
-
-        input:checked + .toggle-slider:before {
-            transform: translateX(24px);
-        }
-
         /* Mobile-friendly Table */
         .table-container {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-            margin-bottom: 12px;
+            width: 100%;
         }
 
         .mobile-table {
@@ -166,20 +73,29 @@
         .mobile-table th {
             background: var(--header-gradient);
             color: white;
-            padding: 12px 8px;
+            padding: 16px 10px;
             text-align: left;
             font-weight: 600;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 13px;
+            letter-spacing: 0.3px;
             white-space: nowrap;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .mobile-table th:first-child {
+            border-left: none;
+        }
+
+        .mobile-table th:last-child {
+            border-right: none;
         }
 
         .mobile-table td {
-            padding: 12px 8px;
+            padding: 8px 7px;
             border-bottom: 1px solid #eee;
             vertical-align: top;
         }
@@ -198,56 +114,96 @@
 
         /* Column widths for mobile */
         .mobile-table th:nth-child(1), 
-        .mobile-table td:nth-child(1) { width: 15%; min-width: 60px; }
+        .mobile-table td:nth-child(1) { 
+            width: 1%; 
+            min-width: 20px; 
+            max-width: 60px;
+        }
         .mobile-table th:nth-child(2), 
-        .mobile-table td:nth-child(2) { width: 35%; min-width: 120px; }
+        .mobile-table td:nth-child(2) { 
+            width: 40%; 
+            min-width: 10px;
+        }
         .mobile-table th:nth-child(3), 
-        .mobile-table td:nth-child(3) { width: 15%; min-width: 70px; }
+        .mobile-table td:nth-child(3) { 
+            width: 4%; 
+            min-width: 10px;
+            max-width: 20px;
+        }
         .mobile-table th:nth-child(4), 
-        .mobile-table td:nth-child(4) { width: 25%; min-width: 100px; }
+        .mobile-table td:nth-child(4) 
+        { 
+            width: 5%; 
+            min-width: 10px;
+            max-width: 20;
+        }
         .mobile-table th:nth-child(5), 
-        .mobile-table td:nth-child(5) { width: 10%; min-width: 80px; display: none; }
+        .mobile-table td:nth-child(5) { 
+            width: 20%;
+            min-width: 90px;
+            display: none;
+        }
 
+        .cost-column th:nth-child(5),
         .cost-column td:nth-child(5) {
             display: table-cell !important;
+        }
+
+        /* Adjust other column widths when cost column is shown */
+        .cost-column th:nth-child(2),
+        .cost-column td:nth-child(2) {
+            width: 25%;
+        }
+        
+        .cost-column th:nth-child(4),
+        .cost-column td:nth-child(4) {
+            width: 25%;
         }
 
         /* Table cell content */
         .item-no {
             font-weight: 700;
             color: var(--primary);
-            font-size: 12px;
+            font-size: 11px;
+
         }
 
         .work-description {
             font-size: 12px;
-            line-height: 1.4;
+            line-height: 1.5;
             color: #444;
-            max-height: 60px;
+            max-height: 40px;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
+            max-width: 800px;
         }
 
         .achievement-cell {
-            font-weight: 600;
+            font-weight: 400;
             color: var(--primary);
             text-align: right;
-            font-size: 12px;
+            font-size: 14px;
+            white-space: nowrap;
+            font-style: italic;
         }
 
         .income-value {
             color: var(--income-color);
             font-weight: 700;
             font-size: 12px;
+            text-align: right;
+            white-space: nowrap;
         }
 
         .cost-value {
             color: var(--cost-color);
             font-weight: 700;
             font-size: 12px;
+            text-align: right;
+            white-space: nowrap;
         }
 
         /* Footer Tabs */
@@ -257,14 +213,14 @@
             position: sticky;
             bottom: 0;
             z-index: 1000;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 6px solid rgba(255,255,255,0.1);
         }
 
         .tabs-container {
             display: flex;
             overflow-x: auto;
-            gap: 6px;
-            padding-bottom: 4px;
+            gap: 0px;
+            padding-bottom: 2px;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
@@ -306,9 +262,8 @@
         /* Payroll Styles */
         .payroll-container {
             background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            width: 100%;
+            min-height: 100%;
         }
 
         .payroll-header {
@@ -316,6 +271,9 @@
             color: white;
             padding: 16px 12px;
             text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .payroll-header h3 {
@@ -336,6 +294,9 @@
             padding: 8px;
             gap: 6px;
             scrollbar-width: none;
+            position: sticky;
+            top: 74px; /* Height of payroll header */
+            z-index: 99;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -369,7 +330,6 @@
         }
 
         .payroll-content {
-            padding: 12px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -384,12 +344,13 @@
         .payroll-table th {
             background: #2c3e50;
             color: white;
-            padding: 10px 8px;
+            padding: 12px 8px;
             text-align: center;
             font-weight: 600;
             font-size: 11px;
             position: sticky;
-            left: 0;
+            top: 124px; /* Height of payroll header + tabs */
+            z-index: 98;
         }
 
         .payroll-table td {
@@ -414,8 +375,8 @@
             border-radius: 12px;
             padding: 40px 24px;
             text-align: center;
+            margin: 12px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-            margin-top: 12px;
         }
 
         .coming-soon-icon {
@@ -460,7 +421,13 @@
             
             .mobile-table th,
             .mobile-table td {
-                padding: 10px 6px;
+                padding: 12px 8px;
+            }
+            
+            .mobile-table th:nth-child(1), 
+            .mobile-table td:nth-child(1) { 
+                min-width: 60px; 
+                max-width: 70px;
             }
             
             .nav-btn {
@@ -502,13 +469,6 @@
 </head>
 <body>
     <div class="app-wrapper">
-        <header>
-            <div class="header-title">
-                <h1>Ajma Chacha Irrigation Project</h1>
-                <h2>Lot-3</h2>
-            </div>
-        </header>
-        
         <div class="content-container" id="contentContainer">
             <!-- Content will be dynamically loaded here -->
         </div>
@@ -761,31 +721,21 @@
             const contentContainer = document.getElementById("contentContainer");
             
             contentContainer.innerHTML = `
-                <div class="fade-in">
-                    <div class="view-toggle">
-                        <span class="toggle-label">Show Cost Column:</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="costViewToggle" onchange="toggleCostView()">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-
-                    <div class="table-container">
-                        <table class="mobile-table ${isCostViewVisible ? 'cost-column' : ''}" id="workTable">
-                            <thead>
-                                <tr>
-                                    <th>Item No.</th>
-                                    <th>Work Description</th>
-                                    <th>Achievement</th>
-                                    <th>Income (Birr)</th>
-                                    <th>Cost (Birr)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-body">
-                                <!-- Data will be inserted here -->
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="table-container fade-in">
+                    <table class="mobile-table ${isCostViewVisible ? 'cost-column' : ''}" id="workTable">
+                        <thead>
+                            <tr>
+                                <th>Item No.</th>
+                                <th>Work Description</th>
+                                <th>Achievement</th>
+                                <th>Income (Birr)</th>
+                                <th>Cost (Birr)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Data will be inserted here -->
+                        </tbody>
+                    </table>
                 </div>
             `;
             
@@ -808,28 +758,19 @@
                 `;
                 tableBody.appendChild(row);
             });
-            
-            // Set initial toggle state
-            document.getElementById('costViewToggle').checked = isCostViewVisible;
         }
 
-        // Function to toggle cost view
+        // Function to toggle cost view - now using keyboard shortcut only
         function toggleCostView() {
             isCostViewVisible = !isCostViewVisible;
             
             const table = document.getElementById('workTable');
-            const toggle = document.getElementById('costViewToggle');
-            
             if (table) {
                 if (isCostViewVisible) {
                     table.classList.add('cost-column');
                 } else {
                     table.classList.remove('cost-column');
                 }
-            }
-            
-            if (toggle) {
-                toggle.checked = isCostViewVisible;
             }
         }
 
@@ -1187,6 +1128,15 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Load monthly table by default
             loadMonthlyTable();
+            
+            // Add keyboard shortcut for cost view toggle (Ctrl+C)
+            document.addEventListener('keydown', function(event) {
+                // Ctrl+C to toggle cost column
+                if (event.ctrlKey && event.key === 'c') {
+                    event.preventDefault();
+                    toggleCostView();
+                }
+            });
         });
     </script>
 </body>
