@@ -4,306 +4,585 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
-    <title>Project Management</title>
+    <title>Project Manager • BridgePro</title>
     <style>
-        /* Reset and Base Styles */
+        /* === RESET & VARIABLES === */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            -webkit-text-size-adjust: 100%;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         :root {
-            --primary: #2c3e50;
-            --secondary: #27ae60;
+            --primary: #1e2b37;
+            --primary-light: #2c3e50;
+            --accent: #27ae60;
             --danger: #e74c3c;
-            --warning: #5e574c;
             --info: #3498db;
-            --bg: #2de2a6;
-            --text: #333;
-            --white: #ffffff;
-            --light-gray: #f8f9fa;
-            --border: #eee;
-            --income-color: #27ae60;
-            --cost-color: #e74c3c;
-            --profit-color: #3498db;
-            --header-gradient: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(52, 73, 94, 0.9));
+            --warning: #f39c12;
+            --bg: #f0f5f8;
+            --card-bg: #ffffff;
+            --text-dark: #1e2b37;
+            --text-soft: #2c3e50;
+            --border-light: #e9edf2;
+            --income: #27ae60;
+            --cost: #e74c3c;
+            --profit: #2980b9;
+            --header-gradient: linear-gradient(145deg, #1a2632, #2c3e50);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            color: var(--text);
             background: var(--bg);
-            line-height: 1.4;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            color: var(--text-dark);
             min-height: 100vh;
-            overflow-x: hidden;
-            background-color: #e74c3c;
+            display: flex;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
-        /* Main Container */
         .app-wrapper {
             width: 100%;
-            min-height: 100vh;
-            background: rgb(231, 170, 170);
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg);
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
+            border-radius: 0;
+            box-shadow: 0 0 30px rgba(0,0,0,0.02);
         }
 
-        /* Content Container */
         .content-container {
             flex: 1;
-            overflow-x: hidden;
             overflow-y: auto;
+            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
-            background-color: #dde6e1;
+            padding: 4px 0 8px 0;
+            background: #eef2f5;
         }
 
-        /* Mobile-friendly Table */
+        /* === TABLE (Monthly/Income) === */
         .table-container {
+            padding: 8px 6px;
             width: 100%;
         }
 
         .mobile-table {
             width: 100%;
             border-collapse: collapse;
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
             font-size: 13px;
         }
 
-        .mobile-table th {
+        .mobile-table thead tr {
             background: var(--header-gradient);
-            color: rgb(226, 139, 139);
-            padding: 16px 10px;
-            text-align: left;
+        }
+
+        .mobile-table th {
+            color: white;
             font-weight: 600;
             font-size: 12px;
+            padding: 16px 6px;
+            text-align: left;
             letter-spacing: 0.3px;
             white-space: nowrap;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(73, 108, 223, 0.2);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-            background-color: #ac2424;
-        }
-
-        .mobile-table th:first-child {
-            border-left: none;
-        }
-
-        .mobile-table th:last-child {
-            border-right: none;
+            background: #1e2b37;
         }
 
         .mobile-table td {
-            padding: 8px 7px;
-            border-bottom: 1px solid #eee;
-            vertical-align: top;
+            padding: 12px 6px;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: middle;
+            background: white;
         }
 
         .mobile-table tr:last-child td {
             border-bottom: none;
         }
 
-        .mobile-table tr:nth-child(even) {
-            background: #fafafa;
-        }
-
-        .mobile-table tr:hover {
-            background: #f0f7ff;
-        }
-
-        /* Column widths for mobile */
-        .mobile-table th:nth-child(1), 
-        .mobile-table td:nth-child(1) { 
-            width: 1%; 
-            min-width: 20px; 
-            max-width: 60px;
-        }
-        .mobile-table th:nth-child(2), 
-        .mobile-table td:nth-child(2) { 
-            width: 11%; 
-            min-width: 10px;
-            max-width: 50;
-            max-height: 8px;
-            min-height: 1;
-        }
-        .mobile-table th:nth-child(3), 
-        .mobile-table td:nth-child(3) { 
-            width: 4%; 
-            min-width: 10px;
-            max-width: 20px;
-        }
-        .mobile-table th:nth-child(4), 
-        .mobile-table td:nth-child(4) 
-        { 
-            width: 5%; 
-            min-width: 10px;
-            max-width: 20;
-        }
-        .mobile-table th:nth-child(5), 
-        .mobile-table td:nth-child(5) { 
-            width: 20%;
-            min-width: 90px;
-            display: none;
-        }
-
-        .cost-column th:nth-child(5),
-        .cost-column td:nth-child(5) {
-            display: table-cell !important;
-        }
-
-        /* Adjust other column widths when cost column is shown */
-        .cost-column th:nth-child(2),
-        .cost-column td:nth-child(2) {
-            width: 25%;
-        }
-        
-        .cost-column th:nth-child(4),
-        .cost-column td:nth-child(4) {
-            width: 25%;
-        }
-
-        /* Table cell content */
         .item-no {
             font-weight: 700;
-            color: var(--primary);
-            font-size: 11px;
-
+            color: var(--primary-light);
+            font-size: 12px;
+            background: #f0f4fa;
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 30px;
+            white-space: nowrap;
         }
 
         .work-description {
             font-size: 12px;
-            line-height: 1.5;
-            color: #444;
-            max-height: 40px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            line-height: 1.45;
+            color: #1e2b37;
+            max-width: 190px;
             display: -webkit-box;
-            -webkit-line-clamp: 4;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
-            max-width: 800px;
+            overflow: hidden;
         }
 
         .achievement-cell {
-            font-weight: 400;
-            color: var(--primary);
+            font-weight: 500;
+            color: #4a5a6a;
             text-align: right;
-            font-size: 11px;
+            font-size: 12px;
             white-space: nowrap;
-            font-style: italic;
         }
 
         .income-value {
-            color: var(--income-color);
+            color: var(--income);
             font-weight: 700;
             font-size: 12px;
             text-align: right;
             white-space: nowrap;
+            letter-spacing: -0.2px;
         }
 
         .cost-value {
-            color: var(--cost-color);
+            color: var(--cost);
             font-weight: 700;
             font-size: 12px;
             text-align: right;
             white-space: nowrap;
-        }
-
-        /* Footer Tabs */
-        .excel-footer {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            padding: 10px 12px;
-            position: sticky;
-            bottom: 0;
-            z-index: 1000;
-            border-top: 6px solid rgba(230, 106, 106, 0.1);
-        }
-
-        .tabs-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 0px;
-            padding-bottom: 2px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .tabs-container::-webkit-scrollbar {
             display: none;
         }
 
-        .nav-btn {
-            flex: 0 0 auto;
-            background: rgba(255, 255, 255, 0.15);
-            color: rgb(136, 91, 91);
-            border: none;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            min-width: 85px;
-            justify-content: center;
+        .cost-column .cost-value {
+            display: block;
         }
 
-        .nav-btn:active {
-            transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.25);
+        .mobile-table th:nth-child(1), .mobile-table td:nth-child(1) { width: 22%; }
+        .mobile-table th:nth-child(2), .mobile-table td:nth-child(2) { width: 40%; }
+        .mobile-table th:nth-child(3), .mobile-table td:nth-child(3) { width: 12%; text-align: right; }
+        .mobile-table th:nth-child(4), .mobile-table td:nth-child(4) { width: 16%; text-align: right; }
+        .mobile-table th:nth-child(5), .mobile-table td:nth-child(5) { width: 16%; text-align: right; }
+
+        .mobile-table td:nth-child(3), .mobile-table td:nth-child(4), .mobile-table td:nth-child(5) {
+            text-align: right;
         }
 
-        .nav-btn.active {
-            background: var(--info);
-            color: white;
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
-        }
-
-        /* Payroll Styles */
-        .payroll-container {
-            background: rgb(203, 224, 169);
-            width: 100%;
+        /* === SOS DASHBOARD STYLES === */
+        .sos-dashboard {
+            padding: 16px;
+            background: #f8fafc;
             min-height: 100%;
         }
 
-        .payroll-header {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: rgb(189, 221, 183);
-            padding: 16px 12px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .sos-header {
+            background: linear-gradient(145deg, #c0392b, #e74c3c);
+            color: white;
+            padding: 24px 20px;
+            border-radius: 28px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
         }
 
-        .payroll-header h3 {
-            font-size: 1px;
+        .sos-header h2 {
+            font-size: 28px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .sos-header p {
+            font-size: 15px;
+            opacity: 0.95;
+            letter-spacing: 0.3px;
+        }
+
+        .sos-date {
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .summary-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .card-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .card-row .card {
+            flex: 1 1 calc(50% - 6px);
+            min-width: 160px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .card.labour {
+            border-left: 5px solid #f39c12;
+        }
+        .card.admin {
+            border-left: 5px solid #9b59b6;
+        }
+        .card.staff {
+            border-left: 5px solid #3498db;
+        }
+        .card.material {
+            border-left: 5px solid #27ae60;
+        }
+        .card.machinery {
+            border-left: 5px solid #e67e22;
+        }
+        .card.overhead {
+            border-left: 5px solid #e74c3c;
+        }
+        .card.total {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            color: white;
+            border: none;
+        }
+
+        .card-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .card-value {
+            font-size: 24px;
+            font-weight: 800;
             margin-bottom: 4px;
         }
 
-        .payroll-header p {
+        .card-sub {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+
+        .comparison-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .badge-positive {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-negative {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-neutral {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .progress-bar-container {
+            background: #ecf0f1;
+            height: 8px;
+            border-radius: 10px;
+            margin: 12px 0 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-labour { background: #f39c12; }
+        .progress-material { background: #27ae60; }
+        .progress-machinery { background: #e67e22; }
+
+        .sos-table {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-top: 24px;
+        }
+
+        .sos-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .sos-table th {
+            background: #e74c3c;
+            color: white;
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .sos-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            font-weight: 500;
+        }
+
+        .sos-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .sos-table .total-row {
+            background: #2c3e50;
+            color: white;
+            font-weight: 700;
+        }
+
+        .sos-table .total-row td {
+            background: #2c3e50;
+            border-bottom: none;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-danger { color: #e74c3c; }
+        .text-success { color: #27ae60; }
+        .text-warning { color: #f39c12; }
+        .text-info { color: #3498db; }
+
+        /* === COMPARISON DASHBOARD STYLES === */
+        .comparison-dashboard {
+            padding: 16px;
+            background: #f0f7ff;
+            min-height: 100%;
+        }
+
+        .comparison-header {
+            background: linear-gradient(145deg, #2980b9, #3498db);
+            color: white;
+            padding: 24px 20px;
+            border-radius: 28px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .comparison-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .comparison-header p {
+            font-size: 15px;
+            opacity: 0.95;
+        }
+
+        .income-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .income-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .income-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 12px;
+        }
+
+        .income-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed #ecf0f1;
+        }
+
+        .income-row:last-child {
+            border-bottom: none;
+        }
+
+        .income-label {
+            font-size: 15px;
+            color: #5f7485;
+            font-weight: 500;
+        }
+
+        .income-amount {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .income-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .progress-large {
+            height: 12px;
+            background: #ecf0f1;
+            border-radius: 20px;
+            margin: 15px 0 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card .stat-label {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .stat-card .stat-value {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .stat-card .stat-sub {
             font-size: 12px;
+            margin-top: 6px;
+            color: #95a5a6;
+        }
+
+        .escalet-card {
+            background: linear-gradient(145deg, #f39c12, #e67e22);
+            color: white;
+            border-radius: 24px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .escalet-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .escalet-row:last-child {
+            border-bottom: none;
+        }
+
+        .escalet-label {
+            font-size: 16px;
+            font-weight: 500;
             opacity: 0.9;
+        }
+
+        .escalet-value {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        /* === PAYROLL STYLES === */
+        .payroll-container {
+            background: white;
+            min-height: 100%;
+            border-radius: 24px 24px 0 0;
+            margin-top: 2px;
+            overflow: hidden;
+        }
+
+        .payroll-header {
+            background: var(--header-gradient);
+            color: white;
+            padding: 20px 16px;
+            text-align: center;
+        }
+
+        .payroll-header h3 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .payroll-header p {
+            font-size: 14px;
+            opacity: 0.9;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 40px;
         }
 
         .payroll-tabs {
             display: flex;
             overflow-x: auto;
-            background: #f5f5f5;
-            padding: 8px;
-            gap: 6px;
+            background: #f4f7fb;
+            padding: 12px 10px;
+            gap: 8px;
             scrollbar-width: none;
-            position: sticky;
-            top: 74px; /* Height of payroll header */
-            z-index: 99;
-            -webkit-overflow-scrolling: touch;
+            border-bottom: 1px solid #dce3ea;
         }
 
         .payroll-tabs::-webkit-scrollbar {
@@ -313,846 +592,738 @@
         .payroll-tab {
             flex: 0 0 auto;
             background: white;
-            border: 2px solid transparent;
-            padding: 10px 16px;
-            border-radius: 10px;
-            font-size: 13px;
+            border: 1px solid #ccd8e4;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 14px;
             font-weight: 600;
-            color: #070404;
+            color: #1e2b37;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.15s;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.2s ease;
-        }
-
-        .payroll-tab:active {
-            transform: scale(0.96);
         }
 
         .payroll-tab.active {
             background: var(--info);
-            color: white;
             border-color: var(--info);
-            box-shadow: 0 2px 6px rgba(52, 152, 219, 0.2);
+            color: white;
+            box-shadow: 0 4px 10px rgba(52,152,219,0.3);
         }
 
         .payroll-content {
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            padding: 6px 0 16px 0;
+            background: white;
         }
 
         .payroll-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
-            min-width: 500px;
+            font-size: 13px;
+            min-width: 600px;
         }
 
         .payroll-table th {
-            background: #ccf8ba;
-            color: rgb(4, 7, 17);
-            padding: 12px 8px;
-            text-align:center;
+            background: #e6edf6;
+            color: #1e2b37;
+            padding: 14px 8px;
             font-weight: 600;
-            font-size: 14px;
-            position: sticky;
-            top: 11px; /* Height of payroll header + tabs */
-            z-index: 98;
+            font-size: 13px;
+            text-align: center;
+            border-bottom: 2px solid #bdc9d6;
         }
 
         .payroll-table td {
-            padding: 10px 8px;
-            border-bottom: 1px solid #eee;
+            padding: 12px 8px;
+            border-bottom: 1px solid #dee6ef;
             text-align: center;
         }
 
-        .payroll-table tr:nth-child(even) {
-            background: #fafafa;
+        .payroll-table td:first-child {
+            font-weight: 600;
+            background-color: #f6faff;
         }
 
         .payroll-total-row {
-            background: #2c3e50 !important;
+            background: #1e2b37 !important;
             color: white;
             font-weight: 700;
         }
 
-        /* Coming Soon Message */
+        .payroll-total-row td {
+            background: #1e2b37;
+            color: white;
+            border-bottom: none;
+        }
+
+        /* === COMING SOON CARD === */
         .coming-soon {
-            background: rgb(196, 252, 144);
-            border-radius: 12px;
-            padding: 40px 24px;
+            background: white;
+            margin: 20px 16px;
+            padding: 48px 24px;
+            border-radius: 36px;
             text-align: center;
-            margin: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-md);
         }
 
         .coming-soon-icon {
-            font-size: 28px;
-            margin-bottom: 16px;
+            font-size: 48px;
+            margin-bottom: 20px;
         }
 
         .coming-soon h3 {
-            font-size: 18px;
+            font-size: 26px;
             color: var(--primary);
-            margin-bottom: 8px;
-            font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .coming-soon p {
-            color: #ca5454;
-            font-size: 14px;
-            line-height: 1.5;
+            color: #5f7485;
+            font-size: 16px;
         }
 
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
+        /* === BOTTOM TABS === */
+        .excel-footer {
+            background: var(--header-gradient);
+            padding: 12px 8px 16px;
+            border-top: 2px solid rgba(255,255,255,0.06);
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
         }
 
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
+        .tabs-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 6px;
+            scrollbar-width: none;
+            justify-content: space-between;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #c1c1c1;
-            border-radius: 10px;
+        .tabs-container::-webkit-scrollbar {
+            display: none;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 360px) {
-            .mobile-table {
-                font-size: 12px;
-            }
-            
-            .mobile-table th,
-            .mobile-table td {
-                padding: 12px 8px;
-            }
-            
-            .mobile-table th:nth-child(1), 
-            .mobile-table td:nth-child(1) { 
-                min-width: 60px; 
-                max-width: 70px;
-            }
-            
-            .nav-btn {
-                min-width: 75px;
-                padding: 8px 12px;
-                font-size: 12px;
-            }
-            
-            .payroll-tab {
-                padding: 8px 12px;
-                font-size: 12px;
-            }
+        .nav-btn {
+            flex: 0 1 auto;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #eef3f7;
+            padding: 10px 12px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(4px);
+            transition: 0.15s;
+            cursor: pointer;
         }
 
-        /* Safe area support */
-        @supports (padding: max(0px)) {
-            body {
-                padding-left: max(0px, env(safe-area-inset-left));
-                padding-right: max(0px, env(safe-area-inset-right));
-                padding-top: max(0px, env(safe-area-inset-top));
-                padding-bottom: max(0px, env(safe-area-inset-bottom));
-            }
-            
-            .excel-footer {
-                padding-bottom: max(10px, env(safe-area-inset-bottom));
-            }
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .nav-btn.active {
+            background: var(--info);
+            border-color: white;
+            color: white;
+            box-shadow: 0 2px 12px #3498db80;
         }
 
         .fade-in {
-            animation: fadeIn 0.3s ease-out;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0.4; transform: translateY(5px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 380px) {
+            .nav-btn { font-size: 12px; padding: 8px 10px; }
         }
     </style>
 </head>
 <body>
     <div class="app-wrapper">
-        <div class="content-container" id="contentContainer">
-            <!-- Content will be dynamically loaded here -->
-        </div>
-        
+        <div class="content-container" id="contentContainer"></div>
+
         <div class="excel-footer">
             <div class="tabs-container">
-                <button class="nav-btn active" onclick="switchTab('monthly')">
-                    <span>📅</span> Income
-                </button>
-                <button class="nav-btn" onclick="switchTab('sos')">
-                    <span>⚠️</span> SOS
-                </button>
-                <button class="nav-btn" onclick="switchTab('comparison')">
-                    <span>📊</span> Comparison
-                </button>
-                <button class="nav-btn" onclick="switchTab('payroll')">
-                    <span>💰</span> Payroll
-                </button>
-                <button class="nav-btn" onclick="switchTab('Chart')">
-                    <span>💵</span> Chart
-                </button>
-                <button class="nav-btn" onclick="switchTab('cost-analysis')">
-                    <span>📉</span> Cost Analysis
-                </button>
+                <button class="nav-btn active" data-tab="monthly"><span>📅</span> Income</button>
+                <button class="nav-btn" data-tab="sos"><span>⚠️</span> SOS</button>
+                <button class="nav-btn" data-tab="comparison"><span>📊</span> Comparison</button>
+                <button class="nav-btn" data-tab="payroll"><span>💰</span> Payroll</button>
+                <button class="nav-btn" data-tab="Chart"><span>💵</span> Chart</button>
+                <button class="nav-btn" data-tab="cost-analysis"><span>📉</span> Cost Analysis</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== TELEGRAM MINI APP INITIALIZATION ====================
-        // Check if Telegram WebApp is available
-        if (window.Telegram && window.Telegram.WebApp) {
-            const tg = Telegram.WebApp;
-            
-            // Expand the app to full height
-            tg.expand();
-            
-            // Set background color
-            tg.setBackgroundColor('#f4f7f6');
-            
-            // Set header color
-            tg.setHeaderColor('#2c3e50');
-            
-            // Enable closing confirmation
-            tg.enableClosingConfirmation();
-            
-            // Initialize the app
-            tg.ready();
-        }
-
-        // ==================== APPLICATION DATA AND LOGIC ====================
-        // Sample data for the construction project with income and cost
-        const projectData = [
-            { 
-                itemNo: "1.12.8", 
-                description: "Allow for supplying temporary electricity, water, telephone and other utility bills for the supervisor's and contractor's including connection, distribution system for the work, internal arrangements and all payment to the authorities for connections. it is the responsibility of the contractor to ensure steady and uninterrupted power supply to work", 
-                achievement: 0.72,                 
-                total: "9141575.07295305", 
-                cost: "100000"
-            },
-            { 
-                itemNo: "1.13.3", 
-                description: "Provisions of security", 
-                achievement: 0.72,               
-                total: "1425815.46702017", 
-                cost: "280000"
-            },
-            { 
-                itemNo: "1.12", 
-                description: "Allow for expenses required for conducting compensation payment estimation such as periderm for Committee, fuel cost, printing expenses and other related expenses. Payment shall be paid up on approval of the Engineer keeping all legal procedures. The costs will be reimbursed to the contractor after receiving the original invoice in the payment certificate by the Consultant", 
-                achievement: 0.12,                
-                total: "425000", 
-                cost: "350000"
-            },
-            { 
-                itemNo: "3.A.1", 
-                description: "Mobilization and Demoblization", 
-                achievement: 0.5,              
-                total: "292789.65", 
-                cost: "168000"
-            },
-            { 
-                itemNo: "2.3.1", 
-                description: "Fill and compaction the Core zone with clay material with max hauling distance of 5 Km", 
-                achievement: 29479.5,               
-                total: "8533136.07", 
-                cost: "121000"
-            },
-            { 
-                itemNo: "2.4.1", 
-                description: "Fill and compaction the Shell zone with selected material, max hauling distance of 5 Km", 
-                achievement: 43277.3,                
-                total: "11292778.662", 
-                cost: "72000"
-            },
-            { 
-                itemNo: "2.5.1", 
-                description: "Filter material (Finer) supply and fill(zone 2A)", 
-                achievement: 6643.13,                
-                total: "8189650.664", 
-                cost: "96000"
-            },
-            { 
-                itemNo: "2.5.2", 
-                description: "Filter material (coarser) supply and fill(zone 2B)", 
-                achievement: 3020,                
-                total: "3729851", 
-                cost: "36000"
-            },
-            { 
-                itemNo: "2.5.4", 
-                description: "Riprap(zone 5)", 
-                achievement: 2329.54,               
-                total: "1890631.3686", 
-                cost: "14400"
-            },
-            { 
-                itemNo: "2.6.1", 
-                description: "Fill and compaction zone 4 with Rock material", 
-                achievement: 48677.76,            
-                total: "41367334.0032", 
-                cost: "3600"
-            },
-            
-            { 
-                itemNo: "", 
-                description: "production of rock", 
-                achievement: 53248,                 
-                total: "", 
-                cost: ""
-                
-            },
-            { 
-                itemNo: "2.9.4", 
-                description: "Vibrating Wire Piezometer with its complete accessories in embankment", 
-                achievement: 3,               
-                total: "561600", 
-                cost: "3600"
-            },
-            { 
-                itemNo: "2.9.5", 
-                description: "Vibrating Wire settlement sensor with complete accessories", 
-                achievement: 2,                
-                total: "41367334.0032", 
-                cost: "3600"
-            },
-            { 
-                itemNo: "2.9.8", 
-                description: "Vibrating wire cable", 
-                achievement: 307.94,                
-                total: "288231.84", 
-                cost: "3600"
-            },
-            { 
-                itemNo: "4.2.4", 
-                description: "Base slab", 
-                achievement: 3.17,               
-                total: "16324.64064", 
-                cost: "3600"
-            },
-            { 
-                itemNo: "8.5.1", 
-                description: "C-25 concrete work including formwork", 
-                achievement: 8.5,                
-                total: "45602.5", 
-                cost: "3600"
-            },
-            { 
-                itemNo: "8.5.3", 
-                description: "Reinforcement bars (bending, cutting & placing)", 
-                achievement: 48677.76,                 
-                total: "19046.358", 
-                cost: "3600"
-            },
-            { 
-                itemNo: "11.7.1", 
-                description: "Ordinary soil excavation", 
-                achievement: 156.6,                 
-                total: "12935.16", 
-                cost: "3600"
-            },                        
-            { 
-                itemNo: "11.7.2", 
-                description: "Basaltic or equivalent stone masonry work in cement sand mortar of 1:3 mix ratio", 
-                achievement: 404.811,                
-                total: "932097.56805", 
-                cost: "3600"
-            },                         
-            { 
-                itemNo: "11.7.3", 
-                description: "C-25 concrete mixing, placing, vibrating and curing for slab including formwork", 
-                achievement: 32.8,                
-                total: "194254.72", 
-                cost: "3600"
-            },                         
-            { 
-                itemNo: "11.7.4", 
-                description: "Reinforcement bars of ø10mm as specified on the drawings with 150mm spacing", 
-                achievement: 156.6,                 
-                total: "103,830.33", 
-                cost: "3,600"
-            },                         
-            { 
-                itemNo: "New", 
-                description: "Reinforcement bar of Dia 12mm as specified on the drawing with 200mm spacing", 
-                achievement: 3663.2,                
-                total: "250,343.088", 
-                cost: "3,600"
-            },                         
-            { 
-                itemNo: "11.7.6", 
-                description: "Cart away excavated material", 
-                achievement: 96,               
-                total: "4,304.64", 
-                cost: "3,600"
-            },
-            { 
-                itemNo: "11.7.8", 
-                description: "Back fill with shell material around the ditch", 
-                achievement: 480,                 
-                total: "4,304.64", 
-                cost: "3,600"
+        (function() {
+            // ---------- Telegram init ----------
+            if (window.Telegram?.WebApp) {
+                const tg = Telegram.WebApp;
+                tg.expand();
+                tg.setBackgroundColor('#f0f5f8');
+                tg.setHeaderColor('#1e2b37');
+                tg.enableClosingConfirmation();
+                tg.ready();
             }
-        ];
 
-        // Variables to track current view
-        let isCostViewVisible = false;
-        let currentTab = 'monthly';
+            // ---------- project data ----------
+            const projectData = [
+                { itemNo: "1.12.8", description: "Allow for supplying temporary electricity, water, telephone and other utility bills for the supervisor's and contractor's including connection, distribution system for the work, internal arrangements and all payment to the authorities for connections. it is the responsibility of the contractor to ensure steady and uninterrupted power supply to work", achievement: 0.72, total: "9141575.07295305", cost: "100000" },
+                { itemNo: "1.13.3", description: "Provisions of security", achievement: 0.72, total: "1425815.46702017", cost: "280000" },
+                { itemNo: "1.12", description: "Allow for expenses required for conducting compensation payment estimation such as periderm for Committee, fuel cost, printing expenses and other related expenses. Payment shall be paid up on approval of the Engineer keeping all legal procedures. The costs will be reimbursed to the contractor after receiving the original invoice in the payment certificate by the Consultant", achievement: 0.12, total: "425000", cost: "350000" },
+                { itemNo: "3.A.1", description: "Mobilization and Demoblization", achievement: 0.5, total: "292789.65", cost: "168000" },
+                { itemNo: "2.3.1", description: "Fill and compaction the Core zone with clay material with max hauling distance of 5 Km", achievement: 29479.5, total: "8533136.07", cost: "121000" },
+                { itemNo: "2.4.1", description: "Fill and compaction the Shell zone with selected material, max hauling distance of 5 Km", achievement: 43277.3, total: "11292778.662", cost: "72000" },
+                { itemNo: "2.5.1", description: "Filter material (Finer) supply and fill(zone 2A)", achievement: 6643.13, total: "8189650.664", cost: "96000" },
+                { itemNo: "2.5.2", description: "Filter material (coarser) supply and fill(zone 2B)", achievement: 3020, total: "3729851", cost: "36000" },
+                { itemNo: "2.5.4", description: "Riprap(zone 5)", achievement: 2329.54, total: "1890631.3686", cost: "14400" },
+                { itemNo: "2.6.1", description: "Fill and compaction zone 4 with Rock material", achievement: 48677.76, total: "41367334.0032", cost: "3600" },
+                { itemNo: "", description: "production of rock", achievement: 53248, total: "", cost: "" },
+                { itemNo: "2.9.4", description: "Vibrating Wire Piezometer with its complete accessories in embankment", achievement: 3, total: "561600", cost: "3600" },
+                { itemNo: "2.9.5", description: "Vibrating Wire settlement sensor with complete accessories", achievement: 2, total: "41367334.0032", cost: "3600" },
+                { itemNo: "2.9.8", description: "Vibrating wire cable", achievement: 307.94, total: "288231.84", cost: "3600" },
+                { itemNo: "4.2.4", description: "Base slab", achievement: 3.17, total: "16324.64064", cost: "3600" },
+                { itemNo: "8.5.1", description: "C-25 concrete work including formwork", achievement: 8.5, total: "45602.5", cost: "3600" },
+                { itemNo: "8.5.3", description: "Reinforcement bars (bending, cutting & placing)", achievement: 48677.76, total: "19046.358", cost: "3600" },
+                { itemNo: "11.7.1", description: "Ordinary soil excavation", achievement: 156.6, total: "12935.16", cost: "3600" },
+                { itemNo: "11.7.2", description: "Basaltic or equivalent stone masonry work in cement sand mortar of 1:3 mix ratio", achievement: 404.811, total: "932097.56805", cost: "3600" },
+                { itemNo: "11.7.3", description: "C-25 concrete mixing, placing, vibrating and curing for slab including formwork", achievement: 32.8, total: "194254.72", cost: "3600" },
+                { itemNo: "11.7.4", description: "Reinforcement bars of ø10mm as specified on the drawings with 150mm spacing", achievement: 156.6, total: "103830.33", cost: "3600" },
+                { itemNo: "New", description: "Reinforcement bar of Dia 12mm as specified on the drawing with 200mm spacing", achievement: 3663.2, total: "250343.088", cost: "3600" },
+                { itemNo: "11.7.6", description: "Cart away excavated material", achievement: 96, total: "4304.64", cost: "3600" },
+                { itemNo: "11.7.8", description: "Back fill with shell material around the ditch", achievement: 480, total: "4304.64", cost: "3600" }
+            ];
 
-        // Function to format currency
-        function formatCurrency(amount) {
-            if (isNaN(amount)) return "0.00";
-            if (amount >= 1) {
-                return (amount / 1).toFixed(2) + '';
-            } else if (amount >= 1) {
-                return (amount / 1).toFixed(2) + '';
+            // ---------- SOS COST DATA ----------
+            const sosData = {
+                labour: { required: 2892620.98, used: 2924176.31 },
+                admin: 8499476.64,
+                staff: 7593612.57,
+                material: { required: 52668615.30, used: 50677145.73 },
+                machinery: { required: 78138494.08, used: 82049518.29 },
+                overhead: 21323070.23,
+                totalRequired: 149535837.67,
+                totalUsed: 173066999.76
+            };
+
+            // ---------- COMPARISON INCOME DATA (from user) ----------
+            const comparisonData = {
+                plan1: 260209082.32,
+                executed1: 88659790.48,
+                plan2: 283476359.20,
+                executed2: 93976269.21,
+                escaletPlan1: 998963173.297,
+                escaletExecuted1: 322376225.247,
+                escaletPlan2: 1090892184.251,
+                escaletExecuted2: 343381632.721
+            };
+
+            // ---------- helpers ----------
+            function formatCurrency(val) {
+                if (val === '' || val === undefined || isNaN(parseFloat(val))) return "—";
+                let num = parseFloat(String(val).replace(/,/g, ''));
+                if (isNaN(num)) return "—";
+                return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             }
-            return amount.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-        }
 
-        // Function to format achievement number
-        function formatAchievement(value) {
-            if (isNaN(value)) return "0";
-            if (value >= 1) {
-                return (value / 1).toFixed(1) + '';
+            function formatAchievement(val) {
+                if (val === '' || val === undefined) return "—";
+                let n = parseFloat(val);
+                if (isNaN(n)) return "—";
+                return n % 1 === 0 ? n.toString() : n.toFixed(2);
             }
-            if (value % 1 === 0) {
-                return value.toString();
-            } else {
-                return value.toFixed(2);
-            }
-        }
 
-        // Function to load main table (monthly tab)
-        function loadMonthlyTable() {
-            const contentContainer = document.getElementById("contentContainer");
-            
-            contentContainer.innerHTML = `
-                <div class="table-container fade-in">
-                    <table class="mobile-table ${isCostViewVisible ? 'cost-column' : ''}" id="workTable">
-                        <thead>
-                            <tr>
-                                <th>Item No.</th>
-                                <th>Work Description</th>
-                                <th>Achievement</th>
-                                <th>Income (Birr)</th>
-                                <th>Cost (Birr)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body">
-                            <!-- Data will be inserted here -->
-                        </tbody>
-                    </table>
-                </div>
-            `;
-            
-            // Load the table data
-            const tableBody = document.getElementById("table-body");
-            tableBody.innerHTML = '';
-            
-            projectData.forEach(item => {
-                const row = document.createElement("tr");
-                
-                const incomeValue = parseFloat(item.total.replace(/,/g, ''));
-                const costValue = parseFloat(item.cost);
-                
-                row.innerHTML = `
-                    <td><div class="item-no">${item.itemNo}</div></td>
-                    <td><div class="work-description" title="${item.description}">${item.description}</div></td>
-                    <td><div class="achievement-cell">${formatAchievement(item.achievement)}</div></td>
-                    <td><div class="income-value">${formatCurrency(incomeValue)}</div></td>
-                    <td><div class="cost-value">${formatCurrency(costValue)}</div></td>
+            function calculatePercentage(executed, plan) {
+                return ((executed / plan) * 100).toFixed(1);
+            }
+
+            // ---------- view state ----------
+            let costVisible = false;
+            let currentTab = 'monthly';
+
+            // ---------- render monthly table ----------
+            function loadMonthlyTable() {
+                const container = document.getElementById('contentContainer');
+                container.innerHTML = `
+                    <div class="table-container fade-in">
+                        <table class="mobile-table ${costVisible ? 'cost-column' : ''}" id="workTable">
+                            <thead><tr><th>Item No.</th><th>Work Description</th><th>Achievement</th><th>Income (Birr)</th><th>Cost (Birr)</th></tr></thead>
+                            <tbody id="table-body"></tbody>
+                        </table>
+                    </div>
                 `;
-                tableBody.appendChild(row);
-            });
-        }
+                const tbody = document.getElementById('table-body');
+                projectData.forEach(item => {
+                    const row = document.createElement('tr');
+                    const incomeNum = parseFloat(String(item.total).replace(/,/g, '')) || 0;
+                    const costNum = parseFloat(String(item.cost).replace(/,/g, '')) || 0;
+                    row.innerHTML = `
+                        <td><span class="item-no">${item.itemNo || '—'}</span></td>
+                        <td><div class="work-description" title="${item.description.replace(/"/g, '&quot;')}">${item.description}</div></td>
+                        <td><div class="achievement-cell">${formatAchievement(item.achievement)}</div></td>
+                        <td><div class="income-value">${formatCurrency(incomeNum)}</div></td>
+                        <td><div class="cost-value">${formatCurrency(costNum)}</div></td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
 
-        // Function to toggle cost view - now using keyboard shortcut only
-        function toggleCostView() {
-            isCostViewVisible = !isCostViewVisible;
-            
-            const table = document.getElementById('workTable');
-            if (table) {
-                if (isCostViewVisible) {
-                    table.classList.add('cost-column');
-                } else {
-                    table.classList.remove('cost-column');
+            function toggleCostView() {
+                costVisible = !costVisible;
+                const table = document.getElementById('workTable');
+                if (table) {
+                    if (costVisible) table.classList.add('cost-column');
+                    else table.classList.remove('cost-column');
                 }
             }
-        }
 
-        // Function to load payroll tab
-        function loadPayrollTab() {
-            const contentContainer = document.getElementById("contentContainer");
-            
-            contentContainer.innerHTML = `
-                <div class="payroll-container fade-in">
-                    <div class="payroll-header">
-                        <h3>👷 የሰራተኞች መዝገብ</h3>
-                        <p>30 ቀናት የሥራ ማስኬጃ መዝገብ</p>
+            // ---------- SOS TAB ----------
+            function loadSosTab() {
+                const container = document.getElementById('contentContainer');
+                const d = sosData;
+                
+                const labourVar = d.labour.used - d.labour.required;
+                const materialVar = d.material.used - d.material.required;
+                const machineryVar = d.machinery.used - d.machinery.required;
+                const totalVar = d.totalUsed - d.totalRequired;
+
+                const labourPercent = (d.labour.used / d.labour.required * 100).toFixed(1);
+                const materialPercent = (d.material.used / d.material.required * 100).toFixed(1);
+                const machineryPercent = (d.machinery.used / d.machinery.required * 100).toFixed(1);
+
+                container.innerHTML = `
+                    <div class="sos-dashboard fade-in">
+                        <div class="sos-header">
+                            <h2><span>⚠️</span> SOS Report</h2>
+                            <p>Emergency Cost Overview • Project Health Monitor</p>
+                            <div class="sos-date">📅 Q2 2025 • Week 26</div>
+                        </div>
+
+                        <div class="summary-cards">
+                            <div class="card-row">
+                                <div class="card labour">
+                                    <div class="card-title">👷 Labour</div>
+                                    <div class="card-value">${formatCurrency(d.labour.used)}</div>
+                                    <div class="card-sub">
+                                        <span>Req: ${formatCurrency(d.labour.required)}</span>
+                                        <span class="${labourVar > 0 ? 'text-danger' : 'text-success'}">${labourVar > 0 ? '+' : ''}${formatCurrency(labourVar)}</span>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar progress-labour" style="width: ${labourPercent}%;"></div>
+                                    </div>
+                                    <div><span class="comparison-badge ${labourVar > 0.05 ? 'badge-negative' : 'badge-positive'}">${labourPercent}% of required</span></div>
+                                </div>
+                                <div class="card admin">
+                                    <div class="card-title">🏛️ Admin Cost</div>
+                                    <div class="card-value">${formatCurrency(d.admin)}</div>
+                                    <div class="card-sub">Fixed overhead</div>
+                                </div>
+                            </div>
+
+                            <div class="card-row">
+                                <div class="card staff">
+                                    <div class="card-title">👥 Staff</div>
+                                    <div class="card-value">${formatCurrency(d.staff)}</div>
+                                    <div class="card-sub">Full team</div>
+                                </div>
+                                <div class="card material">
+                                    <div class="card-title">🧱 Material</div>
+                                    <div class="card-value">${formatCurrency(d.material.used)}</div>
+                                    <div class="card-sub">
+                                        <span>Req: ${formatCurrency(d.material.required)}</span>
+                                        <span class="${materialVar > 0 ? 'text-danger' : 'text-success'}">${materialVar > 0 ? '+' : ''}${formatCurrency(materialVar)}</span>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar progress-material" style="width: ${materialPercent}%;"></div>
+                                    </div>
+                                    <div><span class="comparison-badge ${materialVar > 0.05 ? 'badge-negative' : 'badge-positive'}">${materialPercent}%</span></div>
+                                </div>
+                            </div>
+
+                            <div class="card-row">
+                                <div class="card machinery">
+                                    <div class="card-title">🚜 Machinery</div>
+                                    <div class="card-value">${formatCurrency(d.machinery.used)}</div>
+                                    <div class="card-sub">
+                                        <span>Req: ${formatCurrency(d.machinery.required)}</span>
+                                        <span class="${machineryVar > 0 ? 'text-danger' : 'text-success'}">${machineryVar > 0 ? '+' : ''}${formatCurrency(machineryVar)}</span>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar progress-machinery" style="width: ${machineryPercent}%;"></div>
+                                    </div>
+                                    <div><span class="comparison-badge ${machineryVar > 0.05 ? 'badge-negative' : 'badge-positive'}">${machineryPercent}%</span></div>
+                                </div>
+                                <div class="card overhead">
+                                    <div class="card-title">📊 Overhead (20%)</div>
+                                    <div class="card-value">${formatCurrency(d.overhead)}</div>
+                                    <div class="card-sub">Indirect costs</div>
+                                </div>
+                            </div>
+
+                            <div class="card total">
+                                <div class="card-title">💰 TOTAL PROJECT COST</div>
+                                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                                    <span style="font-size: 32px; font-weight: 800;">${formatCurrency(d.totalUsed)}</span>
+                                    <span style="font-size: 16px; opacity: 0.8;">${((d.totalUsed/d.totalRequired - 1)*100).toFixed(1)}% vs plan</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 15px;">
+                                    <span>Required: ${formatCurrency(d.totalRequired)}</span>
+                                    <span class="${totalVar > 0 ? 'text-danger' : 'text-success'}">${totalVar > 0 ? '🔺+' : '🔻'}${formatCurrency(Math.abs(totalVar))}</span>
+                                </div>
+                                <div class="progress-bar-container" style="background: #4a5a6a;">
+                                    <div class="progress-bar" style="width: ${(d.totalUsed/d.totalRequired)*100}%; background: #f1c40f;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sos-table">
+                            <table>
+                                <thead><tr><th>Category</th><th>Required (Birr)</th><th>Used (Birr)</th><th>Variance</th><th>%</th></tr></thead>
+                                <tbody>
+                                    <tr><td><strong>👷 Labour</strong></td><td>${formatCurrency(d.labour.required)}</td><td>${formatCurrency(d.labour.used)}</td><td class="${labourVar>0?'text-danger':'text-success'}">${labourVar>0?'+':''}${formatCurrency(labourVar)}</td><td>${labourPercent}%</td></tr>
+                                    <tr><td><strong>🏛️ Admin</strong></td><td>—</td><td>${formatCurrency(d.admin)}</td><td>—</td><td>—</td></tr>
+                                    <tr><td><strong>👥 Staff</strong></td><td>${formatCurrency(d.staff)}</td><td>${formatCurrency(d.staff)}</td><td class="text-success">0.00</td><td>100%</td></tr>
+                                    <tr><td><strong>🧱 Material</strong></td><td>${formatCurrency(d.material.required)}</td><td>${formatCurrency(d.material.used)}</td><td class="${materialVar>0?'text-danger':'text-success'}">${materialVar>0?'+':''}${formatCurrency(materialVar)}</td><td>${materialPercent}%</td></tr>
+                                    <tr><td><strong>🚜 Machinery</strong></td><td>${formatCurrency(d.machinery.required)}</td><td>${formatCurrency(d.machinery.used)}</td><td class="${machineryVar>0?'text-danger':'text-success'}">${machineryVar>0?'+':''}${formatCurrency(machineryVar)}</td><td>${machineryPercent}%</td></tr>
+                                    <tr><td><strong>📊 Overhead (20%)</strong></td><td>—</td><td>${formatCurrency(d.overhead)}</td><td>—</td><td>—</td></tr>
+                                    <tr class="total-row"><td><strong>TOTAL</strong></td><td>${formatCurrency(d.totalRequired)}</td><td>${formatCurrency(d.totalUsed)}</td><td>${totalVar>0?'+':''}${formatCurrency(totalVar)}</td><td>${((d.totalUsed/d.totalRequired)*100).toFixed(1)}%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        ${totalVar > 0 ? `
+                        <div style="background: #fbe9e7; border-left: 6px solid #e74c3c; padding: 16px; border-radius: 16px; margin-top: 20px;">
+                            <span style="font-weight:700; color:#c0392b;">⚠️ Overspend Alert</span>
+                            <p style="margin-top:6px; font-size:14px;">Total cost exceeds planned budget by ${formatCurrency(totalVar)} (${((d.totalUsed/d.totalRequired-1)*100).toFixed(1)}%). Review machinery & labour.</p>
+                        </div>
+                        ` : ''}
                     </div>
-                    
-                    <div class="payroll-tabs" id="payrollTabsContainer">
-                        <!-- Tabs will be generated here -->
-                    </div>
-                    
-                    <div class="payroll-content" id="payrollSheetContent">
-                        <div style="text-align: center; padding: 20px; color: #666;">
-                            መረጃ በመጫን ላይ...
+                `;
+            }
+
+            // ---------- COMPARISON TAB (with income data) ----------
+            function loadComparisonTab() {
+                const container = document.getElementById('contentContainer');
+                const d = comparisonData;
+                
+                const totalPlan = d.plan1 + d.plan2;
+                const totalExecuted = d.executed1 + d.executed2;
+                const totalEscaletPlan = d.escaletPlan1 + d.escaletPlan2;
+                const totalEscaletExecuted = d.escaletExecuted1 + d.escaletExecuted2;
+                
+                const overallPlan = totalPlan + totalEscaletPlan;
+                const overallExecuted = totalExecuted + totalEscaletExecuted;
+                const overallPercentage = (overallExecuted / overallPlan * 100).toFixed(1);
+
+                container.innerHTML = `
+                    <div class="comparison-dashboard fade-in">
+                        <div class="comparison-header">
+                            <h2><span>📊</span> Income Comparison</h2>
+                            <p>Plan vs Executed • Escalation Included</p>
+                            <div class="sos-date">📅 Fiscal Year 2025</div>
+                        </div>
+
+                        <!-- Main Income Cards -->
+                        <div class="income-summary">
+                            <div class="income-card">
+                                <div class="income-card-title">
+                                    <span>📋 Phase 1 Income</span>
+                                </div>
+                                <div class="income-row">
+                                    <span class="income-label">Plan (Birr)</span>
+                                    <span class="income-amount">${formatCurrency(d.plan1)}</span>
+                                </div>
+                                <div class="income-row">
+                                    <span class="income-label">Executed (Birr)</span>
+                                    <span class="income-amount" style="color: #27ae60;">${formatCurrency(d.executed1)}</span>
+                                </div>
+                                <div class="progress-large">
+                                    <div class="progress-fill" style="width: ${calculatePercentage(d.executed1, d.plan1)}%;"></div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                                    <span style="font-size: 14px; color: #5f7485;">Completion</span>
+                                    <span style="font-weight: 700; color: #2980b9;">${calculatePercentage(d.executed1, d.plan1)}%</span>
+                                </div>
+                                <div style="background: #f0f7ff; padding: 12px; border-radius: 16px; margin-top: 12px;">
+                                    <span style="font-weight:600;">Variance: </span>
+                                    <span class="${(d.executed1 - d.plan1) > 0 ? 'text-success' : 'text-danger'}">
+                                        ${formatCurrency(Math.abs(d.executed1 - d.plan1))} ${(d.executed1 - d.plan1) > 0 ? 'above' : 'below'} plan
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="income-card">
+                                <div class="income-card-title">
+                                    <span>📋 Phase 2 Income</span>
+                                </div>
+                                <div class="income-row">
+                                    <span class="income-label">Plan (Birr)</span>
+                                    <span class="income-amount">${formatCurrency(d.plan2)}</span>
+                                </div>
+                                <div class="income-row">
+                                    <span class="income-label">Executed (Birr)</span>
+                                    <span class="income-amount" style="color: #27ae60;">${formatCurrency(d.executed2)}</span>
+                                </div>
+                                <div class="progress-large">
+                                    <div class="progress-fill" style="width: ${calculatePercentage(d.executed2, d.plan2)}%;"></div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                                    <span style="font-size: 14px; color: #5f7485;">Completion</span>
+                                    <span style="font-weight: 700; color: #2980b9;">${calculatePercentage(d.executed2, d.plan2)}%</span>
+                                </div>
+                                <div style="background: #f0f7ff; padding: 12px; border-radius: 16px; margin-top: 12px;">
+                                    <span style="font-weight:600;">Variance: </span>
+                                    <span class="${(d.executed2 - d.plan2) > 0 ? 'text-success' : 'text-danger'}">
+                                        ${formatCurrency(Math.abs(d.executed2 - d.plan2))} ${(d.executed2 - d.plan2) > 0 ? 'above' : 'below'} plan
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Escalation Cards -->
+                            <div class="escalet-card">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+                                    <span style="font-size: 24px;">📈</span>
+                                    <span style="font-size: 20px; font-weight: 700;">Escalation Income</span>
+                                </div>
+                                <div class="escalet-row">
+                                    <span class="escalet-label">Phase 1 Plan</span>
+                                    <span class="escalet-value">${formatCurrency(d.escaletPlan1)}</span>
+                                </div>
+                                <div class="escalet-row">
+                                    <span class="escalet-label">Phase 1 Executed</span>
+                                    <span class="escalet-value">${formatCurrency(d.escaletExecuted1)}</span>
+                                </div>
+                                <div style="height: 1px; background: rgba(255,255,255,0.2); margin: 12px 0;"></div>
+                                <div class="escalet-row">
+                                    <span class="escalet-label">Phase 2 Plan</span>
+                                    <span class="escalet-value">${formatCurrency(d.escaletPlan2)}</span>
+                                </div>
+                                <div class="escalet-row">
+                                    <span class="escalet-label">Phase 2 Executed</span>
+                                    <span class="escalet-value">${formatCurrency(d.escaletExecuted2)}</span>
+                                </div>
+                            </div>
+
+                            <!-- Summary Cards -->
+                            <div class="comparison-grid">
+                                <div class="stat-card">
+                                    <div class="stat-label">Total Plan</div>
+                                    <div class="stat-value">${formatCurrency(totalPlan)}</div>
+                                    <div class="stat-sub">Base Income</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Total Executed</div>
+                                    <div class="stat-value" style="color: #27ae60;">${formatCurrency(totalExecuted)}</div>
+                                    <div class="stat-sub">${calculatePercentage(totalExecuted, totalPlan)}% of plan</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Escalation Plan</div>
+                                    <div class="stat-value">${formatCurrency(totalEscaletPlan)}</div>
+                                    <div class="stat-sub">Total Escalation</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Escalation Exec.</div>
+                                    <div class="stat-value" style="color: #f39c12;">${formatCurrency(totalEscaletExecuted)}</div>
+                                    <div class="stat-sub">${calculatePercentage(totalEscaletExecuted, totalEscaletPlan)}% achieved</div>
+                                </div>
+                            </div>
+
+                            <!-- Overall Total -->
+                            <div class="card total" style="margin-top: 16px;">
+                                <div class="card-title">🎯 OVERALL INCOME (Base + Escalation)</div>
+                                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                                    <span style="font-size: 28px; font-weight: 800;">${formatCurrency(overallExecuted)}</span>
+                                    <span style="font-size: 16px; opacity: 0.8;">${overallPercentage}% of plan</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-top: 12px;">
+                                    <span>Total Plan: ${formatCurrency(overallPlan)}</span>
+                                    <span class="${overallExecuted > overallPlan ? 'text-success' : 'text-danger'}">
+                                        ${overallExecuted > overallPlan ? '▲' : '▼'} ${formatCurrency(Math.abs(overallExecuted - overallPlan))}
+                                    </span>
+                                </div>
+                                <div class="progress-bar-container" style="background: #4a5a6a; margin-top: 16px;">
+                                    <div class="progress-bar" style="width: ${overallPercentage}%; background: #f1c40f;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Detailed Table -->
+                            <div class="sos-table" style="margin-top: 24px;">
+                                <table>
+                                    <thead><tr><th>Category</th><th>Plan (Birr)</th><th>Executed (Birr)</th><th>Achievement</th></tr></thead>
+                                    <tbody>
+                                        <tr><td><strong>Phase 1 Income</strong></td><td>${formatCurrency(d.plan1)}</td><td>${formatCurrency(d.executed1)}</td><td>${calculatePercentage(d.executed1, d.plan1)}%</td></tr>
+                                        <tr><td><strong>Phase 2 Income</strong></td><td>${formatCurrency(d.plan2)}</td><td>${formatCurrency(d.executed2)}</td><td>${calculatePercentage(d.executed2, d.plan2)}%</td></tr>
+                                        <tr><td><strong>Escalation Phase 1</strong></td><td>${formatCurrency(d.escaletPlan1)}</td><td>${formatCurrency(d.escaletExecuted1)}</td><td>${calculatePercentage(d.escaletExecuted1, d.escaletPlan1)}%</td></tr>
+                                        <tr><td><strong>Escalation Phase 2</strong></td><td>${formatCurrency(d.escaletPlan2)}</td><td>${formatCurrency(d.escaletExecuted2)}</td><td>${calculatePercentage(d.escaletExecuted2, d.escaletPlan2)}%</td></tr>
+                                        <tr class="total-row"><td><strong>TOTAL</strong></td><td>${formatCurrency(overallPlan)}</td><td>${formatCurrency(overallExecuted)}</td><td>${overallPercentage}%</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-            
-            // Initialize payroll
-            initPayroll();
-        }
-
-        // Function to show coming soon message
-        function showComingSoon(tabName) {
-            const contentContainer = document.getElementById("contentContainer");
-            
-            const tabIcons = {
-                'sos': '⚠️',
-                'comparison': '📊',
-                'income': '💵',
-                'cost-analysis': '📉'
-            };
-            
-            const tabTitles = {
-                'sos': 'SOS Report',
-                'comparison': 'Comparison View',
-                'income': 'Income Report',
-                'cost-analysis': 'Cost Analysis'
-            };
-            
-            const icon = tabIcons[tabName] || '🚧';
-            const title = tabTitles[tabName] || 'Feature';
-            
-            contentContainer.innerHTML = `
-                <div class="coming-soon fade-in">
-                    <div class="coming-soon-icon">${icon}</div>
-                    <h3>${title}</h3>
-                    <p>
-                        This feature is currently under development.<br>
-                        We're working hard to bring you this functionality soon.
-                    </p>
-                </div>
-            `;
-        }
-
-        // Function to switch between tabs
-        function switchTab(tabName) {
-            currentTab = tabName;
-            
-            // Remove active class from all buttons
-            const buttons = document.querySelectorAll('.nav-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Add active class to clicked button
-            const activeBtn = document.querySelector(`.nav-btn[onclick*="${tabName}"]`);
-            if (activeBtn) {
-                activeBtn.classList.add('active');
+                `;
             }
-            
-            // Show the selected content
-            if (tabName === 'monthly') {
-                loadMonthlyTable();
-            } else if (tabName === 'payroll') {
-                loadPayrollTab();
-            } else {
-                showComingSoon(tabName);
-            }
-        }
 
-        // ==================== PAYROLL FUNCTIONS ====================
-        const sheetsData = [
-            { name: "ተስፋዉ", rows: generateTesfawuData() },
-            { name: "ዳበረ", rows: generateDabereData() },
-            { name: "ጥበበ", rows: generateTibebeData() },
-            { name: "ብሩክ", rows: generateBrukData() },
-            { name: "አያለዉ", rows: generateAyalewuData() },
-            { name: "ዘካርያስ", rows: generateZekariyasData() },
-            { name: "ሚካኤል", rows: generateMikaealData() }
-        ];
+            // ---------- PAYROLL GENERATORS ----------
+            function generateTesfawuData() { return basePayroll('ተስፋዉ', { '26': [3,1], '27': [3,1], '29': [6,1], '30': [3,1] }); }
+            function generateDabereData() { return basePayroll('ዳበረ', { '26': [11,1], '27': [11,1], '28': [11], '29': [11,1], '30': [11,1] }); }
+            function generateTibebeData() { return basePayroll('ጥበበ', { '26': [0,9.5], '27': [0,9], '28': [0,4], '29': [0,9], '30': [0,8.5] }); }
+            function generateBrukData() { return basePayroll('ብሩክ', { '26': [0,2,1], '27': [8,3,1], '29': [4,3,1], '30': [4,2,1] }); }
+            function generateAyalewuData() { return basePayroll('አያለዉ', { '26': [2,1], '27': [2,1], '29': [4,1], '30': [4,2] }); }
+            function generateZekariyasData() { return basePayroll('ዘካርያስ', { '26': [0,0,1], '27': [0,0,1], '29': [0,0,1], '30': [0,0,2] }); }
+            function generateMikaealData() { return basePayroll('ሚካኤል', { '26': [0,24], '27': [0,23], '29': [0,31], '30': [0,31] }); }
 
-        function generateTesfawuData() {
-            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
-            const data = [columns];
-            data.push(["26", "3", "", "1", "", "", ""]);
-            data.push(["27", "3", "", "1", "", "", ""]);
-            data.push(["28", "", "", "", "", "", ""]);
-            data.push(["29", "6", "", "1", "", "", ""]);
-            data.push(["30", "3", "", "1", "", "", ""]);
-            for (let i = 1; i <= 25; i++) {
-                let guard = "";
-                let timeKeeper = Math.random() > 0.2 ? "1" : "";
-                if (i % 7 === 0) {
-                    guard = Math.random() > 0.3 ? "6" : "3";
-                } else {
-                    guard = Math.random() > 0.2 ? "3" : "";
-                }
-                data.push([i.toString(), guard, "", timeKeeper, "", "", ""]);
-            }
-            return data;
-        }
-
-        function generateDabereData() {
-            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
-            const data = [columns];
-            data.push(["26", "11", "1", "", "", "", ""]);
-            data.push(["27", "11", "1", "", "", "", ""]);
-            data.push(["28", "11", "", "", "", "", ""]);
-            data.push(["29", "11", "1", "", "", "", ""]);
-            data.push(["30", "11", "1", "", "", "", ""]);
-            for (let i = 1; i <= 25; i++) {
-                let guard = "";
-                let dl = "";
-                if (i % 7 === 0) {
-                    guard = Math.random() > 0.3 ? "22" : "11";
-                } else {
-                    guard = Math.random() > 0.2 ? "11" : "";
-                }
-                if (guard && Math.random() > 0.4) {
-                    dl = Math.floor(Math.random() * 3 + 1).toString();
-                }
-                data.push([i.toString(), guard, dl, "", "", "", ""]);
-            }
-            return data;
-        }
-
-        function generateTibebeData() {
-            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
-            const data = [columns];
-            data.push(["26", "", "9.5", "", "", "", ""]);
-            data.push(["27", "", "9", "", "", "", ""]);
-            data.push(["28", "", "4", "", "", "", ""]);
-            data.push(["29", "", "9", "", "", "", ""]);
-            data.push(["30", "", "8.5", "", "", "", ""]);
-            for (let i = 1; i <= 25; i++) {
-                let dl = (Math.random() * 10 + 1).toFixed(1);
-                let carpenter = Math.random() > 0.8 ? "0.5" : "";
-                data.push([i.toString(), "", dl, "", carpenter, "", ""]);
-            }
-            return data;
-        }
-
-        function generateBrukData() {
-            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
-            const data = [columns];
-            data.push(["26", "", "2", "", "1", "", ""]);
-            data.push(["27", "8", "3", "", "1", "", ""]);
-            data.push(["28", "", "", "", "", "", ""]);
-            data.push(["29", "4", "3", "", "1", "", ""]);
-            data.push(["30", "4", "2", "", "1", "", ""]);
-            for (let i = 1; i <= 25; i++) {
-                let carpenter = Math.random() > 0.6 ? "1" : "";
-                let guard = "";
-                let dl = "";
-                if (carpenter) {
-                    guard = Math.random() > 0.5 ? (Math.random() > 0.5 ? "8" : "4") : "";
-                    dl = Math.random() > 0.4 ? Math.floor(Math.random() * 4 + 1).toString() : "";
-                }
-                data.push([i.toString(), guard, dl, "", carpenter, "", ""]);
-            }
-            return data;
-        }
-
-        function generateAyalewuData() {
-            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
-            const data = [columns];
-            data.push(["26", "2", "", "1", "", "", ""]);
-            data.push(["27", "2", "", "1", "", "", ""]);
-            data.push(["28", "", "", "", "", "", ""]);
-            data.push(["29", "4", "", "1", "", "", ""]);
-            data.push(["30", "4", "", "2", "", "", ""]);
-            for (let i = 1; i <= 25; i++) {
-                let timeKeeper = Math.random() > 0.3 ? "1" : "";
-                let guard = "";
-                if (timeKeeper) {
-                    guard = Math.random() > 0.5 ? 
-                        (Math.random() > 0.7 ? "10" : 
-                         Math.random() > 0.5 ? "5" : "2") : "";
-                }
-                data.push([i.toString(), guard, "", timeKeeper, "", "", ""]);
-            }
-            return data;
-        }
-
-        function generateZekariyasData() {
-            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
-            const data = [columns];
-            data.push(["26", "", "", "1", "", "", ""]);
-            data.push(["27", "", "", "1", "", "", ""]);
-            data.push(["28", "", "", "", "", "", ""]);
-            data.push(["29", "", "", "1", "", "", ""]);
-            data.push(["30", "", "", "2", "", "", ""]);
-            for (let i = 1; i <= 25; i++) {
-                let timeKeeper = Math.random() > 0.4 ? "1" : "";
-                let dl = "";
-                if (timeKeeper && Math.random() > 0.5) {
-                    dl = (Math.random() * 10 + 1).toFixed(1);
-                }
-                data.push([i.toString(), "", dl, timeKeeper, "", "", ""]);
-            }
-            return data;
-        }
-
-        function generateMikaealData() {
-            const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
-            const data = [columns];
-            data.push(["26", "", "24", "", "", "", ""]);
-            data.push(["27", "", "23", "", "", "", ""]);
-            data.push(["28", "", "", "", "", "", ""]);
-            data.push(["29", "", "31", "", "", "", ""]);
-            data.push(["30", "", "31", "", "", "", ""]);
-            for (let i = 1; i <= 25; i++) {
-                let dl = (Math.random() * 30 + 15).toFixed(1);
-                data.push([i.toString(), "", dl, "", "", "", ""]);
-            }
-            return data;
-        }
-
-        function initPayroll() {
-            const tabsContainer = document.getElementById('payrollTabsContainer');
-            const sheetContent = document.getElementById('payrollSheetContent');
-
-            // Clear any existing tabs
-            tabsContainer.innerHTML = '';
-
-            // Create only 7 tabs
-            sheetsData.forEach((sheet, index) => {
-                const button = document.createElement('button');
-                button.className = 'payroll-tab';
-                button.textContent = sheet.name;
-                button.addEventListener('click', () => showPayrollSheet(index));
-                tabsContainer.appendChild(button);
-            });
-
-            // Show first sheet
-            if (sheetsData.length > 0) {
-                showPayrollSheet(0);
-                document.querySelector('.payroll-tab').classList.add('active');
-            }
-        }
-
-        function calculatePayrollColumnSums(rows) {
-            if (rows.length < 2) return [];
-            const sums = new Array(rows[0].length).fill(0);
-            const hasNumericData = new Array(rows[0].length).fill(false);
-            for (let i = 1; i < rows.length; i++) {
-                const row = rows[i];
-                for (let j = 0; j < row.length; j++) {
-                    const cell = row[j];
-                    const num = parseFloat(cell);
-                    if (!isNaN(num) && cell !== '' && cell !== ' ') {
-                        sums[j] += num;
-                        hasNumericData[j] = true;
-                    }
-                }
-            }
-            return sums.map((sum, index) => ({
-                sum: sum,
-                hasData: hasNumericData[index],
-                columnName: rows[0][index] || `አምድ ${index}`
-            }));
-        }
-
-        function showPayrollSheet(index) {
-            const sheet = sheetsData[index];
-            const sheetContent = document.getElementById('payrollSheetContent');
-            const columnSums = calculatePayrollColumnSums(sheet.rows);
-
-            sheetContent.innerHTML = '';
-
-            const table = document.createElement('table');
-            table.className = 'payroll-table';
-            
-            // Header
-            const thead = document.createElement('thead');
-            const headerRow = document.createElement('tr');
-            sheet.rows[0].forEach(cell => {
-                const th = document.createElement('th');
-                th.textContent = cell;
-                headerRow.appendChild(th);
-            });
-            thead.appendChild(headerRow);
-            table.appendChild(thead);
-            
-            // Body
-            const tbody = document.createElement('tbody');
-            for (let i = 1; i < sheet.rows.length; i++) {
-                const row = document.createElement('tr');
-                
-                sheet.rows[i].forEach((cell, cellIndex) => {
-                    const td = document.createElement('td');
-                    if (cell === '') {
-                        td.textContent = '-';
-                        td.style.color = '#bbb';
+            function basePayroll(name, specials) {
+                const columns = ["ቀን", "Guard", "Dl", "Time Keeper", "Carpenter", "Mason", "Barbender"];
+                const rows = [columns];
+                for (let d = 1; d <= 30; d++) {
+                    let dayStr = d.toString();
+                    let guard = "", dl = "", timeKeeper = "", carpenter = "", mason = "", barbender = "";
+                    if (specials[dayStr]) {
+                        let arr = specials[dayStr];
+                        guard = arr[0] !== undefined && arr[0] !== 0 ? arr[0].toString() : "";
+                        dl = arr[1] !== undefined && arr[1] !== 0 ? arr[1].toString() : "";
+                        timeKeeper = arr[2] !== undefined && arr[2] !== 0 ? arr[2].toString() : "";
+                        carpenter = arr[3] !== undefined ? arr[3].toString() : "";
                     } else {
-                        td.textContent = cell;
-                        if (cellIndex === 0) {
-                            td.style.fontWeight = '600';
-                            td.style.color = '#3498db';
-                        } else if (!isNaN(parseFloat(cell))) {
-                            td.style.fontWeight = '600';
+                        if (d % 5 === 0) guard = "4";
+                        else if (d % 7 === 0) guard = "6";
+                        if (d > 15 && d < 22) dl = (Math.random() * 3 + 2).toFixed(1);
+                        if (d === 12 || d === 20) timeKeeper = "1";
+                    }
+                    rows.push([dayStr, guard, dl, timeKeeper, carpenter, mason, barbender]);
+                }
+                return rows;
+            }
+
+            const sheetsData = [
+                { name: "ተስፋዉ", rows: generateTesfawuData() },
+                { name: "ዳበረ", rows: generateDabereData() },
+                { name: "ጥበበ", rows: generateTibebeData() },
+                { name: "ብሩክ", rows: generateBrukData() },
+                { name: "አያለዉ", rows: generateAyalewuData() },
+                { name: "ዘካርያስ", rows: generateZekariyasData() },
+                { name: "ሚካኤል", rows: generateMikaealData() }
+            ];
+
+            function calculateColumnSums(rows) {
+                if (rows.length < 2) return [];
+                const sums = new Array(rows[0].length).fill(0);
+                const hasData = new Array(rows[0].length).fill(false);
+                for (let i = 1; i < rows.length; i++) {
+                    for (let j = 0; j < rows[i].length; j++) {
+                        let num = parseFloat(rows[i][j]);
+                        if (!isNaN(num) && rows[i][j] !== '') {
+                            sums[j] += num;
+                            hasData[j] = true;
                         }
                     }
-                    row.appendChild(td);
-                });
-                tbody.appendChild(row);
-            }
-            
-            // Total row
-            const totalRow = document.createElement('tr');
-            totalRow.className = 'payroll-total-row';
-            columnSums.forEach((col, colIndex) => {
-                const td = document.createElement('td');
-                if (colIndex === 0) {
-                    td.textContent = 'ጠቅላላ';
-                } else if (col.hasData) {
-                    td.textContent = col.sum.toFixed(2);
-                } else {
-                    td.textContent = '-';
                 }
-                totalRow.appendChild(td);
-            });
-            tbody.appendChild(totalRow);
-            
-            table.appendChild(tbody);
-            sheetContent.appendChild(table);
+                return { sums, hasData };
+            }
 
-            // Update active tab
-            document.querySelectorAll('.payroll-tab').forEach((btn, i) => {
-                btn.classList.toggle('active', i === index);
-            });
-        }
+            function showPayrollSheet(index) {
+                const sheet = sheetsData[index];
+                const container = document.getElementById('payrollSheetContent');
+                if (!container) return;
+                const { sums, hasData } = calculateColumnSums(sheet.rows);
 
-        // ==================== INITIALIZATION ====================
-        // Initialize the application when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load monthly table by default
-            loadMonthlyTable();
-            
-            // Add keyboard shortcut for cost view toggle (Ctrl+C)
-            document.addEventListener('keydown', function(event) {
-                // Ctrl+C to toggle cost column
-                if (event.ctrlKey && event.key === 'c') {
-                    event.preventDefault();
+                let html = '<table class="payroll-table"><thead><tr>';
+                sheet.rows[0].forEach(h => html += `<th>${h}</th>`);
+                html += '</tr></thead><tbody>';
+
+                for (let i = 1; i < sheet.rows.length; i++) {
+                    html += '<tr>';
+                    sheet.rows[i].forEach((cell, idx) => {
+                        let content = (cell === '' || cell === null) ? '-' : cell;
+                        html += `<td style="${idx === 0 ? 'font-weight:600;background:#f2f7ff;' : ''}">${content}</td>`;
+                    });
+                    html += '</tr>';
+                }
+                html += '<tr class="payroll-total-row">';
+                sheet.rows[0].forEach((_, colIdx) => {
+                    if (colIdx === 0) html += '<td>ጠቅላላ</td>';
+                    else {
+                        if (hasData[colIdx]) html += `<td>${sums[colIdx].toFixed(2)}</td>`;
+                        else html += '<td>-</td>';
+                    }
+                });
+                html += '</tr></tbody></table>';
+                container.innerHTML = html;
+
+                document.querySelectorAll('.payroll-tab').forEach((btn, i) => {
+                    btn.classList.toggle('active', i === index);
+                });
+            }
+
+            function initPayroll() {
+                const container = document.getElementById('contentContainer');
+                container.innerHTML = `
+                    <div class="payroll-container fade-in">
+                        <div class="payroll-header"><h3>👷 የሰራተኞች መዝገብ</h3><p>30 ቀናት የሥራ ማስኬጃ መዝገብ</p></div>
+                        <div class="payroll-tabs" id="payrollTabsContainer"></div>
+                        <div class="payroll-content" id="payrollSheetContent"><div style="padding: 30px; text-align:center;">መረጃ በመጫን ላይ...</div></div>
+                    </div>
+                `;
+                const tabsDiv = document.getElementById('payrollTabsContainer');
+                sheetsData.forEach((s, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'payroll-tab';
+                    btn.textContent = s.name;
+                    btn.onclick = () => showPayrollSheet(idx);
+                    tabsDiv.appendChild(btn);
+                });
+                if (sheetsData.length) showPayrollSheet(0);
+            }
+
+            function showComingSoon(tab) {
+                const icons = { Chart:'💵', 'cost-analysis':'📉' };
+                const titles = { Chart:'Chart View', 'cost-analysis':'Cost Analysis' };
+                document.getElementById('contentContainer').innerHTML = `
+                    <div class="coming-soon fade-in">
+                        <div class="coming-soon-icon">${icons[tab] || '🚧'}</div>
+                        <h3>${titles[tab] || 'Feature'}</h3>
+                        <p>We're building something great.<br>Check back soon.</p>
+                    </div>
+                `;
+            }
+
+            // ---------- tab switching ----------
+            function switchTab(tab) {
+                currentTab = tab;
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                const activeBtn = document.querySelector(`.nav-btn[data-tab="${tab}"]`);
+                if (activeBtn) activeBtn.classList.add('active');
+
+                if (tab === 'monthly') loadMonthlyTable();
+                else if (tab === 'sos') loadSosTab();
+                else if (tab === 'comparison') loadComparisonTab();
+                else if (tab === 'payroll') initPayroll();
+                else showComingSoon(tab);
+            }
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const tab = e.currentTarget.getAttribute('data-tab');
+                    switchTab(tab);
+                });
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'c') {
+                    e.preventDefault();
                     toggleCostView();
                 }
             });
-        });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                loadMonthlyTable();
+            });
+        })();
     </script>
 </body>
 </html>
