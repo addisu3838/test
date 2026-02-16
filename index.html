@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
-    <title>Project Manager • በተኖች አብረው እንደይንቃሳቃሱ</title>
+    <title>Project</title>
     <style>
         /* === RESET & VARIABLES === */
         * {
@@ -112,7 +112,7 @@
         }
 
         .nav-btn.active {
-            background: #6ef539;
+            background: #0077ff;
             border-color: rgb(17, 1, 1);
             color: rgb(3, 0, 0);
             box-shadow: 0 2px 12px #eef1f380;
@@ -167,7 +167,7 @@
         .item-no {
             font-weight: 700;
             color: var(--primary-light);
-            font-size: 12px;
+            font-size: 11px;
             background: #f0f4fa;
             display: inline-block;
             padding: 3px 8px;
@@ -176,14 +176,16 @@
         }
 
         .work-description {
-            font-size: 12px;
+            font-size: 13px;
             line-height: 1.45;
             color: #1e2b37;
-            max-width: 190px;
+            max-width: 400px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            min-height: auto;
+            
             
         }
 
@@ -379,11 +381,11 @@
                 <button class="nav-btn active" data-tab="monthly">
                     <span>📅</span> Income
                 </button>
-                <button class="nav-btn" data-tab="sos">
-                    <span>⚠️</span> SOS
                 </button>
                 <button class="nav-btn" data-tab="comparison">
-                    <span>📊</span> Comparison
+                    <span>📊</span> Cost
+                <button class="nav-btn" data-tab="sos">
+                    <span>⚠️</span> SOS
                 </button>
             </div>
         </div>
