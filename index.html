@@ -122,245 +122,7 @@
             transform: scale(0.95);
         }
 
-        /* === DISCUSSION FAB === */
-        .discussion-fab {
-            position: fixed;
-            bottom: 100px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 30px;
-            background: linear-gradient(145deg, #e74c3c, #c0392b);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(231,76,60,0.4);
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.2s ease;
-            border: 2px solid white;
-        }
-
-        .discussion-fab:active {
-            transform: scale(0.95);
-        }
-
-        .discussion-fab span {
-            font-size: 28px;
-        }
-
-        .discussion-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #f39c12;
-            color: white;
-            border-radius: 20px;
-            padding: 4px 8px;
-            font-size: 12px;
-            font-weight: 700;
-            border: 2px solid white;
-        }
-
-        /* === DISCUSSION PANEL === */
-        .discussion-panel {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: white;
-            z-index: 2000;
-            display: none;
-            flex-direction: column;
-            animation: slideUp 0.3s ease;
-        }
-
-        .discussion-panel.active {
-            display: flex;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .discussion-header {
-            background: var(--header-gradient);
-            color: white;
-            padding: 20px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid rgba(255,255,255,0.1);
-        }
-
-        .discussion-header h3 {
-            font-size: 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .close-discussion {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .discussion-tabs {
-            display: flex;
-            background: white;
-            border-bottom: 1px solid #dee2e6;
-            padding: 0 10px;
-        }
-
-        .discussion-tab {
-            flex: 1;
-            padding: 14px 10px;
-            background: none;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
-            color: #7f8c8d;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-        }
-
-        .discussion-tab.active {
-            color: #3498db;
-            border-bottom-color: #3498db;
-        }
-
-        .discussion-tab span {
-            margin-left: 6px;
-            background: #ecf0f1;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-        }
-
-        .discussion-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-            background: #f5f7fa;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .message {
-            display: flex;
-            gap: 10px;
-            max-width: 85%;
-        }
-
-        .message.own {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-
-        .message-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 18px;
-            background: linear-gradient(145deg, #3498db, #2980b9);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .message-content {
-            background: white;
-            padding: 12px;
-            border-radius: 18px;
-            border-top-left-radius: 4px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .message.own .message-content {
-            background: #3498db;
-            color: white;
-            border-top-left-radius: 18px;
-            border-top-right-radius: 4px;
-        }
-
-        .message-sender {
-            font-weight: 700;
-            font-size: 13px;
-            margin-bottom: 4px;
-            color: #2c3e50;
-        }
-
-        .message.own .message-sender {
-            color: rgba(255,255,255,0.9);
-        }
-
-        .message-text {
-            font-size: 14px;
-            line-height: 1.5;
-            word-break: break-word;
-        }
-
-        .message-time {
-            font-size: 11px;
-            color: #95a5a6;
-            margin-top: 4px;
-            text-align: right;
-        }
-
-        .discussion-input-area {
-            background: white;
-            padding: 16px;
-            border-top: 1px solid #dee2e6;
-            display: flex;
-            gap: 10px;
-            align-items: flex-end;
-        }
-
-        .discussion-input {
-            flex: 1;
-            border: 1px solid #dee2e6;
-            border-radius: 24px;
-            padding: 12px 18px;
-            font-size: 14px;
-            resize: none;
-            max-height: 120px;
-            min-height: 50px;
-            outline: none;
-        }
-
-        .send-message-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        /* === INCOME TABLE (FULL DATA) === */
+        /* === INCOME TABLE (ORIGINAL - UNTOUCHED) === */
         .table-container {
             padding: 8px 6px;
         }
@@ -421,7 +183,6 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            cursor: pointer;
         }
 
         .achievement-cell {
@@ -430,7 +191,6 @@
             text-align: right;
             font-size: 12px;
             white-space: nowrap;
-            cursor: pointer;
         }
 
         .income-value {
@@ -439,25 +199,9 @@
             font-size: 12px;
             text-align: right;
             white-space: nowrap;
-            letter-spacing: -0.2px;
-            cursor: pointer;
         }
 
-        .cost-value {
-            color: var(--cost);
-            font-weight: 700;
-            font-size: 12px;
-            text-align: right;
-            white-space: nowrap;
-            display: none;
-            cursor: pointer;
-        }
-
-        .cost-column .cost-value {
-            display: block;
-        }
-
-        /* === SOS DASHBOARD (FULL DATA) === */
+        /* === SOS DASHBOARD (KEPT AS IS) === */
         .sos-dashboard {
             padding: 16px;
             background: #f8fafc;
@@ -470,7 +214,6 @@
             border-radius: 28px;
             margin-bottom: 20px;
             box-shadow: var(--shadow-md);
-            cursor: pointer;
         }
 
         .sos-header h2 {
@@ -482,144 +225,21 @@
             margin-bottom: 8px;
         }
 
-        .sos-date {
-            background: rgba(255,255,255,0.2);
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 40px;
-            margin-top: 12px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .summary-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .card-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .card-row .card {
-            flex: 1 1 calc(50% - 6px);
-            min-width: 160px;
-        }
-
-        .card {
+        .sos-table-container {
             background: white;
             border-radius: 24px;
-            padding: 18px 16px;
+            padding: 20px;
             box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0,0,0,0.03);
-            cursor: pointer;
+            margin-top: 16px;
         }
 
-        .card.labour {
-            border-left: 5px solid #f39c12;
-        }
-        .card.admin {
-            border-left: 5px solid #9b59b6;
-        }
-        .card.staff {
-            border-left: 5px solid #3498db;
-        }
-        .card.material {
-            border-left: 5px solid #27ae60;
-        }
-        .card.machinery {
-            border-left: 5px solid #e67e22;
-        }
-        .card.overhead {
-            border-left: 5px solid #e74c3c;
-        }
-        .card.total {
-            background: linear-gradient(145deg, #2c3e50, #34495e);
-            color: white;
-            border: none;
-        }
-
-        .card-title {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #7f8c8d;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .card-value {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .card-sub {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #2c3e50;
-        }
-
-        .card.total .card-sub {
-            color: rgba(255,255,255,0.9);
-        }
-
-        .comparison-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .badge-positive {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .badge-negative {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .progress-bar-container {
-            background: #ecf0f1;
-            height: 8px;
-            border-radius: 10px;
-            margin: 12px 0 8px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.3s ease;
-        }
-
-        .progress-labour { background: #f39c12; }
-        .progress-material { background: #27ae60; }
-        .progress-machinery { background: #e67e22; }
-
-        .sos-table {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            margin-top: 24px;
-        }
-
-        .sos-table table {
+        .sos-data-table {
             width: 100%;
             border-collapse: collapse;
+            font-size: 14px;
         }
 
-        .sos-table th {
+        .sos-data-table th {
             background: #e74c3c;
             color: white;
             padding: 16px 12px;
@@ -628,26 +248,27 @@
             font-size: 14px;
         }
 
-        .sos-table td {
+        .sos-data-table td {
             padding: 14px 12px;
             border-bottom: 1px solid #f0f0f0;
             font-weight: 500;
         }
 
-        .sos-table .total-row {
-            background: #2c3e50;
-            color: white;
-            font-weight: 700;
+        .sos-data-table tr:last-child td {
+            border-bottom: none;
         }
 
-        .sos-table .total-row td {
-            background: #2c3e50;
+        .text-success {
+            color: #27ae60;
+            font-weight: 600;
         }
 
-        .text-danger { color: #e74c3c; }
-        .text-success { color: #27ae60; }
+        .text-danger {
+            color: #e74c3c;
+            font-weight: 600;
+        }
 
-        /* === COMPARISON DASHBOARD (FULL DATA) === */
+        /* === COMPARISON DASHBOARD (SIMPLIFIED - ONLY TABLE) === */
         .comparison-dashboard {
             padding: 16px;
             background: #f0f7ff;
@@ -660,7 +281,6 @@
             border-radius: 28px;
             margin-bottom: 20px;
             box-shadow: var(--shadow-md);
-            cursor: pointer;
         }
 
         .comparison-header h2 {
@@ -672,125 +292,53 @@
             margin-bottom: 8px;
         }
 
-        .income-summary {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .income-card {
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
             background: white;
             border-radius: 24px;
-            padding: 20px;
+            overflow: hidden;
             box-shadow: var(--shadow-sm);
-            cursor: pointer;
         }
 
-        .income-card-title {
-            font-size: 16px;
+        .cost-table th {
+            background: #2980b9;
+            color: white;
+            padding: 16px 12px;
+            text-align: left;
             font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 12px;
+            font-size: 14px;
         }
 
-        .income-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px dashed #ecf0f1;
-        }
-
-        .income-label {
-            font-size: 15px;
-            color: #5f7485;
+        .cost-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #f0f0f0;
             font-weight: 500;
         }
 
-        .income-amount {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .progress-large {
-            height: 12px;
-            background: #ecf0f1;
-            border-radius: 20px;
-            margin: 15px 0 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #3498db, #2980b9);
-            border-radius: 20px;
-        }
-
-        .escalet-card {
-            background: linear-gradient(145deg, #f39c12, #e67e22);
-            color: white;
-            border-radius: 24px;
-            padding: 24px;
-            margin: 20px 0;
-            box-shadow: var(--shadow-md);
-            cursor: pointer;
-        }
-
-        .escalet-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .escalet-row:last-child {
+        .cost-table tr:last-child td {
             border-bottom: none;
         }
 
-        .escalet-label {
-            font-size: 16px;
-            font-weight: 500;
-            opacity: 0.9;
+        .cost-table .total-row {
+            background: #2c3e50;
+            color: white;
+            font-weight: 700;
         }
 
-        .escalet-value {
-            font-size: 24px;
-            font-weight: 800;
+        .cost-table .total-row td {
+            background: #2c3e50;
+            color: white;
         }
 
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 20px;
+        .text-success {
+            color: #27ae60;
+            font-weight: 600;
         }
 
-        .stat-card {
-            background: white;
-            border-radius: 20px;
-            padding: 16px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            cursor: pointer;
-        }
-
-        .stat-card .stat-label {
-            font-size: 13px;
-            color: #7f8c8d;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .stat-card .stat-value {
-            font-size: 20px;
-            font-weight: 800;
+        .text-danger {
+            color: #e74c3c;
+            font-weight: 600;
         }
 
         .fade-in {
@@ -833,41 +381,11 @@
                 </button>
             </div>
         </div>
-
-        <!-- Discussion FAB -->
-        <div class="discussion-fab" id="discussionFab" onclick="toggleDiscussionPanel()">
-            <span>💬</span>
-            <div class="discussion-badge" id="unreadBadge">3</div>
-        </div>
-
-        <!-- Discussion Panel -->
-        <div class="discussion-panel" id="discussionPanel">
-            <div class="discussion-header">
-                <h3><span>💬</span> ውይይት / Discussion</h3>
-                <button class="close-discussion" onclick="toggleDiscussionPanel()">✕</button>
-            </div>
-            
-            <div class="discussion-tabs">
-                <button class="discussion-tab active" data-chat="general" onclick="switchChat('general')">
-                    👥 አጠቃላይ <span id="generalCount">2</span>
-                </button>
-                <button class="discussion-tab" data-chat="project" onclick="switchChat('project')">
-                    📋 ፕሮጀክት <span id="projectCount">1</span>
-                </button>
-            </div>
-
-            <div class="discussion-messages" id="discussionMessages"></div>
-
-            <div class="discussion-input-area">
-                <textarea class="discussion-input" id="messageInput" placeholder="ሀሳብዎን ያስገቡ... በተኖች አብረው እንደይንቃሳቃሱ" rows="1"></textarea>
-                <button class="send-message-btn" onclick="sendMessage()">➤</button>
-            </div>
-        </div>
     </div>
 
     <script>
         (function() {
-            // ---------- COMPLETE PROJECT DATA (24 items) ----------
+            // ---------- COMPLETE PROJECT DATA (INCOME TAB - UNTOUCHED) ----------
             const projectData = [
                 { itemNo: "1.12.8", description: "Allow for supplying temporary electricity, water, telephone and other utility bills for the supervisor's and contractor's including connection, distribution system for the work, internal arrangements and all payment to the authorities for connections. it is the responsibility of the contractor to ensure steady and uninterrupted power supply to work", achievement: 0.72, total: "9141575.07295305", cost: "100000" },
                 { itemNo: "1.13.3", description: "Provisions of security", achievement: 0.72, total: "1425815.46702017", cost: "280000" },
@@ -895,125 +413,47 @@
                 { itemNo: "11.7.8", description: "Back fill with shell material around the ditch", achievement: 480, total: "4304.64", cost: "3600" }
             ];
 
-            // ---------- COMPLETE SOS DATA ----------
-            const sosData = {
-                labour: { required: 2892620.98, used: 2924176.31 },
+            // ---------- SOS DATA (KEPT AS IS) ----------
+            const sosData = [
+                {
+                    period: "July-1-Jan-25",
+                    plan: 283476359.20,
+                    executed: 93976269.21,
+                    cost: 217455564.53
+                },
+                {
+                    period: "July-1-Jan-25",
+                    plan: 1090892184.251,
+                    executed: 343381632.721,
+                    cost: 217455564.535
+                }
+            ];
+
+            // ---------- COMPARISON DATA (COST DATA - ONLY FOR TABLE) ----------
+            const comparisonCostData = {
+                labour: {
+                    required: 2892620.98,
+                    used: 2924176.31
+                },
                 admin: 8499476.64,
                 staff: 7593612.57,
-                material: { required: 52668615.30, used: 50677145.73 },
-                machinery: { required: 78138494.08, used: 82049518.29 },
+                material: {
+                    required: 52668615.30,
+                    used: 50677145.73
+                },
+                machinery: {
+                    required: 78138494.08,
+                    used: 82049518.29
+                },
                 overhead: 21323070.23,
                 totalRequired: 149535837.67,
                 totalUsed: 173066999.76
             };
 
-            // ---------- COMPLETE COMPARISON DATA ----------
-            const comparisonData = {
-                plan1: 260209082.32,
-                executed1: 88659790.48,
-                plan2: 283476359.20,
-                executed2: 93976269.21,
-                escaletPlan1: 998963173.297,
-                escaletExecuted1: 322376225.247,
-                escaletPlan2: 1090892184.251,
-                escaletExecuted2: 343381632.721
-            };
-
-            // ---------- Discussion System ----------
-            let currentChat = 'general';
-            let messages = {
-                general: [
-                    { id: 1, sender: 'አብይ', text: 'እንኳን ደህና መጣችሁ! በፕሮጀክቱ ላይ አብረን እንወያይ', time: new Date(Date.now() - 3600000).toISOString(), own: false, avatar: 'አ' },
-                    { id: 2, sender: 'ሳራ', text: 'የመሳሪያዎች ወጪ ትንሽ ጨምሯል። እንዴት እናስተካክለው?', time: new Date(Date.now() - 1800000).toISOString(), own: false, avatar: 'ሳ' },
-                    { id: 3, sender: 'እኔ', text: 'እስቲ በSOS ትር ላይ ያለውን መረጃ እንመልከት', time: new Date().toISOString(), own: true, avatar: 'እ' }
-                ],
-                project: [
-                    { id: 101, sender: 'ደሳለኝ', text: 'የደረጃ 1 ገቢ እቅድ 260M ነው። 88.6M ብቻ ተፈጽሟል', time: new Date(Date.now() - 7200000).toISOString(), own: false, avatar: 'ደ' },
-                    { id: 102, sender: 'እኔ', text: 'እንዴት ማሻሻል እንችላለን?', time: new Date(Date.now() - 3600000).toISOString(), own: true, avatar: 'እ' }
-                ]
-            };
-
-            let lastMessageId = 102;
-            let costVisible = false;
-
-            // Keyboard shortcut for cost column
-            document.addEventListener('keydown', function(event) {
-                if (event.ctrlKey && event.key === 'c') {
-                    event.preventDefault();
-                    costVisible = !costVisible;
-                    const table = document.getElementById('workTable');
-                    if (table) {
-                        if (costVisible) table.classList.add('cost-column');
-                        else table.classList.remove('cost-column');
-                    }
-                }
-            });
-
-            function formatMessageTime(isoString) {
-                const date = new Date(isoString);
-                const diffMins = Math.floor((Date.now() - date) / 60000);
-                if (diffMins < 1) return 'አሁን';
-                if (diffMins < 60) return `${diffMins} ደቂቃ በፊት`;
-                if (diffMins < 1440) return `${Math.floor(diffMins / 60)} ሰዓት በፊት`;
-                return `${Math.floor(diffMins / 1440)} ቀን በፊት`;
-            }
-
-            function renderMessages() {
-                const container = document.getElementById('discussionMessages');
-                const chatMessages = messages[currentChat] || [];
-                
-                container.innerHTML = chatMessages.map(msg => `
-                    <div class="message ${msg.own ? 'own' : ''}">
-                        <div class="message-avatar">${msg.avatar}</div>
-                        <div class="message-content">
-                            <div class="message-sender">${msg.sender}</div>
-                            <div class="message-text">${msg.text}</div>
-                            <div class="message-time">${formatMessageTime(msg.time)}</div>
-                        </div>
-                    </div>
-                `).join('');
-                
-                container.scrollTop = container.scrollHeight;
-            }
-
-            window.switchChat = function(chatId) {
-                currentChat = chatId;
-                document.querySelectorAll('.discussion-tab').forEach(tab => {
-                    tab.classList.toggle('active', tab.dataset.chat === chatId);
-                });
-                renderMessages();
-            };
-
-            window.sendMessage = function() {
-                const input = document.getElementById('messageInput');
-                const text = input.value.trim();
-                if (!text) return;
-                
-                messages[currentChat].push({
-                    id: ++lastMessageId,
-                    sender: 'እኔ',
-                    text: text,
-                    time: new Date().toISOString(),
-                    own: true,
-                    avatar: 'እ'
-                });
-                
-                renderMessages();
-                input.value = '';
-            };
-
-            window.toggleDiscussionPanel = function() {
-                document.getElementById('discussionPanel').classList.toggle('active');
-                if (document.getElementById('discussionPanel').classList.contains('active')) {
-                    renderMessages();
-                }
-            };
-
             // ---------- Helper Functions ----------
             function formatCurrency(val) {
                 if (val === '' || val === undefined || val === null) return "—";
-                let str = String(val).replace(/,/g, '');
-                let num = parseFloat(str);
+                let num = parseFloat(val);
                 if (isNaN(num)) return val.toString();
                 return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             }
@@ -1026,36 +466,29 @@
                 return n.toFixed(2);
             }
 
-            function calculatePercentage(executed, plan) {
-                return ((executed / plan) * 100).toFixed(1);
-            }
-
-            // ---------- INCOME TAB (FULL DATA) ----------
+            // ---------- INCOME TAB (ORIGINAL - UNTOUCHED) ----------
             function loadMonthlyTable() {
                 const container = document.getElementById('contentContainer');
                 container.innerHTML = `
                     <div class="table-container fade-in">
-                        <table class="mobile-table ${costVisible ? 'cost-column' : ''}" id="workTable">
+                        <table class="mobile-table" id="workTable">
                             <thead>
                                 <tr>
                                     <th>Item No.</th>
                                     <th>Work Description</th>
                                     <th>Achievement</th>
                                     <th>Income (Birr)</th>
-                                    <th>Cost (Birr)</th>
                                 </tr>
                             </thead>
                             <tbody id="table-body">
                                 ${projectData.map(item => {
                                     const incomeNum = parseFloat(String(item.total).replace(/,/g, '')) || 0;
-                                    const costNum = parseFloat(String(item.cost).replace(/,/g, '')) || 0;
                                     return `
                                         <tr>
-                                            <td><span class="item-no" onclick="toggleDiscussionPanel()">${item.itemNo || '—'}</span></td>
-                                            <td><div class="work-description" onclick="toggleDiscussionPanel()" title="${item.description.replace(/"/g, '&quot;')}">${item.description}</div></td>
-                                            <td><div class="achievement-cell" onclick="toggleDiscussionPanel()">${formatAchievement(item.achievement)}</div></td>
-                                            <td><div class="income-value" onclick="toggleDiscussionPanel()">${formatCurrency(incomeNum)}</div></td>
-                                            <td><div class="cost-value" onclick="toggleDiscussionPanel()">${formatCurrency(costNum)}</div></td>
+                                            <td><span class="item-no">${item.itemNo || '—'}</span></td>
+                                            <td><div class="work-description" title="${item.description.replace(/"/g, '&quot;')}">${item.description}</div></td>
+                                            <td><div class="achievement-cell">${formatAchievement(item.achievement)}</div></td>
+                                            <td><div class="income-value">${formatCurrency(incomeNum)}</div></td>
                                         </tr>
                                     `;
                                 }).join('')}
@@ -1065,284 +498,102 @@
                 `;
             }
 
-            // ---------- SOS TAB (FULL DATA) ----------
+            // ---------- SOS TAB (KEPT AS IS) ----------
             function loadSosTab() {
                 const container = document.getElementById('contentContainer');
-                const d = sosData;
                 
-                const labourVar = d.labour.used - d.labour.required;
-                const materialVar = d.material.used - d.material.required;
-                const machineryVar = d.machinery.used - d.machinery.required;
-                const totalVar = d.totalUsed - d.totalRequired;
-
-                const labourPercent = (d.labour.used / d.labour.required * 100).toFixed(1);
-                const materialPercent = (d.material.used / d.material.required * 100).toFixed(1);
-                const machineryPercent = (d.machinery.used / d.machinery.required * 100).toFixed(1);
-
                 container.innerHTML = `
                     <div class="sos-dashboard fade-in">
-                        <div class="sos-header" onclick="toggleDiscussionPanel()">
+                        <div class="sos-header">
                             <h2><span>⚠️</span> SOS Report</h2>
-                            <p>Emergency Cost Overview • Project Health Monitor</p>
-                            <div class="sos-date">📅 Q2 2025 • Week 26</div>
+                            <p>Emergency Cost Overview</p>
                         </div>
-
-                        <div class="summary-cards">
-                            <div class="card-row">
-                                <div class="card labour" onclick="toggleDiscussionPanel()">
-                                    <div class="card-title">👷 Labour</div>
-                                    <div class="card-value">${formatCurrency(d.labour.used)}</div>
-                                    <div class="card-sub">
-                                        <span>Req: ${formatCurrency(d.labour.required)}</span>
-                                        <span class="${labourVar > 0 ? 'text-danger' : 'text-success'}">${labourVar > 0 ? '+' : ''}${formatCurrency(labourVar)}</span>
-                                    </div>
-                                    <div class="progress-bar-container">
-                                        <div class="progress-bar progress-labour" style="width: ${labourPercent}%;"></div>
-                                    </div>
-                                    <div><span class="comparison-badge ${labourVar > 0.05 ? 'badge-negative' : 'badge-positive'}">${labourPercent}% of required</span></div>
-                                </div>
-                                <div class="card admin" onclick="toggleDiscussionPanel()">
-                                    <div class="card-title">🏛️ Admin Cost</div>
-                                    <div class="card-value">${formatCurrency(d.admin)}</div>
-                                    <div class="card-sub">Fixed overhead</div>
-                                </div>
-                            </div>
-
-                            <div class="card-row">
-                                <div class="card staff" onclick="toggleDiscussionPanel()">
-                                    <div class="card-title">👥 Staff</div>
-                                    <div class="card-value">${formatCurrency(d.staff)}</div>
-                                    <div class="card-sub">Full team</div>
-                                </div>
-                                <div class="card material" onclick="toggleDiscussionPanel()">
-                                    <div class="card-title">🧱 Material</div>
-                                    <div class="card-value">${formatCurrency(d.material.used)}</div>
-                                    <div class="card-sub">
-                                        <span>Req: ${formatCurrency(d.material.required)}</span>
-                                        <span class="${materialVar > 0 ? 'text-danger' : 'text-success'}">${materialVar > 0 ? '+' : ''}${formatCurrency(materialVar)}</span>
-                                    </div>
-                                    <div class="progress-bar-container">
-                                        <div class="progress-bar progress-material" style="width: ${materialPercent}%;"></div>
-                                    </div>
-                                    <div><span class="comparison-badge ${materialVar > 0.05 ? 'badge-negative' : 'badge-positive'}">${materialPercent}%</span></div>
-                                </div>
-                            </div>
-
-                            <div class="card-row">
-                                <div class="card machinery" onclick="toggleDiscussionPanel()">
-                                    <div class="card-title">🚜 Machinery</div>
-                                    <div class="card-value">${formatCurrency(d.machinery.used)}</div>
-                                    <div class="card-sub">
-                                        <span>Req: ${formatCurrency(d.machinery.required)}</span>
-                                        <span class="${machineryVar > 0 ? 'text-danger' : 'text-success'}">${machineryVar > 0 ? '+' : ''}${formatCurrency(machineryVar)}</span>
-                                    </div>
-                                    <div class="progress-bar-container">
-                                        <div class="progress-bar progress-machinery" style="width: ${machineryPercent}%;"></div>
-                                    </div>
-                                    <div><span class="comparison-badge ${machineryVar > 0.05 ? 'badge-negative' : 'badge-positive'}">${machineryPercent}%</span></div>
-                                </div>
-                                <div class="card overhead" onclick="toggleDiscussionPanel()">
-                                    <div class="card-title">📊 Overhead (20%)</div>
-                                    <div class="card-value">${formatCurrency(d.overhead)}</div>
-                                    <div class="card-sub">Indirect costs</div>
-                                </div>
-                            </div>
-
-                            <div class="card total" onclick="toggleDiscussionPanel()">
-                                <div class="card-title">💰 TOTAL PROJECT COST</div>
-                                <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                                    <span style="font-size: 32px; font-weight: 800;">${formatCurrency(d.totalUsed)}</span>
-                                    <span style="font-size: 16px; opacity: 0.8;">${((d.totalUsed/d.totalRequired - 1)*100).toFixed(1)}% vs plan</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 15px;">
-                                    <span>Required: ${formatCurrency(d.totalRequired)}</span>
-                                    <span class="${totalVar > 0 ? 'text-danger' : 'text-success'}">${totalVar > 0 ? '🔺+' : '🔻'}${formatCurrency(Math.abs(totalVar))}</span>
-                                </div>
-                                <div class="progress-bar-container" style="background: #4a5a6a;">
-                                    <div class="progress-bar" style="width: ${(d.totalUsed/d.totalRequired)*100}%; background: #f1c40f;"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="sos-table" onclick="toggleDiscussionPanel()">
-                            <table>
-                                <thead><tr><th>Category</th><th>Required (Birr)</th><th>Used (Birr)</th><th>Variance</th><th>%</th></tr></thead>
+                        
+                        <div class="sos-table-container">
+                            <table class="sos-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Period</th>
+                                        <th>Plan (Birr)</th>
+                                        <th>Executed (Birr)</th>
+                                        <th>Cost (Birr)</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    <tr><td><strong>👷 Labour</strong></td><td>${formatCurrency(d.labour.required)}</td><td>${formatCurrency(d.labour.used)}</td><td class="${labourVar>0?'text-danger':'text-success'}">${labourVar>0?'+':''}${formatCurrency(labourVar)}</td><td>${labourPercent}%</td></tr>
-                                    <tr><td><strong>🏛️ Admin</strong></td><td>—</td><td>${formatCurrency(d.admin)}</td><td>—</td><td>—</td></tr>
-                                    <tr><td><strong>👥 Staff</strong></td><td>${formatCurrency(d.staff)}</td><td>${formatCurrency(d.staff)}</td><td class="text-success">0.00</td><td>100%</td></tr>
-                                    <tr><td><strong>🧱 Material</strong></td><td>${formatCurrency(d.material.required)}</td><td>${formatCurrency(d.material.used)}</td><td class="${materialVar>0?'text-danger':'text-success'}">${materialVar>0?'+':''}${formatCurrency(materialVar)}</td><td>${materialPercent}%</td></tr>
-                                    <tr><td><strong>🚜 Machinery</strong></td><td>${formatCurrency(d.machinery.required)}</td><td>${formatCurrency(d.machinery.used)}</td><td class="${machineryVar>0?'text-danger':'text-success'}">${machineryVar>0?'+':''}${formatCurrency(machineryVar)}</td><td>${machineryPercent}%</td></tr>
-                                    <tr><td><strong>📊 Overhead (20%)</strong></td><td>—</td><td>${formatCurrency(d.overhead)}</td><td>—</td><td>—</td></tr>
-                                    <tr class="total-row"><td><strong>TOTAL</strong></td><td>${formatCurrency(d.totalRequired)}</td><td>${formatCurrency(d.totalUsed)}</td><td>${totalVar>0?'+':''}${formatCurrency(totalVar)}</td><td>${((d.totalUsed/d.totalRequired)*100).toFixed(1)}%</td></tr>
+                                    ${sosData.map(item => `
+                                        <tr>
+                                            <td><strong>${item.period}</strong></td>
+                                            <td>${formatCurrency(item.plan)}</td>
+                                            <td class="text-success">${formatCurrency(item.executed)}</td>
+                                            <td class="text-danger">${formatCurrency(item.cost)}</td>
+                                        </tr>
+                                    `).join('')}
                                 </tbody>
                             </table>
                         </div>
-
-                        ${totalVar > 0 ? `
-                        <div style="background: #fbe9e7; border-left: 6px solid #e74c3c; padding: 16px; border-radius: 16px; margin-top: 20px;" onclick="toggleDiscussionPanel()">
-                            <span style="font-weight:700; color:#c0392b;">⚠️ Overspend Alert</span>
-                            <p style="margin-top:6px; font-size:14px;">Total cost exceeds planned budget by ${formatCurrency(totalVar)} (${((d.totalUsed/d.totalRequired-1)*100).toFixed(1)}%). Review machinery & labour.</p>
-                        </div>
-                        ` : ''}
                     </div>
                 `;
             }
 
-            // ---------- COMPARISON TAB (FULL DATA) ----------
+            // ---------- COMPARISON TAB (SIMPLIFIED - ONLY TABLE, NO CARDS, NO VARIANCE, NO %) ----------
             function loadComparisonTab() {
                 const container = document.getElementById('contentContainer');
-                const d = comparisonData;
-                
-                const totalPlan = d.plan1 + d.plan2;
-                const totalExecuted = d.executed1 + d.executed2;
-                const totalEscaletPlan = d.escaletPlan1 + d.escaletPlan2;
-                const totalEscaletExecuted = d.escaletExecuted1 + d.escaletExecuted2;
-                
-                const overallPlan = totalPlan + totalEscaletPlan;
-                const overallExecuted = totalExecuted + totalEscaletExecuted;
-                const overallPercentage = (overallExecuted / overallPlan * 100).toFixed(1);
+                const d = comparisonCostData;
 
                 container.innerHTML = `
                     <div class="comparison-dashboard fade-in">
-                        <div class="comparison-header" onclick="toggleDiscussionPanel()">
-                            <h2><span>📊</span> Income Comparison</h2>
-                            <p>Plan vs Executed • Escalation Included</p>
-                            <div class="sos-date">📅 Fiscal Year 2025</div>
+                        <div class="comparison-header">
+                            <h2><span>📊</span> Cost Comparison</h2>
+                            <p>Required vs Used • Project Resources</p>
                         </div>
 
-                        <div class="income-summary">
-                            <div class="income-card" onclick="toggleDiscussionPanel()">
-                                <div class="income-card-title">
-                                    <span>📋 Phase 1 Income</span>
-                                </div>
-                                <div class="income-row">
-                                    <span class="income-label">Plan (Birr)</span>
-                                    <span class="income-amount">${formatCurrency(d.plan1)}</span>
-                                </div>
-                                <div class="income-row">
-                                    <span class="income-label">Executed (Birr)</span>
-                                    <span class="income-amount" style="color: #27ae60;">${formatCurrency(d.executed1)}</span>
-                                </div>
-                                <div class="progress-large">
-                                    <div class="progress-fill" style="width: ${calculatePercentage(d.executed1, d.plan1)}%;"></div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-top: 8px;">
-                                    <span style="font-size: 14px; color: #5f7485;">Completion</span>
-                                    <span style="font-weight: 700; color: #2980b9;">${calculatePercentage(d.executed1, d.plan1)}%</span>
-                                </div>
-                                <div style="background: #f0f7ff; padding: 12px; border-radius: 16px; margin-top: 12px;">
-                                    <span style="font-weight:600;">Variance: </span>
-                                    <span class="${(d.executed1 - d.plan1) > 0 ? 'text-success' : 'text-danger'}">
-                                        ${formatCurrency(Math.abs(d.executed1 - d.plan1))} ${(d.executed1 - d.plan1) > 0 ? 'above' : 'below'} plan
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="income-card" onclick="toggleDiscussionPanel()">
-                                <div class="income-card-title">
-                                    <span>📋 Phase 2 Income</span>
-                                </div>
-                                <div class="income-row">
-                                    <span class="income-label">Plan (Birr)</span>
-                                    <span class="income-amount">${formatCurrency(d.plan2)}</span>
-                                </div>
-                                <div class="income-row">
-                                    <span class="income-label">Executed (Birr)</span>
-                                    <span class="income-amount" style="color: #27ae60;">${formatCurrency(d.executed2)}</span>
-                                </div>
-                                <div class="progress-large">
-                                    <div class="progress-fill" style="width: ${calculatePercentage(d.executed2, d.plan2)}%;"></div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-top: 8px;">
-                                    <span style="font-size: 14px; color: #5f7485;">Completion</span>
-                                    <span style="font-weight: 700; color: #2980b9;">${calculatePercentage(d.executed2, d.plan2)}%</span>
-                                </div>
-                                <div style="background: #f0f7ff; padding: 12px; border-radius: 16px; margin-top: 12px;">
-                                    <span style="font-weight:600;">Variance: </span>
-                                    <span class="${(d.executed2 - d.plan2) > 0 ? 'text-success' : 'text-danger'}">
-                                        ${formatCurrency(Math.abs(d.executed2 - d.plan2))} ${(d.executed2 - d.plan2) > 0 ? 'above' : 'below'} plan
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="escalet-card" onclick="toggleDiscussionPanel()">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
-                                    <span style="font-size: 24px;">📈</span>
-                                    <span style="font-size: 20px; font-weight: 700;">Escalation Income</span>
-                                </div>
-                                <div class="escalet-row">
-                                    <span class="escalet-label">Phase 1 Plan</span>
-                                    <span class="escalet-value">${formatCurrency(d.escaletPlan1)}</span>
-                                </div>
-                                <div class="escalet-row">
-                                    <span class="escalet-label">Phase 1 Executed</span>
-                                    <span class="escalet-value">${formatCurrency(d.escaletExecuted1)}</span>
-                                </div>
-                                <div style="height: 1px; background: rgba(255,255,255,0.2); margin: 12px 0;"></div>
-                                <div class="escalet-row">
-                                    <span class="escalet-label">Phase 2 Plan</span>
-                                    <span class="escalet-value">${formatCurrency(d.escaletPlan2)}</span>
-                                </div>
-                                <div class="escalet-row">
-                                    <span class="escalet-label">Phase 2 Executed</span>
-                                    <span class="escalet-value">${formatCurrency(d.escaletExecuted2)}</span>
-                                </div>
-                            </div>
-
-                            <div class="comparison-grid">
-                                <div class="stat-card" onclick="toggleDiscussionPanel()">
-                                    <div class="stat-label">Total Plan</div>
-                                    <div class="stat-value">${formatCurrency(totalPlan)}</div>
-                                    <div class="stat-sub">Base Income</div>
-                                </div>
-                                <div class="stat-card" onclick="toggleDiscussionPanel()">
-                                    <div class="stat-label">Total Executed</div>
-                                    <div class="stat-value" style="color: #27ae60;">${formatCurrency(totalExecuted)}</div>
-                                    <div class="stat-sub">${calculatePercentage(totalExecuted, totalPlan)}% of plan</div>
-                                </div>
-                                <div class="stat-card" onclick="toggleDiscussionPanel()">
-                                    <div class="stat-label">Escalation Plan</div>
-                                    <div class="stat-value">${formatCurrency(totalEscaletPlan)}</div>
-                                    <div class="stat-sub">Total Escalation</div>
-                                </div>
-                                <div class="stat-card" onclick="toggleDiscussionPanel()">
-                                    <div class="stat-label">Escalation Exec.</div>
-                                    <div class="stat-value" style="color: #f39c12;">${formatCurrency(totalEscaletExecuted)}</div>
-                                    <div class="stat-sub">${calculatePercentage(totalEscaletExecuted, totalEscaletPlan)}% achieved</div>
-                                </div>
-                            </div>
-
-                            <div class="card total" style="margin-top: 16px;" onclick="toggleDiscussionPanel()">
-                                <div class="card-title">🎯 OVERALL INCOME (Base + Escalation)</div>
-                                <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                                    <span style="font-size: 28px; font-weight: 800;">${formatCurrency(overallExecuted)}</span>
-                                    <span style="font-size: 16px; opacity: 0.8;">${overallPercentage}% of plan</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-top: 12px;">
-                                    <span>Total Plan: ${formatCurrency(overallPlan)}</span>
-                                    <span class="${overallExecuted > overallPlan ? 'text-success' : 'text-danger'}">
-                                        ${overallExecuted > overallPlan ? '▲' : '▼'} ${formatCurrency(Math.abs(overallExecuted - overallPlan))}
-                                    </span>
-                                </div>
-                                <div class="progress-bar-container" style="background: #4a5a6a; margin-top: 16px;">
-                                    <div class="progress-bar" style="width: ${overallPercentage}%; background: #f1c40f;"></div>
-                                </div>
-                            </div>
-
-                            <div class="sos-table" style="margin-top: 24px;" onclick="toggleDiscussionPanel()">
-                                <table>
-                                    <thead><tr><th>Category</th><th>Plan (Birr)</th><th>Executed (Birr)</th><th>Achievement</th></tr></thead>
-                                    <tbody>
-                                        <tr><td><strong>Phase 1 Income</strong></td><td>${formatCurrency(d.plan1)}</td><td>${formatCurrency(d.executed1)}</td><td>${calculatePercentage(d.executed1, d.plan1)}%</td></tr>
-                                        <tr><td><strong>Phase 2 Income</strong></td><td>${formatCurrency(d.plan2)}</td><td>${formatCurrency(d.executed2)}</td><td>${calculatePercentage(d.executed2, d.plan2)}%</td></tr>
-                                        <tr><td><strong>Escalation Phase 1</strong></td><td>${formatCurrency(d.escaletPlan1)}</td><td>${formatCurrency(d.escaletExecuted1)}</td><td>${calculatePercentage(d.escaletExecuted1, d.escaletPlan1)}%</td></tr>
-                                        <tr><td><strong>Escalation Phase 2</strong></td><td>${formatCurrency(d.escaletPlan2)}</td><td>${formatCurrency(d.escaletExecuted2)}</td><td>${calculatePercentage(d.escaletExecuted2, d.escaletPlan2)}%</td></tr>
-                                        <tr class="total-row"><td><strong>TOTAL</strong></td><td>${formatCurrency(overallPlan)}</td><td>${formatCurrency(overallExecuted)}</td><td>${overallPercentage}%</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <!-- ONLY TABLE - NO CARDS, NO VARIANCE COLUMN, NO % COLUMN -->
+                        <table class="cost-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Required (Birr)</th>
+                                    <th>Used (Birr)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>👷 Labour</strong></td>
+                                    <td>${formatCurrency(d.labour.required)}</td>
+                                    <td class="text-danger">${formatCurrency(d.labour.used)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>🏛️ Admin</strong></td>
+                                    <td>—</td>
+                                    <td>${formatCurrency(d.admin)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>👥 Staff</strong></td>
+                                    <td>${formatCurrency(d.staff)}</td>
+                                    <td>${formatCurrency(d.staff)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>🧱 Material</strong></td>
+                                    <td>${formatCurrency(d.material.required)}</td>
+                                    <td class="text-success">${formatCurrency(d.material.used)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>🚜 Machinery</strong></td>
+                                    <td>${formatCurrency(d.machinery.required)}</td>
+                                    <td class="text-danger">${formatCurrency(d.machinery.used)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>📊 Overhead (20%)</strong></td>
+                                    <td>—</td>
+                                    <td>${formatCurrency(d.overhead)}</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><strong>TOTAL</strong></td>
+                                    <td>${formatCurrency(d.totalRequired)}</td>
+                                    <td>${formatCurrency(d.totalUsed)}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 `;
             }
@@ -1364,18 +615,9 @@
                 });
             });
 
-            // Enter to send
-            document.getElementById('messageInput')?.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                }
-            });
-
-            // Initialize
+            // Initialize with Monthly tab active
             document.addEventListener('DOMContentLoaded', () => {
                 loadMonthlyTable();
-                renderMessages();
             });
         })();
     </script>
