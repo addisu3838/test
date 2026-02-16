@@ -236,7 +236,7 @@
         .sos-data-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .sos-data-table th {
@@ -251,9 +251,9 @@
         }
 
         .sos-data-table td {
-            padding: 6px 9px;
+            padding: 9px 9px;
             border-bottom: 1px solid #f0f0f0;
-            font-weight: 500;
+            font-weight: 800;
             font-style: italic;
 
         }
@@ -420,14 +420,12 @@
             // ---------- SOS DATA (KEPT AS IS) ----------
             const sosData = [
                 {
-                    period: "July-1-Jan-25",
-                    plan: 283476359.20,
+                    period: "July-1-Jan-25",                    
                     executed: 93976269.21,
                     cost: 217455564.53
                 },
                 {
-                    period: "July-1-Jan-25",
-                    plan: 1090892184.251,
+                    period: "July-1-Jan-25",                   
                     executed: 343381632.721,
                     cost: 217455564.535
                 }
@@ -510,15 +508,14 @@
                     <div class="sos-dashboard fade-in">
                         <div class="sos-header">
                             <h2><span>⚠️</span> SOS Report</h2>
-                            <p>Emergency Cost Overview</p>
-                        </div>
-                        
+                            <p>dsndsjkds dsjdfsfdsj dfsbudsf Emergency Cost Overview</p>
+                            <p> Total Plan Birr =123,569,87456</p>
+                        </div>                        
                         <div class="sos-table-container">
                             <table class="sos-data-table">
                                 <thead>
                                     <tr>
-                                        <th>Period</th>
-                                        <th>Plan (Birr)</th>
+                                        <th>Period</th>                                        
                                         <th>Executed (Birr)</th>
                                         <th>Cost (Birr)</th>
                                     </tr>
@@ -526,8 +523,7 @@
                                 <tbody>
                                     ${sosData.map(item => `
                                         <tr>
-                                            <td><strong>${item.period}</strong></td>
-                                            <td>${formatCurrency(item.plan)}</td>
+                                            <td><strong>${item.period}</strong></td>                                           
                                             <td class="text-success">${formatCurrency(item.executed)}</td>
                                             <td class="text-danger">${formatCurrency(item.cost)}</td>
                                         </tr>
