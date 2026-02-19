@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
-    <title>Project</title>
+    <title>Project Dashboard • Income • Cost • SOS</title>
     <style>
         /* === RESET & VARIABLES === */
         * {
@@ -85,8 +85,7 @@
             pointer-events: auto;
             border: 1px solid rgba(184, 248, 66, 0.2);
             backdrop-filter: blur(10px); 
-            background-color: white;
-                      
+            background-color: white;                      
         }
 
         .nav-btn {
@@ -123,7 +122,7 @@
             transform: scale(0.95);
         }
 
-        /* === INCOME TABLE (ORIGINAL - UNTOUCHED) === */
+        /* === INCOME TABLE WITH HIGHLIGHTED SECTIONS === */
         .table-container {
             padding: 8px 6px;
         }
@@ -164,6 +163,49 @@
             border-bottom: none;
         }
 
+        /* Highlight for BILL rows */
+        .bill-section {
+            background: linear-gradient(145deg, #fff3e0, #deffb2) !important;
+            font-weight: 800;
+            border-left: 6px solid #a9f19b;
+            border-right: 6px solid #b4f323;
+        }
+        
+        .bill-section td {
+            background: transparent !important;
+            font-size: 15px;
+            color: #d4d11e;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .bill-section .item-no {
+            background: (145deg, #fff3e0, #deffb2);
+            color: rgb(6, 7, 0);
+            font-weight: 800;
+            padding: 4px 12px;
+        }
+        
+        .bill-section .work-description {
+            font-weight: 800;
+            color: #030c01;
+        }
+
+        /* Special highlight for BILL A and BILL B */
+        .bill-highlight {
+            background: linear-gradient(145deg, #fff3e0, #deffb2) !important;
+            border-left: 8px solid #45e21d;
+            border-right: 8px solid #75e04a;
+        }
+        
+        .bill-highlight td {
+            background: transparent !important;
+            font-size: 16px;
+            color: #060c01;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+        }
+
         .item-no {
             font-weight: 700;
             color: var(--primary-light);
@@ -184,9 +226,7 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            min-height: auto;
-            
-            
+            min-height: auto;            
         }
 
         .achievement-cell {
@@ -205,14 +245,13 @@
             white-space: nowrap;
         }
 
-        /* === SOS DASHBOARD (KEPT AS IS) === */
+        /* === SOS DASHBOARD WITH BAR CHART === */
         .sos-dashboard {
             padding: 11px;
             background: white;
         }
 
         .sos-header {
-            /*background: linear-gradient(145deg, #c0392b, #e74c3c);*/
             color: black;
             padding: 14px 15px;
             border-radius: 18px;
@@ -232,10 +271,81 @@
             border-radius: 18px;
         }
 
+        .chart-container {
+            background: white;
+            border-radius: 24px;
+            padding: 20px 15px;
+            margin: 20px 0;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e0e7ef;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .bar-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .bar-label span:first-child {
+            color: #2c3e50;
+        }
+
+        .bar-label span:last-child {
+            color: #0a2fa7;
+            font-weight: 700;
+        }
+
+        .bar-bg {
+            width: 100%;
+            height: 30px;
+            background: #ecf0f1;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: width 0.3s ease;
+        }
+
         .sos-table-container {
             background: white;
             border-radius: 14px;
-            padding: 40px;
+            padding: 20px;
             box-shadow: var(--shadow-sm);
             margin-top: 15px;
         }
@@ -246,14 +356,13 @@
             font-size: 15px;
         }
         .sos-data-table th {
-             background: #227bf0;
+            background: #227bf0;
             color: white;
             padding: 16px 12px;
             text-align: left;
             font-weight: 600;
-            font-size: 19px;
+            font-size: 16px;
             font-weight: bold;            
-            
         }
         .sos-data-table td {
             padding: 15px 15px;
@@ -275,7 +384,7 @@
             font-weight: 600;
         }
 
-        /* === COMPARISON DASHBOARD (SIMPLIFIED - ONLY TABLE) === */
+        /* === COMPARISON DASHBOARD WITH BAR CHART === */
         .comparison-dashboard {
             padding: 16px;
             background: #f0f7ff;
@@ -306,6 +415,7 @@
             border-radius: 24px;
             overflow: hidden;
             box-shadow: var(--shadow-sm);
+            margin-bottom: 25px;
         }
 
         .cost-table th {
@@ -380,9 +490,9 @@
                 <button class="nav-btn active" data-tab="monthly">
                     <span>📅</span> Income
                 </button>
-                </button>
                 <button class="nav-btn" data-tab="comparison">
                     <span>📊</span> Cost
+                </button>
                 <button class="nav-btn" data-tab="sos">
                     <span>⚠️</span> SOS
                 </button>
@@ -392,13 +502,13 @@
 
     <script>
         (function() {
-            // ---------- COMPLETE PROJECT DATA (INCOME TAB - UNTOUCHED) ----------
+            // ---------- COMPLETE PROJECT DATA (INCOME TAB - WITH HIGHLIGHTED BILL SECTIONS) ----------
             const projectData = [
-                { itemNo: "BILL A ", description:"GENERAL ITEMES"},
+                { itemNo: "BILL A", description: "GENERAL ITEMES", isBillSection: true, isHighlightBill: true },
                 { itemNo: "1.12.8", description: "Allow for supplying temporary electricity, water, telephone and other utility bills for the supervisor's and contractor's including connection, distribution system for the work, internal arrangements and all payment to the authorities for connections. it is the responsibility of the contractor to ensure steady and uninterrupted power supply to work", achievement: 0.72, total: "9141575.07295305", cost: "100000" },
                 { itemNo: "1.13.3", description: "Provisions of security", achievement: 0.72, total: "1425815.46702017", cost: "280000" },
                 { itemNo: "1.12", description: "Allow for expenses required for conducting compensation payment estimation such as periderm for Committee, fuel cost, printing expenses and other related expenses. Payment shall be paid up on approval of the Engineer keeping all legal procedures. The costs will be reimbursed to the contractor after receiving the original invoice in the payment certificate by the Consultant", achievement: 0.12, total: "425000", cost: "350000" },
-                { itemNo: "BILL B", description: "MAIN DAM",},
+                { itemNo: "BILL B", description: "MAIN DAM", isBillSection: true, isHighlightBill: true },
                 { itemNo: "2.3.1", description: "Fill and compaction the Core zone with clay material with max hauling distance of 5 Km", achievement: 36679.05, total: "10617117.813",},
                 { itemNo: "", description: "production of clay material", achievement: 87021,},
                 
@@ -413,13 +523,13 @@
                 { itemNo: "2.9.4", description: "Vibrating Wire Piezometer with its complete accessories in embankment", achievement: 3, total: "561600", },
                 { itemNo: "2.9.5", description: "Vibrating Wire settlement sensor with complete accessories", achievement: 2, total: "117000", },
                 { itemNo: "2.9.8", description: "Vibrating wire cable", achievement: 307.94, total: "288231.84",},                
-                { itemNo: "BILL C", description: "GROUTING AND FAULT  TREATMENT",},
+                { itemNo: "BILL C", description: "GROUTING AND FAULT TREATMENT", isBillSection: true },
                 { itemNo: "3.A.1", description: "Mobilization and Demoblization", achievement: 0.5, total: "292789.65", },                
-                { itemNo: "BILL D", description: "INTAKE TOWER STRUCTURE",},
+                { itemNo: "BILL D", description: "INTAKE TOWER STRUCTURE", isBillSection: true },
                 { itemNo: "4.2.4", description: "Base slab", achievement: 3.17, total: "16324.64064",  },
-                { itemNo: "BILL E", description: "ACCESS BRIDGE TO INTAKE TOWER",},  
+                { itemNo: "BILL E", description: "ACCESS BRIDGE TO INTAKE TOWER", isBillSection: true },  
                 { itemNo: "5.2.4", description: " Safety Hand Rail constructed out of 50mm diameter GS Pipe with 1m height and horizontally braced at top and middle of its height for access bridge, stair and operation slab as shown on the drawing", achievement: 24, total: "35236.08", cost: "3600" },
-                { itemNo: "BILL H", description: "EMERGENY/ESCAPE CANAL/ STRUCTURE",},
+                { itemNo: "BILL H", description: "EMERGENY/ESCAPE CANAL/ STRUCTURE", isBillSection: true },
                 { itemNo: "8.5.1", description: "C-25 concrete work including formwork", achievement: 8.5, total: "45602.5", },
                 { itemNo: "8.5.3", description: "Reinforcement bars (bending, cutting & placing)", achievement: 48677.76, total: "19046.358", },
                 { itemNo: "", description: "Dich Construction",},
@@ -432,7 +542,7 @@
                 { itemNo: "11.7.8", description: "Back fill with shell material around the ditch", achievement: 480, total: "4304.64", cost: "3600" }
             ];
 
-            // ---------- SOS DATA (KEPT AS IS) ----------
+            // ---------- SOS DATA (WITH BAR CHART) ----------
             const sosData = [
                 {
                     period: "July-1-Feb-15",                    
@@ -446,15 +556,14 @@
                 }
             ];
 
-            // ---------- COMPARISON DATA (COST DATA - ONLY FOR TABLE) ----------
+            // ---------- COMPARISON DATA (COST DATA) ----------
             const comparisonCostData = {
                 labour: {
                     required: 3644184.21,
                     used: 3697032.51,
                 },
                 admin: 11475708.95,
-                staff:   8985423.57 
-,
+                staff:   8985423.57,
                 material: {
                     required:  70572471.46,
                     used: 50677145.73
@@ -467,7 +576,6 @@
                 overhead: 22559885.15,
                 totalRequired:  205316420.93,
                 totalUsed:   229198993.73,
-
             };
 
             // ---------- Helper Functions ----------
@@ -486,9 +594,34 @@
                 return n.toFixed(2);
             }
 
-            // ---------- INCOME TAB (ORIGINAL - UNTOUCHED) ----------
+            function calculatePercentage(part, total) {
+                if (!total || total === 0) return 0;
+                return Math.min(100, (part / total) * 100);
+            }
+
+            // ---------- INCOME TAB WITH HIGHLIGHTED BILL SECTIONS ----------
             function loadMonthlyTable() {
                 const container = document.getElementById('contentContainer');
+                
+                let tableRows = '';
+                projectData.forEach(item => {
+                    let rowClass = '';
+                    if (item.isBillSection) {
+                        rowClass = item.isHighlightBill ? 'bill-highlight' : 'bill-section';
+                    }
+                    
+                    const incomeNum = parseFloat(String(item.total).replace(/,/g, '')) || 0;
+                    
+                    tableRows += `
+                        <tr class="${rowClass}">
+                            <td><span class="item-no">${item.itemNo || '—'}</span></td>
+                            <td><div class="work-description" title="${item.description.replace(/"/g, '&quot;')}">${item.description}</div></td>
+                            <td><div class="achievement-cell">${item.achievement ? formatAchievement(item.achievement) : '—'}</div></td>
+                            <td><div class="income-value">${item.total ? formatCurrency(incomeNum) : '—'}</div></td>
+                        </tr>
+                    `;
+                });
+
                 container.innerHTML = `
                     <div class="table-container fade-in">
                         <table class="mobile-table" id="workTable">
@@ -501,34 +634,68 @@
                                 </tr>
                             </thead>
                             <tbody id="table-body">
-                                ${projectData.map(item => {
-                                    const incomeNum = parseFloat(String(item.total).replace(/,/g, '')) || 0;
-                                    return `
-                                        <tr>
-                                            <td><span class="item-no">${item.itemNo || '—'}</span></td>
-                                            <td><div class="work-description" title="${item.description.replace(/"/g, '&quot;')}">${item.description}</div></td>
-                                            <td><div class="achievement-cell">${formatAchievement(item.achievement)}</div></td>
-                                            <td><div class="income-value">${formatCurrency(incomeNum)}</div></td>
-                                        </tr>
-                                    `;
-                                }).join('')}
+                                ${tableRows}
                             </tbody>
                         </table>
                     </div>
                 `;
             }
 
-            // ---------- SOS TAB (KEPT AS IS) ----------
+            // ---------- SOS TAB WITH BAR CHART ----------
             function loadSosTab() {
                 const container = document.getElementById('contentContainer');
+                
+                // Calculate percentages for bar chart
+                const maxExecuted = Math.max(...sosData.map(d => d.executed));
+                const maxCost = Math.max(...sosData.map(d => d.cost));
                 
                 container.innerHTML = `
                     <div class="sos-dashboard fade-in">
                         <div class="sos-header">
                             <h2><span>⚠️</span> SOS Report</h2>
                             <p>Cost Overview</p>
-                            <p> Total Plan Birr =123,569,87456</p>
-                        </div>                        
+                            <p>Total Plan Birr = 123,569,87456</p>
+                        </div>
+                        
+                        <!-- Bar Chart for SOS Data -->
+                        <div class="chart-container">
+                            <div class="chart-title">
+                                <span>📊</span> Executed vs Cost Comparison
+                            </div>
+                            <div class="bar-chart">
+                                ${sosData.map((item, index) => {
+                                    const executedPercent = (item.executed / maxExecuted) * 100;
+                                    const costPercent = (item.cost / maxCost) * 100;
+                                    return `
+                                        <div class="bar-item">
+                                            <div class="bar-label">
+                                                <span>Period ${index + 1}: ${item.period}</span>
+                                                <span>${formatCurrency(item.executed)} / ${formatCurrency(item.cost)}</span>
+                                            </div>
+                                            <div style="display: flex; gap: 10px; align-items: center;">
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 11px; color: #27ae60; margin-bottom: 2px;">Executed</div>
+                                                    <div class="bar-bg">
+                                                        <div class="bar-fill" style="width: ${executedPercent}%; background: linear-gradient(90deg, #27ae60, #2ecc71);">
+                                                            ${executedPercent > 15 ? Math.round(executedPercent) + '%' : ''}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 11px; color: #e74c3c; margin-bottom: 2px;">Cost</div>
+                                                    <div class="bar-bg">
+                                                        <div class="bar-fill" style="width: ${costPercent}%; background: linear-gradient(90deg, #e74c3c, #c0392b);">
+                                                            ${costPercent > 15 ? Math.round(costPercent) + '%' : ''}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                        
                         <div class="sos-table-container">
                             <table class="sos-data-table">
                                 <thead>
@@ -553,10 +720,24 @@
                 `;
             }
 
-            // ---------- COMPARISON TAB (SIMPLIFIED - ONLY TABLE, NO CARDS, NO VARIANCE, NO %) ----------
+            // ---------- COMPARISON TAB WITH BAR CHART ----------
             function loadComparisonTab() {
                 const container = document.getElementById('contentContainer');
                 const d = comparisonCostData;
+
+                // Calculate max values for bar chart scaling
+                const maxRequired = d.totalRequired;
+                const maxUsed = d.totalUsed;
+                
+                // Create comparison items for chart
+                const chartItems = [
+                    { name: 'Labour', required: d.labour.required, used: d.labour.used },
+                    { name: 'Material', required: d.material.required, used: d.material.used },
+                    { name: 'Machinery', required: d.machinery.required, used: d.machinery.used },
+                    { name: 'Staff', required: d.staff, used: d.staff },
+                    { name: 'Admin', required: 0, used: d.admin },
+                    { name: 'Overhead', required: 0, used: d.overhead }
+                ];
 
                 container.innerHTML = `
                     <div class="comparison-dashboard fade-in">
@@ -565,7 +746,46 @@
                             <p>Required vs Used • Project Resources</p>
                         </div>
 
-                        <!-- ONLY TABLE - NO CARDS, NO VARIANCE COLUMN, NO % COLUMN -->
+                        <!-- Bar Chart for Cost Comparison -->
+                        <div class="chart-container">
+                            <div class="chart-title">
+                                <span>📊</span> Resource Comparison (Required vs Used)
+                            </div>
+                            <div class="bar-chart">
+                                ${chartItems.map(item => {
+                                    const requiredPercent = (item.required / maxRequired) * 100;
+                                    const usedPercent = (item.used / maxUsed) * 100;
+                                    return `
+                                        <div class="bar-item">
+                                            <div class="bar-label">
+                                                <span>${item.name}</span>
+                                                <span>${formatCurrency(item.required)} / ${formatCurrency(item.used)}</span>
+                                            </div>
+                                            <div style="display: flex; gap: 10px; align-items: center;">
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 11px; color: #3498db; margin-bottom: 2px;">Required</div>
+                                                    <div class="bar-bg">
+                                                        <div class="bar-fill" style="width: ${requiredPercent}%; background: linear-gradient(90deg, #3498db, #2980b9);">
+                                                            ${requiredPercent > 10 ? Math.round(requiredPercent) + '%' : ''}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 11px; color: #e67e22; margin-bottom: 2px;">Used</div>
+                                                    <div class="bar-bg">
+                                                        <div class="bar-fill" style="width: ${usedPercent}%; background: linear-gradient(90deg, #e67e22, #d35400);">
+                                                            ${usedPercent > 10 ? Math.round(usedPercent) + '%' : ''}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Cost Table -->
                         <table class="cost-table">
                             <thead>
                                 <tr>
