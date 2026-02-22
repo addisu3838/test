@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
-    <title>Project with Expert Chat</title>
+    <title>Project with Group Chat</title>
     <style>
         /* === RESET & VARIABLES === */
         * {
@@ -33,8 +33,10 @@
             --header-gradient: linear-gradient(145deg, #1a2632, #2c3e50);
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
             --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --chat-user: #dcf8c6;
-            --chat-expert: #e3f2fd;
+            --chat-user1: #dcf8c6;
+            --chat-user2: #e3f2fd;
+            --chat-user3: #fff3e0;
+            --chat-user4: #f3e5f5;
             --chat-system: #f5f5f5;
         }
 
@@ -125,7 +127,7 @@
             transform: scale(0.95);
         }
 
-        /* === INCOME TABLE === */
+        /* === INCOME TABLE WITH HIGHLIGHTED SECTIONS === */
         .table-container {
             padding: 8px 6px;
         }
@@ -166,6 +168,7 @@
             border-bottom: none;
         }
 
+        /* Highlight for BILL rows */
         .bill-section {
             background: linear-gradient(145deg, #71e654, #ffe0b2) !important;
             font-weight: 800;
@@ -182,6 +185,19 @@
             letter-spacing: 0.5px;
         }
         
+        .bill-section .item-no {
+            background: #acf1a6;
+            color: black;
+            font-weight: 600;
+            padding: 4px 12px;
+        }
+               
+        .bill-section .work-description {
+            font-weight: 600;
+            color: #73be93;
+        }
+
+        /* Special highlight for BILL A and BILL B */
         .bill-highlight {
             background: linear-gradient(145deg, #7eb305, #ffe082) !important;
             border-left: 8px solid #a5b9fc;
@@ -215,6 +231,7 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            min-height: auto;            
         }
 
         .achievement-cell {
@@ -233,7 +250,7 @@
             white-space: nowrap;
         }
 
-        /* === SOS DASHBOARD === */
+        /* === SOS DASHBOARD WITH BACKGROUND IMAGE === */
         .sos-dashboard {
             padding: 11px;
             background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
@@ -268,7 +285,18 @@
             margin-bottom: 10px;
             box-shadow: var(--shadow-md);
             background-color: rgba(203, 235, 216, 0.9);
+            font-size: 22;
             backdrop-filter: blur(5px);
+        }
+
+        .sos-header h2 {
+            font-size: 16px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            border-radius: 18px;
         }
 
         .chart-container {
@@ -342,11 +370,16 @@
             text-align: left;
             font-weight: 600;
             font-size: 16px;
+            font-weight: bold;            
         }
         .sos-data-table td {
             padding: 15px 15px;
             border-bottom: 1px solid #f0f0f0;
             font-weight: 700;
+            font-style: normal;
+        }
+        .sos-data-table tr:last-child td {
+            border-bottom: none;
         }
 
         .text-success {
@@ -370,7 +403,9 @@
             border-radius: 6px;
             padding: 6px 8px;
             margin: 12px 0 13px 0;
+            border: 0.2px solid #fdfdfd;
             overflow-x: auto;
+            max-width: auto;
         }
 
         .chart-title {
@@ -386,6 +421,7 @@
         .column-chart {
             display: flex;
             align-items: flex-end;
+            justify-content: 0;
             gap: 3px;
             min-width: 60px;
             height: 250px;
@@ -460,13 +496,22 @@
             font-weight: 500;
         }
 
+        .cost-table tr:last-child td {
+            border-bottom: none;
+        }
+
         .cost-table .total-row {
             background: #2c3e50;
             color: white;
             font-weight: 700;
         }
 
-        /* === CHAT TAB STYLES === */
+        .cost-table .total-row td {
+            background: #2c3e50;
+            color: white;
+        }
+
+        /* === CHAT TAB STYLES - ለሁሉም ተጠቃሚ የሚጋራ === */
         .chat-dashboard {
             background: #f5f5f5;
             min-height: 100%;
@@ -504,7 +549,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            max-height: 400px;
+            max-height: 500px;
             background: #f5f5f5;
         }
         
@@ -512,25 +557,34 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+            animation: fadeIn 0.3s ease;
         }
         
-        .message.user {
-            align-items: flex-end;
-        }
-        
-        .message.expert {
+        .message.other {
             align-items: flex-start;
         }
         
-        .message.system {
-            align-items: center;
+        .message.self {
+            align-items: flex-end;
         }
         
         .message-header {
-            font-size: 11px;
-            color: #666;
-            margin-bottom: 2px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
             padding: 0 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .user-badge {
+            background: #0077ff;
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 12px;
         }
         
         .message-content {
@@ -540,28 +594,19 @@
             line-height: 1.4;
             word-wrap: break-word;
             max-width: 85%;
+            box-shadow: var(--shadow-sm);
         }
         
-        .message.user .message-content {
-            background: var(--chat-user);
-            border-bottom-right-radius: 5px;
-            color: #000;
-        }
-        
-        .message.expert .message-content {
-            background: var(--chat-expert);
+        .message.other .message-content {
+            background: white;
             border-bottom-left-radius: 5px;
             color: #000;
         }
         
-        .message.system .message-content {
-            background: var(--chat-system);
-            border-radius: 30px;
-            color: #666;
-            font-size: 12px;
-            font-style: italic;
-            max-width: 90%;
-            text-align: center;
+        .message.self .message-content {
+            background: var(--chat-user1);
+            border-bottom-right-radius: 5px;
+            color: #000;
         }
         
         .message-time {
@@ -581,6 +626,33 @@
             border-radius: 30px 30px 0 0;
             margin: 0 16px;
             box-shadow: var(--shadow-sm);
+        }
+        
+        .user-selector {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            background: white;
+            margin: 0 16px 10px 16px;
+            padding: 12px;
+            border-radius: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .user-selector label {
+            font-size: 13px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .user-selector select {
+            flex: 1;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            padding: 10px 16px;
+            font-size: 14px;
+            outline: none;
+            background: white;
         }
         
         .chat-input {
@@ -617,111 +689,40 @@
             background: #0055cc;
         }
         
-        .expert-controls {
+        .online-users {
             background: white;
-            margin: 10px 16px;
-            padding: 16px;
-            border-radius: 20px;
+            margin: 0 16px 10px 16px;
+            padding: 12px 16px;
+            border-radius: 30px;
             box-shadow: var(--shadow-sm);
-        }
-        
-        .expert-controls h3 {
-            font-size: 14px;
-            color: #2c3e50;
-            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         
-        .expert-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .expert-input {
-            flex: 1;
-            border: 1px solid #e0e0e0;
-            border-radius: 25px;
-            padding: 12px 18px;
-            font-size: 14px;
-            outline: none;
-        }
-        
-        .expert-select {
-            padding: 8px 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 25px;
+        .online-users span {
             font-size: 13px;
-            background: white;
+            color: #2c3e50;
         }
         
-        .expert-send-btn {
+        .user-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
             background: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 12px 24px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            margin-right: 4px;
         }
         
-        .expert-send-btn:active {
-            transform: scale(0.95);
-            background: #219a52;
-        }
-        
-        .pending-questions {
-            background: white;
-            margin: 10px 16px;
-            padding: 16px;
+        .user-tag {
+            background: #f0f0f0;
+            padding: 4px 12px;
             border-radius: 20px;
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .pending-questions h3 {
-            font-size: 14px;
-            color: #2c3e50;
-            margin-bottom: 12px;
-            display: flex;
+            font-size: 12px;
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
-        }
-        
-        .pending-item {
-            background: #fff9e6;
-            border-left: 4px solid #f39c12;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 12px;
-        }
-        
-        .pending-question {
-            font-size: 13px;
-            margin-bottom: 8px;
-            color: #2c3e50;
-        }
-        
-        .pending-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            color: #666;
-        }
-        
-        .reply-btn {
-            background: #0077ff;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
+            gap: 4px;
         }
         
         .fade-in {
@@ -771,26 +772,58 @@
 
     <script>
         (function() {
-            // ---------- PROJECT DATA ----------
+            // ========== COMPLETE PROJECT DATA (INCOME TAB - WITH ALL BILL SECTIONS) ==========
             const projectData = [
                 { itemNo: "BILL A", description: "GENERAL ITEMES", isBillSection: true, isHighlightBill: true },
-                { itemNo: "1.12.8", description: "Allow for supplying temporary electricity, water, telephone and other utility bills...", achievement: 0.72, total: "9141575.07295305" },
-                { itemNo: "1.13.3", description: "Provisions of security", achievement: 0.72, total: "1425815.46702017" },
-                { itemNo: "1.12", description: "Allow for expenses required for conducting compensation payment estimation...", achievement: 0.12, total: "425000" },
+                { itemNo: "1.12.8", description: "Allow for supplying temporary electricity, water, telephone and other utility bills for the supervisor's and contractor's including connection, distribution system for the work, internal arrangements and all payment to the authorities for connections. it is the responsibility of the contractor to ensure steady and uninterrupted power supply to work", achievement: 0.72, total: "9141575.07295305", cost: "100000" },
+                { itemNo: "1.13.3", description: "Provisions of security", achievement: 0.72, total: "1425815.46702017", cost: "280000" },
+                { itemNo: "1.12", description: "Allow for expenses required for conducting compensation payment estimation such as periderm for Committee, fuel cost, printing expenses and other related expenses. Payment shall be paid up on approval of the Engineer keeping all legal procedures. The costs will be reimbursed to the contractor after receiving the original invoice in the payment certificate by the Consultant", achievement: 0.12, total: "425000", cost: "350000" },
                 { itemNo: "BILL B", description: "MAIN DAM", isBillSection: true, isHighlightBill: true },
-                { itemNo: "2.3.1", description: "Fill and compaction the Core zone with clay material...", achievement: 36679.05, total: "10617117.813"},
-                { itemNo: "2.4.1", description: "Fill and compaction the Shell zone with selected material...", achievement: 52913.7, total: "13807300.878"},
-                { itemNo: "2.5.1", description: "Filter material (Finer) supply and fill...", achievement: 8299.13, total: "10231167.464"},
-                { itemNo: "2.5.2", description: "Filter material (coarser) supply and fill...", achievement: 3916, total: "4836455.8"},
-                { itemNo: "2.6.1", description: "Fill and compaction zone 4 with Rock material", achievement: 52477.76, total: "44596650.00"},
+                { itemNo: "2.3.1", description: "Fill and compaction the Core zone with clay material with max hauling distance of 5 Km", achievement: 36679.05, total: "10617117.813",},
+                { itemNo: "", description: "production of clay material", achievement: 87021,},
+                
+                { itemNo: "2.4.1", description: "Fill and compaction the Shell zone with selected material, max hauling distance of 5 Km", achievement: 52913.7, total: "13807300.878",},
+                { itemNo: "", description: "production of selected material", achievement: 79380,},
+                
+                { itemNo: "2.5.1", description: "Filter material (Finer) supply and fill(zone 2A)", achievement: 8299.13, total: "10231167.464",},
+                { itemNo: "2.5.2", description: "Filter material (coarser) supply and fill(zone 2B)", achievement: 3916, total: "4836455.8",},
+                { itemNo: "2.5.4", description: "Riprap(zone 5)", achievement: 2975.94, total: "2415243.14", cost: "14400" },
+                { itemNo: "2.6.1", description: "Fill and compaction zone 4 with Rock material", achievement: 52477.76, total: "44596650.00",},
+                { itemNo: "", description: "production of rock", achievement:  58899.80, total: "", },
+                { itemNo: "2.9.4", description: "Vibrating Wire Piezometer with its complete accessories in embankment", achievement: 3, total: "561600", },
+                { itemNo: "2.9.5", description: "Vibrating Wire settlement sensor with complete accessories", achievement: 2, total: "117000", },
+                { itemNo: "2.9.8", description: "Vibrating wire cable", achievement: 307.94, total: "288231.84",},                
                 { itemNo: "BILL C", description: "GROUTING AND FAULT TREATMENT", isBillSection: true },
-                { itemNo: "3.A.1", description: "Mobilization and Demoblization", achievement: 0.5, total: "292789.65" }
+                { itemNo: "3.A.1", description: "Mobilization and Demoblization", achievement: 0.5, total: "292789.65", },                
+                { itemNo: "BILL D", description: "INTAKE TOWER STRUCTURE", isBillSection: true },
+                { itemNo: "4.2.4", description: "Base slab", achievement: 3.17, total: "16324.64064",  },
+                { itemNo: "BILL E", description: "ACCESS BRIDGE TO INTAKE TOWER", isBillSection: true },  
+                { itemNo: "5.2.4", description: " Safety Hand Rail constructed out of 50mm diameter GS Pipe with 1m height and horizontally braced at top and middle of its height for access bridge, stair and operation slab as shown on the drawing", achievement: 24, total: "35236.08", cost: "3600" },
+                { itemNo: "BILL H", description: "EMERGENY/ESCAPE CANAL/ STRUCTURE", isBillSection: true },
+                { itemNo: "8.5.1", description: "C-25 concrete work including formwork", achievement: 8.5, total: "45602.5", },
+                { itemNo: "8.5.3", description: "Reinforcement bars (bending, cutting & placing)", achievement: 48677.76, total: "19046.358", },
+                { itemNo: "", description: "Dich Construction",},
+                { itemNo: "11.7.1", description: "Ordinary soil excavation", achievement: 156.6, total: "12935.16", cost: "3600" },
+                { itemNo: "11.7.2", description: "Basaltic or equivalent stone masonry work in cement sand mortar of 1:3 mix ratio", achievement: 404.811, total: "932097.56805", cost: "3600" },
+                { itemNo: "11.7.3", description: "C-25 concrete mixing, placing, vibrating and curing for slab including formwork", achievement: 32.8, total: "194254.72", cost: "3600" },
+                { itemNo: "11.7.4", description: "Reinforcement bars of ø10mm as specified on the drawings with 150mm spacing", achievement: 156.6, total: "103830.33", cost: "3600" },
+                { itemNo: "New", description: "Reinforcement bar of Dia 12mm as specified on the drawing with 200mm spacing", achievement: 3663.2, total: "250343.088", cost: "3600" },
+                { itemNo: "11.7.6", description: "Cart away excavated material", achievement: 96, total: "4304.64", cost: "3600" },
+                { itemNo: "11.7.8", description: "Back fill with shell material around the ditch", achievement: 480, total: "4304.64", cost: "3600" }
             ];
 
             // ---------- SOS DATA ----------
             const sosData = [
-                { period: "July-1-Feb-15", executed: 100160343.81029, cost: 229221250.779779 },
-                { period: "July-1-Feb-15", executed: 367814911.473582, cost: 229221250.779779 }
+                {
+                    period: "July-1-Feb-15",                    
+                    executed: 100160343.81029,
+                    cost: 229221250.779779,
+                },
+                {
+                    period: "July-1-Feb-15",                   
+                    executed: 367814911.473582,
+                    cost: 229221250.779779,
+                }
             ];
 
             // ---------- COMPARISON DATA ----------
@@ -804,45 +837,56 @@
                 totalUsed: 229198993.73,
             };
 
-            // ---------- CHAT DATA ----------
-            // ሁሉም የቻት መልእክቶች የሚቀመጡበት array
-            window.chatMessages = [
+            // ========== ለሁሉም ተጠቃሚ የሚጋራ የቻት መረጃ ==========
+            window.chatMessages = window.chatMessages || [
                 { 
-                    type: 'system', 
-                    text: 'ሰላም በደህና መጡ! እባክዎ ጥያቄዎን ይጻፉ። ባለሙያችን በተቻለ ፍጥነት ይመልሱልዎታል።',
-                    time: new Date().toLocaleTimeString()
+                    userName: 'ሲስተም', 
+                    text: '👋 እንኳን ወደ ቡድን ውይይት በደህና መጡ! ሁሉም ሰው እዚህ ላይ መልእክት መላክ ይችላል።',
+                    time: new Date().toLocaleTimeString(),
+                    userId: 'system'
                 }
             ];
             
-            // ያልተመለሱ ጥያቄዎች
-            window.pendingQuestions = [];
+            window.onlineUsers = window.onlineUsers || [
+                { name: 'አበበ በቀለ', id: 'user1' },
+                { name: 'አለማየሁ ደሳለኝ', id: 'user2' },
+                { name: 'ወርቅነሽ ኃይሌ', id: 'user3' }
+            ];
+            
+            window.currentUser = window.currentUser || { name: 'አበበ በቀለ', id: 'user1' };
 
-            // ---------- Helper Functions ----------
+            // ========== Helper Functions ==========
             function formatCurrency(val) {
-                if (!val) return "—";
+                if (val === '' || val === undefined || val === null) return "—";
                 let num = parseFloat(val);
                 if (isNaN(num)) return val.toString();
                 return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             }
 
-            function formatAchievement(val) {
-                if (!val) return "—";
-                let n = parseFloat(val);
-                if (isNaN(n)) return val.toString();
-                return n.toFixed(2);
-            }
-
             function formatCompactCurrency(val) {
-                if (!val) return "—";
+                if (val === '' || val === undefined || val === null) return "—";
                 let num = parseFloat(val);
                 if (isNaN(num)) return val.toString();
-                if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
-                if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
-                if (num >= 1e3) return (num / 1e3).toFixed(1) + 'K';
+                
+                if (num >= 1e9) {
+                    return (num / 1e9).toFixed(1) + 'B';
+                } else if (num >= 1e6) {
+                    return (num / 1e6).toFixed(1) + 'M';
+                } else if (num >= 1e3) {
+                    return (num / 1e3).toFixed(1) + 'K';
+                }
                 return num.toFixed(0);
             }
 
-            // ---------- INCOME TAB ----------
+            function formatAchievement(val) {
+                if (val === '' || val === undefined) return "—";
+                let n = parseFloat(val);
+                if (isNaN(n)) return val.toString();
+                if (n % 1 === 0) return n.toString();
+                return n.toFixed(2);
+            }
+
+            // ========== INCOME TAB - ሙሉ ውሂብ እና ማድመቂያዎች ==========
             function loadMonthlyTable() {
                 const container = document.getElementById('contentContainer');
                 
@@ -858,7 +902,7 @@
                     tableRows += `
                         <tr class="${rowClass}">
                             <td><span class="item-no">${item.itemNo || '—'}</span></td>
-                            <td><div class="work-description">${item.description}</div></td>
+                            <td><div class="work-description" title="${item.description.replace(/"/g, '&quot;')}">${item.description}</div></td>
                             <td><div class="achievement-cell">${item.achievement ? formatAchievement(item.achievement) : '—'}</div></td>
                             <td><div class="income-value">${item.total ? formatCurrency(incomeNum) : '—'}</div></td>
                         </tr>
@@ -867,7 +911,7 @@
 
                 container.innerHTML = `
                     <div class="table-container fade-in">
-                        <table class="mobile-table">
+                        <table class="mobile-table" id="workTable">
                             <thead>
                                 <tr>
                                     <th>Item No.</th>
@@ -876,7 +920,7 @@
                                     <th>Income (Birr)</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="table-body">
                                 ${tableRows}
                             </tbody>
                         </table>
@@ -884,7 +928,7 @@
                 `;
             }
 
-            // ---------- SOS TAB ----------
+            // ========== SOS TAB ==========
             function loadSosTab() {
                 const container = document.getElementById('contentContainer');
                 
@@ -895,11 +939,14 @@
                     <div class="sos-dashboard fade-in">
                         <div class="sos-header">
                             <h2><span>⚠️</span> SOS Report</h2>
+                            <p>Cost Overview</p>
                             <p>Total Plan Birr = 123,569,87456</p>
                         </div>
                         
                         <div class="chart-container">
-                            <div class="chart-title">📊 Executed vs Cost Comparison</div>
+                            <div class="chart-title">
+                                <span>📊</span> Executed vs Cost Comparison
+                            </div>
                             <div class="bar-chart">
                                 ${sosData.map((item, index) => {
                                     const executedPercent = (item.executed / maxExecuted) * 100;
@@ -907,17 +954,25 @@
                                     return `
                                         <div class="bar-item">
                                             <div class="bar-label">
-                                                <span>Period ${index + 1}</span>
+                                                <span>Period ${index + 1}: ${item.period}</span>
                                                 <span>${formatCurrency(item.executed)} / ${formatCurrency(item.cost)}</span>
                                             </div>
-                                            <div style="display: flex; gap: 10px;">
-                                                <div style="flex:1">
-                                                    <div style="font-size:11px;color:#27ae60;">Executed</div>
-                                                    <div class="bar-bg"><div class="bar-fill" style="width:${executedPercent}%;background:#27ae60;">${Math.round(executedPercent)}%</div></div>
+                                            <div style="display: flex; gap: 10px; align-items: center;">
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 11px; color: #27ae60; margin-bottom: 2px;">Executed</div>
+                                                    <div class="bar-bg">
+                                                        <div class="bar-fill" style="width: ${executedPercent}%; background: linear-gradient(90deg, #27ae60, #2ecc71);">
+                                                            ${executedPercent > 15 ? Math.round(executedPercent) + '%' : ''}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div style="flex:1">
-                                                    <div style="font-size:11px;color:#e74c3c;">Cost</div>
-                                                    <div class="bar-bg"><div class="bar-fill" style="width:${costPercent}%;background:#e74c3c;">${Math.round(costPercent)}%</div></div>
+                                                <div style="flex: 1;">
+                                                    <div style="font-size: 11px; color: #e74c3c; margin-bottom: 2px;">Cost</div>
+                                                    <div class="bar-bg">
+                                                        <div class="bar-fill" style="width: ${costPercent}%; background: linear-gradient(90deg, #e74c3c, #c0392b);">
+                                                            ${costPercent > 15 ? Math.round(costPercent) + '%' : ''}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -928,21 +983,29 @@
                         
                         <div class="sos-table-container">
                             <table class="sos-data-table">
-                                <tr><th>Period</th><th>Executed</th><th>Cost</th></tr>
-                                ${sosData.map(item => `
+                                <thead>
                                     <tr>
-                                        <td>${item.period}</td>
-                                        <td class="text-success">${formatCurrency(item.executed)}</td>
-                                        <td class="text-danger">${formatCurrency(item.cost)}</td>
+                                        <th>Period</th>                                        
+                                        <th>Executed (Birr)</th>
+                                        <th>Cost (Birr)</th>
                                     </tr>
-                                `).join('')}
+                                </thead>
+                                <tbody>
+                                    ${sosData.map(item => `
+                                        <tr>
+                                            <td><strong>${item.period}</strong></td>                                           
+                                            <td class="text-success">${formatCurrency(item.executed)}</td>
+                                            <td class="text-danger">${formatCurrency(item.cost)}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 `;
             }
 
-            // ---------- COMPARISON TAB ----------
+            // ========== COMPARISON TAB ==========
             function loadComparisonTab() {
                 const container = document.getElementById('contentContainer');
                 const d = comparisonCostData;
@@ -961,189 +1024,181 @@
 
                 container.innerHTML = `
                     <div class="comparison-dashboard fade-in">
-                        <h2>📊 Cost Overview</h2>
+                        <div class="comparison-header">
+                            <h2><span>📊</span> Cost Overview</h2>
+                            <p>2D Column Chart • Used Quantity Only</p>
+                        </div>
+
                         <div class="column-chart-container">
-                            <div class="column-chart">
-                                ${usedItems.map(item => {
-                                    const height = (item.value / maxValue) * maxHeight;
-                                    return `
-                                        <div class="chart-column-wrapper">
-                                            <div class="column-bar" style="height:${height}px"></div>
-                                            <div class="column-value">${formatCompactCurrency(item.value)}</div>
-                                            <div class="column-label">${item.icon} ${item.name}</div>
-                                        </div>
-                                    `;
-                                }).join('')}
+                            <div class="chart-title">
+                                <span>📊</span> Resource Usage (Birr) - 2D Columns
+                            </div>
+                            <div style="position: relative;">
+                                <div class="column-chart">
+                                    ${usedItems.map(item => {
+                                        const columnHeight = (item.value / maxValue) * maxHeight;
+                                        return `
+                                            <div class="chart-column-wrapper">
+                                                <div class="column-bar" style="height: ${columnHeight}px;">
+                                                    <div class="column-value" style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%);">
+                                                        ${formatCompactCurrency(item.value)}
+                                                    </div>
+                                                </div>
+                                                <div class="column-label">
+                                                    ${item.icon} ${item.name}
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-top: 5px; padding: 0 10px; font-size: 10px; color: #95a5a6;">
+                                    <span>0</span>
+                                    <span>${formatCompactCurrency(maxValue * 0.25)}</span>
+                                    <span>${formatCompactCurrency(maxValue * 0.5)}</span>
+                                    <span>${formatCompactCurrency(maxValue * 0.75)}</span>
+                                    <span>${formatCompactCurrency(maxValue)}</span>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <table class="cost-table">
-                            <tr><th>Category</th><th>Used (Birr)</th></tr>
-                            <tr><td>👷 Labour</td><td>${formatCurrency(d.labour.used)}</td></tr>
-                            <tr><td>🏛️ Admin</td><td>${formatCurrency(d.admin)}</td></tr>
-                            <tr><td>👥 Staff</td><td>${formatCurrency(d.staff)}</td></tr>
-                            <tr><td>🧱 Material</td><td>${formatCurrency(d.material.used)}</td></tr>
-                            <tr><td>🚜 Machinery</td><td>${formatCurrency(d.machinery.used)}</td></tr>
-                            <tr><td>📊 Overhead</td><td>${formatCurrency(d.overhead)}</td></tr>
-                            <tr class="total-row"><td><strong>TOTAL</strong></td><td>${formatCurrency(d.totalUsed)}</td></tr>
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Used (Birr)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>👷 Labour</strong></td>
+                                    <td class="text-danger">${formatCurrency(d.labour.used)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>🏛️ Admin</strong></td>
+                                    <td>${formatCurrency(d.admin)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>👥 Staff</strong></td>
+                                    <td>${formatCurrency(d.staff)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>🧱 Material</strong></td>
+                                    <td class="text-success">${formatCurrency(d.material.used)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>🚜 Machinery</strong></td>
+                                    <td class="text-danger">${formatCurrency(d.machinery.used)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>📊 Overhead (20%)</strong></td>
+                                    <td>${formatCurrency(d.overhead)}</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><strong>TOTAL USED</strong></td>
+                                    <td>${formatCurrency(d.totalUsed)}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 `;
             }
 
-            // ---------- CHAT TAB (ሁሉም ጥያቄዎች የሚታዩበት) ----------
+            // ========== CHAT TAB ==========
             function loadChatTab() {
                 const container = document.getElementById('contentContainer');
                 
-                // ሁሉንም መልእክቶች አሳይ
-                const messagesHtml = window.chatMessages.map(msg => `
-                    <div class="message ${msg.type}">
-                        <div class="message-header">${msg.type === 'user' ? 'እርስዎ' : msg.type === 'expert' ? 'ባለሙያ' : 'ሲስተም'}</div>
-                        <div class="message-content">${msg.text}</div>
-                        <div class="message-time">${msg.time || ''}</div>
-                    </div>
-                `).join('');
-                
-                // ያልተመለሱ ጥያቄዎችን አሳይ
-                const pendingHtml = window.pendingQuestions.map((q, index) => `
-                    <div class="pending-item">
-                        <div class="pending-question">${q.text}</div>
-                        <div class="pending-meta">
-                            <span>${q.time}</span>
-                            <button class="reply-btn" onclick="replyToQuestion(${index})">መልስ ስጥ</button>
+                const messagesHtml = window.chatMessages.map(msg => {
+                    const isSelf = msg.userName === window.currentUser.name;
+                    
+                    return `
+                        <div class="message ${isSelf ? 'self' : 'other'}">
+                            <div class="message-header">
+                                ${msg.userName} 
+                                ${msg.userId === 'system' ? '<span class="user-badge">🤖</span>' : ''}
+                            </div>
+                            <div class="message-content">${msg.text}</div>
+                            <div class="message-time">${msg.time || ''}</div>
                         </div>
-                    </div>
+                    `;
+                }).join('');
+                
+                const onlineUsersHtml = window.onlineUsers.map(user => `
+                    <span class="user-tag">
+                        <span class="user-dot"></span> ${user.name}
+                    </span>
                 `).join('');
 
                 container.innerHTML = `
                     <div class="chat-dashboard fade-in">
                         <div class="chat-header">
-                            <h2><span>💬</span> የባለሙያዎች ቻት</h2>
-                            <p>ጥያቄዎችዎን ይጻፉ፣ ባለሙያችን ይመልሱልዎታል</p>
+                            <h2><span>💬</span> የቡድን ውይይት</h2>
+                            <p>ሁሉም ሰው እዚህ ላይ መልእክት መላክ ይችላል እና ሁሉም ያያል</p>
                         </div>
                         
-                        <!-- የተጠቃሚ መልእክት መላኪያ -->
+                        <div class="online-users">
+                            <span>📱 በመስመር ላይ (${window.onlineUsers.length}):</span>
+                            ${onlineUsersHtml}
+                        </div>
+                        
+                        <div class="user-selector">
+                            <label>እንደ:</label>
+                            <select id="userSelect">
+                                ${window.onlineUsers.map(user => `
+                                    <option value="${user.id}" ${user.id === window.currentUser.id ? 'selected' : ''}>
+                                        ${user.name}
+                                    </option>
+                                `).join('')}
+                            </select>
+                        </div>
+                        
                         <div class="chat-input-container">
-                            <input type="text" class="chat-input" id="userQuestion" placeholder="ጥያቄዎን ይጻፉ..." />
-                            <button class="chat-send-btn" id="sendQuestionBtn">➤</button>
+                            <input type="text" class="chat-input" id="chatMessage" placeholder="መልእክት ይጻፉ..." />
+                            <button class="chat-send-btn" id="sendMessageBtn">➤</button>
                         </div>
                         
-                        <!-- ለባለሙያ መልስ መስጫ -->
-                        <div class="expert-controls">
-                            <h3>👨‍💼 የባለሙያ መልስ</h3>
-                            <div class="expert-input-group">
-                                <input type="text" class="expert-input" id="expertReply" placeholder="መልስዎን ይጻፉ..." />
-                                <select class="expert-select" id="expertName">
-                                    <option value="ኢንጂነር አለማየሁ">ኢንጂነር አለማየሁ</option>
-                                    <option value="ኢንጂነር ሳሙኤል">ኢንጂነር ሳሙኤል</option>
-                                    <option value="ኢንጂነር ማርቆስ">ኢንጂነር ማርቆስ</option>
-                                </select>
-                            </div>
-                            <button class="expert-send-btn" id="sendReplyBtn">መልስ ላክ</button>
-                        </div>
-                        
-                        <!-- ያልተመለሱ ጥያቄዎች -->
-                        ${pendingHtml ? `
-                            <div class="pending-questions">
-                                <h3>⏳ ያልተመለሱ ጥያቄዎች</h3>
-                                ${pendingHtml}
-                            </div>
-                        ` : ''}
-                        
-                        <!-- ሁሉም መልእክቶች -->
                         <div class="chat-messages" id="chatMessages">
                             ${messagesHtml}
                         </div>
                     </div>
                 `;
 
-                // የተጠቃሚ ጥያቄ መላኪያ
-                document.getElementById('sendQuestionBtn').addEventListener('click', sendUserQuestion);
-                document.getElementById('userQuestion').addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') sendUserQuestion();
+                document.getElementById('userSelect').addEventListener('change', (e) => {
+                    const selectedUserId = e.target.value;
+                    const selectedUser = window.onlineUsers.find(u => u.id === selectedUserId);
+                    if (selectedUser) {
+                        window.currentUser = selectedUser;
+                    }
                 });
 
-                // የባለሙያ መልስ መላኪያ
-                document.getElementById('sendReplyBtn').addEventListener('click', sendExpertReply);
+                document.getElementById('sendMessageBtn').addEventListener('click', sendMessage);
+                document.getElementById('chatMessage').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') sendMessage();
+                });
+
+                setTimeout(() => {
+                    const messages = document.getElementById('chatMessages');
+                    if (messages) messages.scrollTop = messages.scrollHeight;
+                }, 100);
             }
 
-            // የተጠቃሚ ጥያቄ መላክ
-            function sendUserQuestion() {
-                const input = document.getElementById('userQuestion');
-                const question = input.value.trim();
+            function sendMessage() {
+                const input = document.getElementById('chatMessage');
+                const message = input.value.trim();
                 
-                if (!question) return;
+                if (!message) return;
                 
-                // ጥያቄውን ወደ መልእክቶች ጨምር
                 window.chatMessages.push({
-                    type: 'user',
-                    text: question,
-                    time: new Date().toLocaleTimeString()
-                });
-                
-                // ጥያቄውን ወደ ያልተመለሱ ጥያቄዎች ጨምር
-                window.pendingQuestions.push({
-                    text: question,
-                    time: new Date().toLocaleTimeString()
+                    userName: window.currentUser.name,
+                    text: message,
+                    time: new Date().toLocaleTimeString(),
+                    userId: window.currentUser.id
                 });
                 
                 input.value = '';
-                
-                // ቻቱን እንደገና ጫን
                 loadChatTab();
-                
-                // ወደ መልእክቶች መጨረሻ ውሰድ
-                setTimeout(() => {
-                    const messages = document.getElementById('chatMessages');
-                    if (messages) messages.scrollTop = messages.scrollHeight;
-                }, 100);
             }
 
-            // የባለሙያ መልስ መላክ
-            function sendExpertReply() {
-                const replyInput = document.getElementById('expertReply');
-                const expertName = document.getElementById('expertName').value;
-                const reply = replyInput.value.trim();
-                
-                if (!reply) return;
-                
-                // መልሱን ወደ መልእክቶች ጨምር
-                window.chatMessages.push({
-                    type: 'expert',
-                    text: `${expertName}: ${reply}`,
-                    time: new Date().toLocaleTimeString()
-                });
-                
-                // አንድ ያልተመለሰ ጥያቄ ካለ አስወግድ (የመጀመሪያውን)
-                if (window.pendingQuestions.length > 0) {
-                    window.pendingQuestions.shift();
-                }
-                
-                replyInput.value = '';
-                
-                // ቻቱን እንደገና ጫን
-                loadChatTab();
-                
-                // ወደ መልእክቶች መጨረሻ ውሰድ
-                setTimeout(() => {
-                    const messages = document.getElementById('chatMessages');
-                    if (messages) messages.scrollTop = messages.scrollHeight;
-                }, 100);
-            }
-
-            // ለጥያቄ መልስ ለመስጠት (global function)
-            window.replyToQuestion = function(index) {
-                // የተመረጠውን ጥያቄ ወደ ባለሙያ መልስ ቦክስ ጨምር
-                setTimeout(() => {
-                    const expertReply = document.getElementById('expertReply');
-                    if (expertReply) {
-                        expertReply.value = 'ለጥያቄው መልስ፡ ';
-                        expertReply.focus();
-                    }
-                }, 100);
-            };
-
-            // ---------- Tab Switching ----------
+            // ========== Tab Switching ==========
             function switchTab(tab) {
                 document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
                 document.querySelector(`.nav-btn[data-tab="${tab}"]`).classList.add('active');
@@ -1164,6 +1219,95 @@
             // Initialize
             document.addEventListener('DOMContentLoaded', () => {
                 loadMonthlyTable();
+            });
+        })();
+    </script>
+
+    <!-- የ INCOME ድምር ጃቫስክሪፕት ኮድ -->
+    <script>
+        (function() {
+            const container = document.getElementById('contentContainer');
+            if (!container) return;
+
+            const TOTAL_ROW_CLASS = 'total-income-row';
+
+            function addTotalRow() {
+                const table = document.querySelector('#workTable, .mobile-table');
+                if (!table) return;
+
+                const tbody = table.querySelector('tbody');
+                if (!tbody) return;
+
+                if (tbody.querySelector('.' + TOTAL_ROW_CLASS)) return;
+
+                const rows = tbody.querySelectorAll('tr');
+                let total = 0;
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length < 4) return;
+                    const incomeCell = cells[3];
+                    if (!incomeCell) return;
+
+                    let text = incomeCell.textContent.trim();
+                    if (text === '—' || text === '') return;
+
+                    const numStr = text.replace(/,/g, '').trim();
+                    const num = parseFloat(numStr);
+                    if (!isNaN(num)) {
+                        total += num;
+                    }
+                });
+
+                const formattedTotal = total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                const totalRow = document.createElement('tr');
+                totalRow.className = TOTAL_ROW_CLASS;
+                totalRow.style.background = '#f0f7ff';
+                totalRow.style.fontWeight = 'bold';
+                totalRow.style.borderTop = '2px solid #2c3e50';
+
+                const cell1 = document.createElement('td');
+                cell1.colSpan = 3;
+                cell1.style.textAlign = 'right';
+                cell1.style.padding = '14px 6px';
+                cell1.textContent = 'ድምር ገቢ (Birr)፦';
+
+                const cell2 = document.createElement('td');
+                cell2.style.padding = '14px 6px';
+                cell2.style.color = '#27ae60';
+                cell2.style.fontWeight = '800';
+                cell2.style.textAlign = 'right';
+                cell2.textContent = formattedTotal;
+
+                totalRow.appendChild(cell1);
+                totalRow.appendChild(cell2);
+
+                tbody.appendChild(totalRow);
+            }
+
+            const observer = new MutationObserver(() => {
+                const activeTab = document.querySelector('.nav-btn.active');
+                if (activeTab && activeTab.dataset.tab === 'monthly') {
+                    addTotalRow();
+                }
+            });
+
+            observer.observe(container, { childList: true, subtree: true });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(addTotalRow, 100);
+            });
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    setTimeout(() => {
+                        const activeTab = document.querySelector('.nav-btn.active');
+                        if (activeTab && activeTab.dataset.tab === 'monthly') {
+                            addTotalRow();
+                        }
+                    }, 50);
+                });
             });
         })();
     </script>
